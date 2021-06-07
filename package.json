@@ -1,0 +1,31 @@
+{
+  "name": "lawrence-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js",
+    "dev": "webpack serve --open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",     
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.4",
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "webpack": "^5.37.0",
+    "webpack-cli": "^4.7.0",
+    "style-loader": "^2.0.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
