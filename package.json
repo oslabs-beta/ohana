@@ -10,7 +10,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",     
+  "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
     "react": "^17.0.2",
