@@ -57,7 +57,7 @@ userController.loginCheck = (req, res, next) => {
         return next();
       })
     })
-    .catch((err) => next({log: err, message: 'Incorrect username/password'}))
+    .catch((err) => next({log: `Error in userController.loginCheck: ${err}`, message: 'Incorrect username/password'}))
 };
 
 module.exports = userController;
