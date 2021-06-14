@@ -8,8 +8,10 @@ router.post('/create',
   // userController.bcryptEmail,
   adminController.bcryptPassword,
   adminController.addNewAdmin,
+  adminController.assignJwt,
   (req, res) => {
-    res.status(200).send('Successfully added new user');
+    const { token } = res.locals;
+    res.status(200).json(token);
 })
 
 router.post('/login',
