@@ -59,9 +59,9 @@ adminController.loginCheck = (req, res, next) => {
   `
   db.query(query)
     .then((result) => {
-      console.log('password query',result);
+      // console.log('password query',result);
       bcrypt.compare(password, result.rows[0].password, (err, result) => {
-        console.log('result', result)
+        // console.log('result', result)
         if (err) return next({log: `Error in adminController.loginCheck: ${err}`});
         if (!result) return next({log:'Incorrect username/password', message: 'Incorrect username/password'});
         return next();
@@ -70,8 +70,9 @@ adminController.loginCheck = (req, res, next) => {
 };
 
 adminController.verifyAdmin = (req, res, next) => {
-  const { token } = req.body;
-  jwt.verify(token, secret, (err, decoded) => {
+  console.log('verify admin', req.body)
+  const { data } = req.body;
+  jwt.verify(data, secret, (err, decoded) => {
     if (err) return next({log: `Error in adminController.verifyAdmin: ${err}`});
     console.log(decoded);
     res.locals.isAdmin = decoded.isAdmin;

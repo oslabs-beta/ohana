@@ -18,14 +18,18 @@ router.post('/create',
 router.post('/login',
   // userController.bcryptEmail,
   adminController.loginCheck,
+  adminController.assignJwt,
   (req, res) => {
-    res.status(200).send('Successfully signed in')
+    const { token } = res.locals;
+    console.log(token)
+    res.status(200).json(token)
   }
 )
 
 router.post('/verify',
   adminController.verifyAdmin,
   (req, res) => {
+    console.log('router:', res.locals.isAdmin)
     const { isAdmin } = res.locals;
     res.status(200).json(isAdmin);
   }
