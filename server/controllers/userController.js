@@ -63,4 +63,14 @@ userController.loginCheck = (req, res, next) => {
     .catch((err) => next({log: `Error in userController.loginCheck: ${err}`, message: 'Incorrect username/password'}))
 };
 
+userController.verifyAdmin = (req, res, next) => {
+  const { token } = req.body;
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) return next({log: `Error in adminController.verifyAdmin: ${err}`});
+    console.log(decoded);
+    res.locals.isAdmin = decoded.isAdmin;
+    return next();
+  })
+}
+
 module.exports = userController;
