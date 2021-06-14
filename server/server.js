@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const userRouter = require('./routers/userRouter');
+const adminRouter = require('./routers/adminRouter')
 
 
 app.use(express.json());
@@ -11,7 +12,8 @@ app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
 
-app.use('/user', userRouter);
+app.use('/user', userRouter)
+app.use('/admin', adminRouter)
 
 
 app.use((err, req, res, next) => {
