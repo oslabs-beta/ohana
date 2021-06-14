@@ -33,11 +33,9 @@ userController.addNewUser = (req, res, next) => {
   const params = [email, password, firstName, lastName, teamId];
   const query = `
   INSERT INTO users(email, password, first_name, last_name, team_id)
-  VALUES ($1, $2, $3, $4, $5)`
+  VALUES ($1, $2, $3, $4, $5);`
   db.query(query, params)
-    .then(() => {
-      return next();
-    })
+    .then(() => next())
     .catch((err) => {
       return next({log: `Error in userController.addNewUser: ${err}`});
     })
@@ -48,7 +46,7 @@ userController.loginCheck = (req, res, next) => {
   const query = `
     SELECT password
     FROM users
-    WHERE email = '${email}'
+    WHERE email = '${email};'
   `
   db.query(query)
     .then((result) => {
@@ -62,6 +60,21 @@ userController.loginCheck = (req, res, next) => {
     })
     .catch((err) => next({log: `Error in userController.loginCheck: ${err}`, message: 'Incorrect username/password'}))
 };
+
+userController.isAdminCheck = (req, res, next) => {
+  const { email } = req.body;
+  const params = [email];
+  const query = `
+  SELECT is_admin
+  FROM users
+  WHERE email=$1;
+  `
+  db.query(query, params)
+    .then(result => {
+      console.log('isAdmin query result', result);
+      return next();
+    }).catch(err => next({log: `Error in userController.isAdminCheck: ${err}`}))
+}
 
 userController.verifyAdmin = (req, res, next) => {
   console.log('verify admin', req.body)
