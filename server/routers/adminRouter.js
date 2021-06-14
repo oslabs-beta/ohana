@@ -11,6 +11,7 @@ router.post('/create',
   adminController.assignJwt,
   (req, res) => {
     const { token } = res.locals;
+    console.log(token)
     res.status(200).json(token);
 })
 
