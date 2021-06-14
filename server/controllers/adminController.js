@@ -16,12 +16,13 @@ adminController.bcryptEmail = (req, res, next) => {
 }
 
 adminController.bcryptPassword = (req, res, next) => {
+  console.log(req.body)
   const { password } = req.body;
   bcrypt.hash(password, saltRounds)
     .then((hash) => {
       res.locals.password = hash;
       return next();
-    }).catch((err) => next({log: `Error in userController.bcrypt: ${err}`}));
+    }).catch((err) => next({log: `Error in adminController.bcrypt: ${err}`}));
 }
 
 adminController.addNewAdmin = (req, res, next) => {
@@ -67,5 +68,15 @@ adminController.loginCheck = (req, res, next) => {
       })
     }).catch((err) => next({log: `Error in adminController.loginCheck: ${err}`, message: 'Incorrect username/password'}))
 };
+
+adminController.verifyAdmin = (req, res, next) => {
+  const { token } = req.body;
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) return next({log: `Error in adminController.verifyAdmin: ${err}`});
+    console.log(decoded);
+    res.locals.isAdmin = decoded.isAdmin;
+    return next();
+  })
+}
 
 module.exports = adminController;

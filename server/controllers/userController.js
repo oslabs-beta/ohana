@@ -1,10 +1,13 @@
 const db = require ('../db/models');
 const bcrypt = require ('bcrypt');
 const saltRounds = 10;
+const jwt = require ('jsonwebtoken');
+const secret = 'ohana';
 
 const userController = {};
 
 userController.bcryptEmail = (req, res, next) => {
+  console.log('req',req);
   const { email } = req.body;
   bcrypt.hash(email, saltRounds)
     .then((hash) => {    

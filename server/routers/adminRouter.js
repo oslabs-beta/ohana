@@ -23,4 +23,12 @@ router.post('/login',
   }
 )
 
+router.post('/verify',
+  adminController.verifyAdmin,
+  (req, res) => {
+    const { isAdmin } = res.locals;
+    res.status(200).json(isAdmin);
+  }
+)
+
 module.exports = router;
