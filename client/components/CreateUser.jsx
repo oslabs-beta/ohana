@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, TextField, Select } from '@material-ui/core'
+import { Button, TextField, Select, FormControlLabel, Checkbox} from '@material-ui/core'
 
 
 const CreateUser = () => {
@@ -12,6 +12,7 @@ const CreateUser = () => {
       <TextField label='First Name' name='firstName'></TextField>
       <TextField label='Last Name' name='lastName'></TextField>
       {/* <Select>Select Team</Select> */}
+      <FormControlLabel control={<Checkbox/>} name='isAdmin' label='Add as Admin' labelPlacement='end'/>
       <Button type='submit'>Create User</Button>
       </form>
     </div>
