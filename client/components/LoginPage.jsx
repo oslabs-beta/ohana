@@ -1,6 +1,5 @@
 import React, { useState, useEffect }  from 'react';
 import { Button, TextField } from '@material-ui/core'
-import { Redirect } from 'react-router';
 import { useHistory } from 'react-router-dom';  
 
 
@@ -92,8 +91,8 @@ const LoginPage = () => {
   return (
     <div id='LoginPage'>
     <form method="POST" action="/user/login" onSubmit={handleSubmit}>
-    <TextField label='Email' name='email' onChange={handleEmail}>Email</TextField>
-    <TextField label='Password' type='password' name='password' onChange={handlePassword}>Password</TextField>
+    <TextField label='Email' name='email' onChange={handleEmail}>Email</TextField><br></br>
+    <TextField label='Password' type='password' name='password' onChange={handlePassword}>Password</TextField><br></br>
     <Button type="submit">Login</Button>
     </form>
 
