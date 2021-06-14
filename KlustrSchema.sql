@@ -4,6 +4,7 @@ CREATE TABLE "users" (
   "password" varchar NOT NULL,
   "first_name" varchar NOT NULL,
   "last_name" varchar NOT NULL,
+  "is_admin" boolean,
   "team_id" smallint
 );
 
