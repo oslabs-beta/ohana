@@ -3,9 +3,6 @@ import React from 'react';
 import CreateTeam from './CreateTeam.jsx';
 import CreateUser from './CreateUser.jsx';
 
-
-
-
 const AdminPage = () => {
 
 

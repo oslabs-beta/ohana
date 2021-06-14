@@ -19,7 +19,6 @@ const MainContainer = () => {
         <Route path="/user" exact component={UserContainer} />
       </Switch>
       </div>   
-      
     )
 }
 
