@@ -4,6 +4,7 @@ import LoginPage from '../components/LoginPage.jsx';
 import AdminSignup from '../components/AdminSignup.jsx';
 import AdminContainer from './AdminContainer.jsx';
 import UserContainer from './UserContainer.jsx';
+import CreateUser from '../components/CreateUser.jsx'
 
 
 
@@ -11,7 +12,8 @@ import UserContainer from './UserContainer.jsx';
 
 const MainContainer = () => {
     return (
-      <div className='MainContainer'>   
+      <div className='MainContainer'> 
+      <AdminSignup/>  
       <Switch>
         <Route path="/" exact component={LoginPage} />
         <Route path="/adminsignup" exact component={AdminSignup} />
