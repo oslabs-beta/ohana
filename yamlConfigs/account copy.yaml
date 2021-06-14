@@ -1,0 +1,7 @@
+apiVersion: tenancy.kiosk.sh/v1alpha1
+kind: Space
+metadata:
+  name: johns-space
+spec:
+  # spec.account can be omitted if the current user only belongs to a single account
+  account: johns-account
