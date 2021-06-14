@@ -5,13 +5,13 @@ const userRouter = require('./routers/userRouter');
 
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: true}));
 
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
 
-app.use('/user', userRouter)
+app.use('/user', userRouter);
 
 
 app.use((err, req, res, next) => {
