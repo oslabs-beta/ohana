@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+const db = require ('../db/models');
+const spacesController = {};
+
+=======
 const db = require('../db/models');
 
 const spacesController = {};
@@ -9,6 +14,7 @@ const spacesController = {};
 //     "project" varchar
 //   );
 
+>>>>>>> 5843a93bd1cef8fd9eaf4951b299d53f8b66cdb9
 spacesController.addNamespace = (req, res, next) => {
   const { namespace, team_id, project } = req.body;
   const params = [namespace, team_id, project];
