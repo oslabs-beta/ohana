@@ -1,14 +1,18 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useContext }  from 'react';
 import { Button, TextField } from '@material-ui/core'
 import { useHistory } from 'react-router-dom';  
+import LoginContext from '../containers/MainContainer.jsx';
 
 
-const LoginPage = () => {
+const LoginPage = (props) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isAdmin, setAdmin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [token, setToken] = useState();
+  console.log('login props', props)
+  console.log(LoginContext)
+
 
   let history = useHistory();
   // when the component re-renders, check if the isLoggedIn is truthy and push
