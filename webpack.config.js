@@ -32,7 +32,7 @@ module.exports = {
     port: 8080,
     proxy: {
       '/user': 'http://localhost:3000',
-      '/admin': 'http://localhost:3000',
+      '/admin': 'http://localhost:3000'
 
       // '/api/leaders': 'http://localhost:3000',
   }
