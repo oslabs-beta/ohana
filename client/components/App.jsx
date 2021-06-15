@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import Table from './Table.jsx';
+// import Table from './Table.jsx';
+import MainContainer from '../containers/MainContainer.jsx'
+import NavBar from '../containers/NavBarContainer.jsx'
+import { BrowserRouter as Router } from 'react-router-dom';
 
 class App extends Component {
   render() {
     return(
       <div className="App">
-      <h1>this is a react component</h1>
-      <Table />
+      <NavBar/>
+      <Router>
+        <MainContainer/>
+      </Router>
     </div>
     );
   };
