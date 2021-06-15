@@ -15,6 +15,7 @@ router.post('/create',
 router.post('/login',
   // userController.bcryptEmail,
   userController.loginCheck,
+  userController.isAdminCheck,
   userController.assignJwt,
   (req, res) => {
     const { token } = res.locals;

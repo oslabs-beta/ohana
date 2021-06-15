@@ -33,11 +33,9 @@ userController.addNewUser = (req, res, next) => {
   const params = [email, password, firstName, lastName, teamId];
   const query = `
   INSERT INTO users(email, password, first_name, last_name, team_id)
-  VALUES ($1, $2, $3, $4, $5)`
+  VALUES ($1, $2, $3, $4, $5);`
   db.query(query, params)
-    .then(() => {
-      return next();
-    })
+    .then(() => next())
     .catch((err) => {
       return next({log: `Error in userController.addNewUser: ${err}`});
     })
@@ -63,8 +61,24 @@ userController.loginCheck = (req, res, next) => {
     .catch((err) => next({log: `Error in userController.loginCheck: ${err}`, message: 'Incorrect username/password'}))
 };
 
+userController.isAdminCheck = (req, res, next) => {
+  const { email } = req.body;
+  const params = [email];
+  const query = `
+  SELECT is_admin
+  FROM users
+  WHERE email=$1;
+  `
+  db.query(query, params)
+    .then(result => {
+      let isAdminResult = result.rows[0].is_admin;
+      if (!isAdminResult) isAdminResult = false;
+      res.locals.isAdminResult = isAdminResult;
+      return next();
+    }).catch(err => next({log: `Error in userController.isAdminCheck: ${err}`}))
+}
+
 userController.verifyAdmin = (req, res, next) => {
-  console.log('verify admin', req.body)
   const { token } = req.body;
   jwt.verify(token, secret, (err, decoded) => {
     if (err) return next({log: `Error in userController.verifyAdmin: ${err}`});
@@ -75,15 +89,15 @@ userController.verifyAdmin = (req, res, next) => {
 }
 
 userController.assignJwt = (req, res, next) => {
-    console.log('assigning jwt')
-    const { email, firstName, lastName } = req.body;
-    jwt.sign({email, firstName, lastName, isAdmin: true}, secret, (err, token) => {
-      if (err) return next({log: `Error in userController.assignJwt: ${err}`})
-      console.log(token);
-      res.locals.token = token;
-      return next();
-    })
-  }
+  const { isAdminResult } = res.locals;
+  console.log('assigning jwt')
+  const { email, firstName, lastName } = req.body;
+  jwt.sign({email, firstName, lastName, isAdmin: isAdminResult}, secret, (err, token) => {
+    if (err) return next({log: `Error in userController.assignJwt: ${err}`})
+    res.locals.token = token;
+    return next();
+  })
+}
 
 
 module.exports = userController;
