@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material-ui/core'
 import { kubectl, vCluster, runTerminalCommand } from '../../server/terminalCommands.js'
 
 const CreateSpace = () => {
-  const clusterName = () => {
-    const [hostNamespace, setHostNamespace] = useState(false)
+  const [hostNamespace, setHostNamespace] = useState(false);
 
   const formSubmit = (e) => {
     e.preventDefault();
