@@ -6,7 +6,10 @@ const CreateTeam = () => {
 
   return (
     <div id='createteam'>
-      <TextField>Team Name</TextField>
+      <TextField label='Team Name'></TextField><br></br>
+      <TextField label='Team Lead'></TextField><br></br>
+      <TextField label='Team Lead Email'></TextField><br></br>
+      <TextField label='Project Name'></TextField><br></br>
       <Button>Create Team</Button>
     </div>
   )
