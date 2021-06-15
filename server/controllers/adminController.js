@@ -1,7 +1,7 @@
-const db = require ('../db/models');
-const bcrypt = require ('bcrypt');
+const db = require('../db/models');
+const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const jwt = require ('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const secret = 'ohana';
 
 const adminController = {};
@@ -9,10 +9,10 @@ const adminController = {};
 adminController.bcryptEmail = (req, res, next) => {
   const { email } = req.body;
   bcrypt.hash(email, saltRounds)
-    .then((hash) => {    
+    .then((hash) => {
       res.locals.email = hash;
       return next();
-    }).catch((err) => next({log: `Error in adminController.bcrypt: ${err}`}));
+    }).catch((err) => next({ log: `Error in adminController.bcrypt: ${err}` }));
 }
 
 adminController.bcryptPassword = (req, res, next) => {
@@ -22,7 +22,7 @@ adminController.bcryptPassword = (req, res, next) => {
     .then((hash) => {
       res.locals.password = hash;
       return next();
-    }).catch((err) => next({log: `Error in adminController.bcrypt: ${err}`}));
+    }).catch((err) => next({ log: `Error in adminController.bcrypt: ${err}` }));
 }
 
 adminController.addNewAdmin = (req, res, next) => {
@@ -35,15 +35,15 @@ adminController.addNewAdmin = (req, res, next) => {
   db.query(query, params)
     .then(() => {
       return next();
-    }).catch((err) => next({log: `Error in adminController.addNewAdmin: ${err}`}))
+    }).catch((err) => next({ log: `Error in adminController.addNewAdmin: ${err}` }))
 }
 
 adminController.assignJwt = (req, res, next) => {
   console.log('assigning jwt')
   const { email, firstName, lastName } = req.body;
-  console.log({email, firstName, lastName, isAdmin: true})
-  jwt.sign({email, firstName, lastName, isAdmin: true}, secret, (err, token) => {
-    if (err) return next({log: `Error in adminController.assignJwt: ${err}`})
+  console.log({ email, firstName, lastName, isAdmin: true })
+  jwt.sign({ email, firstName, lastName, isAdmin: true }, secret, (err, token) => {
+    if (err) return next({ log: `Error in adminController.assignJwt: ${err}` })
     console.log(token);
     res.locals.token = token;
     return next();
@@ -69,15 +69,15 @@ adminController.assignJwt = (req, res, next) => {
 //     }).catch((err) => next({log: `Error in adminController.loginCheck: ${err}`, message: 'Incorrect username/password'}))
 // };
 
-// adminController.verifyAdmin = (req, res, next) => {
-//   console.log('verify admin', req.body)
-//   const { data } = req.body;
-//   jwt.verify(data, secret, (err, decoded) => {
-//     if (err) return next({log: `Error in adminController.verifyAdmin: ${err}`});
-//     console.log(decoded);
-//     res.locals.isAdmin = decoded.isAdmin;
-//     return next();
-//   })
-// }
+adminController.verifyAdmin = (req, res, next) => {
+  console.log('verify admin', req.body)
+  const { data } = req.body;
+  jwt.verify(data, secret, (err, decoded) => {
+    if (err) return next({ log: `Error in adminController.verifyAdmin: ${err}` });
+    console.log(decoded);
+    res.locals.isAdmin = decoded.isAdmin;
+    return next();
+  })
+}
 
 module.exports = adminController;

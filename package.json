@@ -9,11 +9,7 @@
     "dev": "concurrently \"nodemon server/server.js\" \"webpack serve --open\""
   },
   "keywords": [],
-<<<<<<< HEAD
-  "author": "",
-=======
   "author": "klustr",
->>>>>>> a6167c76c93009517a20916381515fc2176af9d7
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^4.11.4",
@@ -34,14 +30,10 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.2.2",
-<<<<<<< HEAD
-    "css-loader": "^5.2.4",
-=======
     "concurrently": "^6.2.0",
     "css-loader": "^5.2.4",
     "eslint": "^7.28.0",
     "react-router-dom": "^5.2.0",
->>>>>>> a6167c76c93009517a20916381515fc2176af9d7
     "style-loader": "^2.0.0",
     "webpack": "^5.37.0",
     "webpack-cli": "^4.7.0",
