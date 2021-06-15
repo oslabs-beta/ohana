@@ -69,15 +69,15 @@ adminController.assignJwt = (req, res, next) => {
 //     }).catch((err) => next({log: `Error in adminController.loginCheck: ${err}`, message: 'Incorrect username/password'}))
 // };
 
-// adminController.verifyAdmin = (req, res, next) => {
-//   console.log('verify admin', req.body)
-//   const { data } = req.body;
-//   jwt.verify(data, secret, (err, decoded) => {
-//     if (err) return next({log: `Error in adminController.verifyAdmin: ${err}`});
-//     console.log(decoded);
-//     res.locals.isAdmin = decoded.isAdmin;
-//     return next();
-//   })
-// }
+adminController.verifyAdmin = (req, res, next) => {
+  console.log('verify admin', req.body)
+  const { data } = req.body;
+  jwt.verify(data, secret, (err, decoded) => {
+    if (err) return next({log: `Error in adminController.verifyAdmin: ${err}`});
+    console.log(decoded);
+    res.locals.isAdmin = decoded.isAdmin;
+    return next();
+  })
+}
 
 module.exports = adminController;

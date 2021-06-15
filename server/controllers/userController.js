@@ -28,12 +28,13 @@ userController.bcryptPassword = (req, res, next) => {
 }
 
 userController.addNewUser = (req, res, next) => {
+  console.log('addNewUser', req.body.isAdmin)
   const { password } = res.locals;
-  const { email, firstName, lastName, teamId } = req.body;
-  const params = [email, password, firstName, lastName, teamId];
+  const { email, firstName, lastName, teamId, isAdmin } = req.body;
+  const params = [email, password, firstName, lastName, teamId, isAdmin];
   const query = `
-  INSERT INTO users(email, password, first_name, last_name, team_id)
-  VALUES ($1, $2, $3, $4, $5);`
+  INSERT INTO users(email, password, first_name, last_name, team_id, is_admin)
+  VALUES ($1, $2, $3, $4, $5, $6);`
   db.query(query, params)
     .then(() => next())
     .catch((err) => {

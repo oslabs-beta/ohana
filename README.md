@@ -1,9 +1,9 @@
-```"Tresnétes is a full-stack management tool that abstracts self-service K8s workflow for engineering/DevOps teams by giving developers the freedom to create namespace/virtual clusters on-demand achieving strong multi-tenancy in a cluster through RBAC."```
+```"Ohana is a full-stack management tool that abstracts self-service K8s workflow for engineering/DevOps teams by giving developers the freedom to create namespace/virtual clusters on-demand achieving strong multi-tenancy in a cluster through RBAC."```
 
 REQUIREMENTS:
 - Node.js version 12.18.3+
 
-INSTALL:
+INSTALL:gi
 - With NPM:
 
 npm install --save klustrdev
