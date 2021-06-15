@@ -1,8 +1,6 @@
 const { exec } = require('child_process');
-// const {GkeHubMembershipServiceClient} = require('@google-cloud/gke-hub')
 
 // TODO: need to parameterize inputs to create the terminal commands
-// 
 
 // exec runs a node child_process, which will run command line in a terminal
 function runTerminalCommand(command) {
