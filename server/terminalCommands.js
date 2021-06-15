@@ -23,7 +23,8 @@ let gcloudUserEmail = 'contact.jeffchen@gmail.com';
 let imageFile = 'docker.io/klustr/watchr'
 // imageFile only for watchr purposes
 let deploymentName = 'klustr-deployment'
-let namespace = 'kiosk';
+// changed to hostNameSpace instead of namespace
+let hostNamespace = 'kiosk';
 let configFile = '/yamlConfigs/account.yaml';
 let podName = 'klustr-deployment-786bd87dd4-pvrk6';
 let userName = 'john';
@@ -48,9 +49,9 @@ const kubectl = {
   // kubectl logs <pod name> - outputs logs of the specified pod
   logs: `kubectl logs ${podName}`,
   // get additional detail on pods
-  describe: `kubectl describe pods -n ${namespace}`,
+  describe: `kubectl describe pods -n ${hostNamespace}`,
   // create namespace (must specify name) i.e. terminal command: 'kubectl create namespace <insert namespace here>'
-  createNamespace: `kubectl create namespace ${namespace}`,
+  createNamespace: `kubectl create namespace ${hostNamespace}`,
   // kubectl create deployment <insert name> --image=<insert image file/link>
   deployImage: `kubectl create deployment ${deploymentName} --image=${imageFile}`,
   // expose the deployment for kubernetes 

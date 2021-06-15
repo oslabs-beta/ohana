@@ -1,24 +1,27 @@
-import React from 'react';
-//import terminal commands
+import React, { useState } from 'react';
+import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material-ui/core'
+import { kubectl, vCluster, runTerminalCommand } from '../../server/terminalCommands.js'
 
-const CreateCluster = () => {
-
+const CreateSpace = () => {
+  const [hostNamespace, setHostNamespace] = useState(false)
+  const formSubmit = (e) => {
+    e.preventDefault();
+    // import terminal commands
+    runTerminalCommand(kubectl.createNamespace);
+  }
 
   return (
-    <div id='create-clusters'>
-    <h1>Create a namespace</h1>
+    <div id='create-spaces'>
+      <h1>Create a namespace</h1>
 
-    <div id='clusters'>
-      <form method="POST" action="/clusters/create">
-        <TextField label='clusters' name='clusters'>Create clusters</TextField>
-        {/* need to add in text fields for cluster creation */}
-        <Button type="submit">Create</Button>
-      </form>
-
-      <Button onClick={formSubmit}></Button>
+      <div id='spaces'>
+        <form method="POST" action="/spaces/create">
+          <TextField label='Create namespace' name='namespace' onChange={setHostNamespace}/>
+          {/* need to add in additional text fields for namespace creation */}
+          <Button type="submit" onClick={formSubmit}>Create</Button>
+        </form>
+      </div>
     </div>
-  </div>
-)
-}
-
-export default CreateCluster;
+  )
+};
+export default CreateSpace;
