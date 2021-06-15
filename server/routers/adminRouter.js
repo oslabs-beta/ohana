@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // Add middleware here
-const adminController = require ('../controllers/adminController');
+const adminController = require('../controllers/adminController');
 
 
 router.post('/create',
@@ -14,7 +14,7 @@ router.post('/create',
     const { token } = res.locals;
     console.log(token)
     res.status(200).json(token);
-})
+  })
 
 // router.post('/login',
 //   // userController.bcryptEmail,

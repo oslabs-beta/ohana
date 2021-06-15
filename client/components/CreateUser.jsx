@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { Button, TextField, Select, FormControlLabel, Checkbox} from '@material-ui/core'
+import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material-ui/core'
 
 
 
 const CreateUser = () => {
   const [isAdmin, setAdmin] = useState(false)
-
   const handleAdmin = (e) => {
     setAdmin(e.target.checked);
   }
-
   return (
     <div id='createuser'>
       <form method="POST" action='/user/create'>
@@ -23,7 +21,6 @@ const CreateUser = () => {
       <Button type='submit' label='Create User'>Create User</Button>
       </form>
     </div>
-
   )
 }
 

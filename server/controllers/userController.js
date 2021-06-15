@@ -1,20 +1,20 @@
-const db = require ('../db/models');
-const bcrypt = require ('bcrypt');
+const db = require('../db/models');
+const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const jwt = require ('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const secret = 'ohana';
 
 const userController = {};
 
 userController.bcryptEmail = (req, res, next) => {
-  console.log('req',req);
+  console.log('req', req);
   const { email } = req.body;
   bcrypt.hash(email, saltRounds)
-    .then((hash) => {    
+    .then((hash) => {
       res.locals.email = hash;
       return next();
     })
-    .catch((err) => next({log: `Error in userController.bcrypt: ${err}`}));
+    .catch((err) => next({ log: `Error in userController.bcrypt: ${err}` }));
 }
 
 userController.bcryptPassword = (req, res, next) => {
@@ -24,7 +24,7 @@ userController.bcryptPassword = (req, res, next) => {
       res.locals.password = hash;
       return next();
     })
-    .catch((err) => next({log: `Error in userController.bcrypt: ${err}`}));
+    .catch((err) => next({ log: `Error in userController.bcrypt: ${err}` }));
 }
 
 userController.addNewUser = (req, res, next) => {
@@ -38,7 +38,7 @@ userController.addNewUser = (req, res, next) => {
   db.query(query, params)
     .then(() => next())
     .catch((err) => {
-      return next({log: `Error in userController.addNewUser: ${err}`});
+      return next({ log: `Error in userController.addNewUser: ${err}` });
     })
 }
 
@@ -54,12 +54,12 @@ userController.loginCheck = (req, res, next) => {
       // console.log('password query',result);
       bcrypt.compare(password, result.rows[0].password, (err, result) => {
         // console.log('result', result)
-        if (err) return next({log: `Error in userController.loginCheck: ${err}`});
-        if (!result) return next({log:'Incorrect username/password', message: 'Incorrect username/password'});
+        if (err) return next({ log: `Error in userController.loginCheck: ${err}` });
+        if (!result) return next({ log: 'Incorrect username/password', message: 'Incorrect username/password' });
         return next();
       })
     })
-    .catch((err) => next({log: `Error in userController.loginCheck: ${err}`, message: 'Incorrect username/password'}))
+    .catch((err) => next({ log: `Error in userController.loginCheck: ${err}`, message: 'Incorrect username/password' }))
 };
 
 userController.isAdminCheck = (req, res, next) => {
@@ -76,13 +76,13 @@ userController.isAdminCheck = (req, res, next) => {
       if (!isAdminResult) isAdminResult = false;
       res.locals.isAdminResult = isAdminResult;
       return next();
-    }).catch(err => next({log: `Error in userController.isAdminCheck: ${err}`}))
+    }).catch(err => next({ log: `Error in userController.isAdminCheck: ${err}` }))
 }
 
 userController.verifyAdmin = (req, res, next) => {
   const { token } = req.body;
   jwt.verify(token, secret, (err, decoded) => {
-    if (err) return next({log: `Error in userController.verifyAdmin: ${err}`});
+    if (err) return next({ log: `Error in userController.verifyAdmin: ${err}` });
     console.log(decoded);
     res.locals.isAdmin = decoded.isAdmin;
     return next();
@@ -93,8 +93,8 @@ userController.assignJwt = (req, res, next) => {
   const { isAdminResult } = res.locals;
   console.log('assigning jwt')
   const { email, firstName, lastName } = req.body;
-  jwt.sign({email, firstName, lastName, isAdmin: isAdminResult}, secret, (err, token) => {
-    if (err) return next({log: `Error in userController.assignJwt: ${err}`})
+  jwt.sign({ email, firstName, lastName, isAdmin: isAdminResult }, secret, (err, token) => {
+    if (err) return next({ log: `Error in userController.assignJwt: ${err}` })
     res.locals.token = token;
     return next();
   })
