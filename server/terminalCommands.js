@@ -52,7 +52,7 @@ const kubectl = {
   // create namespace (must specify name) i.e. terminal command: 'kubectl create namespace <insert namespace here>'
   createNamespace: `kubectl create namespace ${namespace}`,
   // kubectl create deployment <insert name> --image=<insert image file/link>
-  deploy: `kubectl create deployment ${deploymentName} --image=${imageFile}`,
+  deployImage: `kubectl create deployment ${deploymentName} --image=${imageFile}`,
   // expose the deployment for kubernetes 
   expose: `kubectl expose deployment ${deploymentName} --type LoadBalancer --port=${portIn} --target-port=${portOut}`,
   // creates a user john which is specified in the account.yaml configuration

@@ -11,9 +11,9 @@ const AdminPage = () => {
 
   return (
     <div id='adminpage'>
-    <h1>here lies the admin page</h1>
-    <CreateTeam/>
-    <CreateUser/>
+      <h1>here lies the admin page</h1>
+      <CreateTeam />
+      <CreateUser />
     </div>
   )
 
