@@ -3,7 +3,7 @@ const { exec } = require('child_process');
 
 // TODO: need to parameterize inputs to create the terminal commands
 
-function runTerminalCommand(command) {
+const runTerminalCommand = (command) => {
   exec(command, (error, stdout, stderr) => {
     if (error) {
       console.log(error)
@@ -103,4 +103,5 @@ module.exports = {
   gcloud,
   kubectl,
   vCluster,
+  runTerminalCommand
 }
