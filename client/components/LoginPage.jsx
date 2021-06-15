@@ -91,12 +91,10 @@ const LoginPage = () => {
   return (
     <div id='LoginPage'>
     <form method="POST" action="/user/login" onSubmit={handleSubmit}>
-    <TextField label='Email' name='email' onChange={handleEmail}>Email</TextField><br></br>
-    <TextField label='Password' type='password' name='password' onChange={handlePassword}>Password</TextField><br></br>
+    <TextField label='Email' name='email' onChange={handleEmail}></TextField><br></br>
+    <TextField label='Password' type='password' name='password' onChange={handlePassword}></TextField><br></br>
     <Button type="submit">Login</Button>
     </form>
-
-    <Button onClick={formSubmit}>First Time? Sign up Here</Button>
     </div>
     
   )
