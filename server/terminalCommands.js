@@ -104,5 +104,5 @@ module.exports = {
   gcloud,
   kubectl,
   vCluster,
-  runTerminalCommand,
+  runTerminalCommand
 }

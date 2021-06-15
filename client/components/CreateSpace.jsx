@@ -3,8 +3,7 @@ import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material
 import { kubectl, vCluster, runTerminalCommand } from '../../server/terminalCommands.js'
 
 const CreateSpace = () => {
-  const [hostNamespace, setHostNamespace] = useState(false);
-
+  const [hostNamespace, setHostNamespace] = useState(false)
   const formSubmit = (e) => {
     e.preventDefault();
     // import terminal commands
@@ -24,6 +23,5 @@ const CreateSpace = () => {
       </div>
     </div>
   )
-}
-
+};
 export default CreateSpace;
