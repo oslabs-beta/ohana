@@ -1,30 +1,30 @@
 import React from 'react';
+import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material-ui/core'
+import { kubectl, vCluster, runTerminalCommand } from '../../server/terminalCommands.js'
+//import terminal commands
 
-<<<<<<< HEAD
 const CreateCluster = () => {
 
+  const clusterName = () => {
+  const [clusterName, setClusterName] = useState(false)
+  const [hostNamespace, setHostNamespace] = useState(false)
 
   return (
-    <div id='createcluster'>
-    <h1>here lies the vClusters page</h1>
-    <CreateTeam/>
-    <CreateUser/>
-=======
-const vClusters = () => {
+    <div id='create-clusters'>
+    <h1>Create a vCluster</h1>
 
+    <div id='clusters'>
+      <form method="POST" action="/clusters/create">
+        <TextField label='clusters' name='clusters' onChange={handleClusterNameChange} value={clusterName} >Create clusters</TextField>
+        <TextField label='host-namespace' name='hostns' onChange={handleSetHostNamespace} >Set namespace</TextField>
+        {/* need to add in text fields for cluster creation */}
+        <Button type="submit">Create</Button>
+      </form>
 
-  return (
-    <div id='vclusters'>
-      <h1>here lies the vClusters page</h1>
-      <vClustersList />
-      <CreateCluster />
->>>>>>> 5843a93bd1cef8fd9eaf4951b299d53f8b66cdb9
+      <Button onClick={formSubmit}></Button>
     </div>
-  )
+  </div>
+)
 }
 
-<<<<<<< HEAD
 export default CreateCluster;
-=======
-export default vClusters;
->>>>>>> 5843a93bd1cef8fd9eaf4951b299d53f8b66cdb9

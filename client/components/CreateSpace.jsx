@@ -1,49 +1,30 @@
 import React from 'react';
+import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material-ui/core'
+import { kubectl, vCluster, runTerminalCommand } from '../../server/terminalCommands.js'
 
-<<<<<<< HEAD
 const CreateSpace = () => {
-=======
-const SpacesPage = () => {
->>>>>>> 5843a93bd1cef8fd9eaf4951b299d53f8b66cdb9
-
+  const clusterName = () => {
+    const [hostNamespace, setHostNamespace] = useState(false)
 
   const formSubmit = (e) => {
     e.preventDefault();
-    setRedirect(true);
+    // import terminal commands
+    runTerminalCommand(kubectl.createNamespace);
   }
 
   return (
-<<<<<<< HEAD
-    <div id='createspace'>
-=======
-    <div id='spaces'>
->>>>>>> 5843a93bd1cef8fd9eaf4951b299d53f8b66cdb9
+    <div id='create-spaces'>
       <h1>Create a namespace</h1>
 
       <div id='spaces'>
-        <form method="POST" action="/spaces">
-          <TextField label='namespace' name='namespace'>Create namespace</TextField>
-          <Button type="submit">Create</Button>
+        <form method="POST" action="/spaces/create">
+          <TextField label='Create namespace' name='namespace' onChange={setHostNamespace}/>
+          {/* need to add in additional text fields for namespace creation */}
+          <Button type="submit" onClick={formSubmit}>Create</Button>
         </form>
-
-        <Button onClick={formSubmit}></Button>
       </div>
-<<<<<<< HEAD
-      
-=======
-
->>>>>>> 5843a93bd1cef8fd9eaf4951b299d53f8b66cdb9
     </div>
   )
 }
 
-<<<<<<< HEAD
 export default CreateSpace;
-
-// Need Create Spaces
-// Need Create vClusters
-// Need Space Info
-// Need vCluster Info
-=======
-export default SpacesPage;
->>>>>>> 5843a93bd1cef8fd9eaf4951b299d53f8b66cdb9
