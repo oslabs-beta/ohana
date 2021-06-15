@@ -4,7 +4,6 @@ const router = express.Router();
 const spacesController = require('../controllers/spacesController');
 const spacesModel = require('../models/spacesModel');
 
-
 router.post('/', spacesController.addNamespace, (req, res) => {
   res.status(200).send('posted to database');
 })
