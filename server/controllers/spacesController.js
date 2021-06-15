@@ -10,8 +10,7 @@ const spacesController = {};
 //   );
 
 spacesController.addNamespace = (req, res, next) => {
-  console.log(req.body);
-  const { namespace, team_id, project } = req.body;
+  const { namespace, team_id, project } = req.body; git
   const params = [namespace, team_id, project];
   const query = `
   INSERT INTO namespaces2(name, team_id, project)
