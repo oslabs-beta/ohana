@@ -73,7 +73,11 @@ adminController.verifyAdmin = (req, res, next) => {
   console.log('verify admin', req.body)
   const { data } = req.body;
   jwt.verify(data, secret, (err, decoded) => {
+<<<<<<< HEAD
+    if (err) return next({log: `Error in adminController.verifyAdmin: ${err}`});
+=======
     if (err) return next({ log: `Error in adminController.verifyAdmin: ${err}` });
+>>>>>>> 5843a93bd1cef8fd9eaf4951b299d53f8b66cdb9
     console.log(decoded);
     res.locals.isAdmin = decoded.isAdmin;
     return next();
