@@ -90,17 +90,19 @@ const vCluster = {
   delete: `vcluster delete ${vClusterName} -n ${hostNamespace}`,
 }
 
-// test kubectl expose command
-runTerminalCommand(kubectl.expose);
+// // test kubectl expose command
+// runTerminalCommand(kubectl.expose);
 
-// test workflow of creating a user, then impersonating that user to create a space via kiosk
-runTerminalCommand(kubectl.connect);
-runTerminalCommand(kubectl.createUser);
-runTerminalCommand(kubectl.createSpace);
+// // test workflow of creating a user, then impersonating that user to create a space via kiosk
+// runTerminalCommand(kubectl.connect);
+// runTerminalCommand(kubectl.createUser);
+// runTerminalCommand(kubectl.createSpace);
 
 
 module.exports = {
   gcloud,
   kubectl,
   vCluster,
+  runTerminalCommand
 }
+
