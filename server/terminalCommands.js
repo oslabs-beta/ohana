@@ -104,4 +104,9 @@ module.exports = {
   kubectl,
   vCluster,
   runTerminalCommand
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> 3c3c4eb0b07d6b3e642840589ad64ec1f6bbff55

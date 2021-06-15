@@ -5,7 +5,7 @@ const CreateSpace = () => {
   return (
     <div id='CreateSpace'>
       <h2>Create a New Namespace</h2>
-      <form method="POST" action='/spaces/create'>
+      <form method="POST" action='/spaces/add'>
         <label>
           Name:
           <input type="text" name="name" />
