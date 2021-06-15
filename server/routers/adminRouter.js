@@ -27,13 +27,13 @@ router.post('/create',
 //   }
 // )
 
-// router.post('/verify',
-//   adminController.verifyAdmin,
-//   (req, res) => {
-//     console.log('router:', res.locals.isAdmin)
-//     const { isAdmin } = res.locals;
-//     res.status(200).json(isAdmin);
-//   }
-// )
+router.post('/verify',
+  adminController.verifyAdmin,
+  (req, res) => {
+    console.log('router:', res.locals.isAdmin)
+    const { isAdmin } = res.locals;
+    res.status(200).json(isAdmin);
+  }
+)
 
 module.exports = router;
