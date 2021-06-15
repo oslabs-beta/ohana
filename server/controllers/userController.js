@@ -46,7 +46,7 @@ userController.loginCheck = (req, res, next) => {
   const query = `
     SELECT password
     FROM users
-    WHERE email = '${email};'
+    WHERE email = '${email}'
   `
   db.query(query)
     .then((result) => {
@@ -71,13 +71,14 @@ userController.isAdminCheck = (req, res, next) => {
   `
   db.query(query, params)
     .then(result => {
-      console.log('isAdmin query result', result);
+      let isAdminResult = result.rows[0].is_admin;
+      if (!isAdminResult) isAdminResult = false;
+      res.locals.isAdminResult = isAdminResult;
       return next();
     }).catch(err => next({log: `Error in userController.isAdminCheck: ${err}`}))
 }
 
 userController.verifyAdmin = (req, res, next) => {
-  console.log('verify admin', req.body)
   const { token } = req.body;
   jwt.verify(token, secret, (err, decoded) => {
     if (err) return next({log: `Error in userController.verifyAdmin: ${err}`});
@@ -88,15 +89,15 @@ userController.verifyAdmin = (req, res, next) => {
 }
 
 userController.assignJwt = (req, res, next) => {
-    console.log('assigning jwt')
-    const { email, firstName, lastName } = req.body;
-    jwt.sign({email, firstName, lastName, isAdmin: true}, secret, (err, token) => {
-      if (err) return next({log: `Error in userController.assignJwt: ${err}`})
-      console.log(token);
-      res.locals.token = token;
-      return next();
-    })
-  }
+  const { isAdminResult } = res.locals;
+  console.log('assigning jwt')
+  const { email, firstName, lastName } = req.body;
+  jwt.sign({email, firstName, lastName, isAdmin: isAdminResult}, secret, (err, token) => {
+    if (err) return next({log: `Error in userController.assignJwt: ${err}`})
+    res.locals.token = token;
+    return next();
+  })
+}
 
 
 module.exports = userController;
