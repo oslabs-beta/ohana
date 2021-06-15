@@ -8,10 +8,10 @@ const AdminPage = () => {
 
   return (
     <div id='adminpage'>
-    <h1>here lies the admin page</h1>
-    <CreateTeam/>
-    <TeamsDisplay/>
-    <CreateUser/>
+      <h1>here lies the admin page</h1>
+      <CreateTeam />
+      <TeamsDisplay />
+      <CreateUser />
     </div>
   )
 

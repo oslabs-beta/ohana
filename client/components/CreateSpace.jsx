@@ -1,6 +1,10 @@
 import React from 'react';
 
+<<<<<<< HEAD
 const CreateSpace = () => {
+=======
+const SpacesPage = () => {
+>>>>>>> 5843a93bd1cef8fd9eaf4951b299d53f8b66cdb9
 
 
   const formSubmit = (e) => {
@@ -9,7 +13,11 @@ const CreateSpace = () => {
   }
 
   return (
+<<<<<<< HEAD
     <div id='createspace'>
+=======
+    <div id='spaces'>
+>>>>>>> 5843a93bd1cef8fd9eaf4951b299d53f8b66cdb9
       <h1>Create a namespace</h1>
 
       <div id='spaces'>
@@ -20,14 +28,22 @@ const CreateSpace = () => {
 
         <Button onClick={formSubmit}></Button>
       </div>
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> 5843a93bd1cef8fd9eaf4951b299d53f8b66cdb9
     </div>
   )
 }
 
+<<<<<<< HEAD
 export default CreateSpace;
 
 // Need Create Spaces
 // Need Create vClusters
 // Need Space Info
 // Need vCluster Info
+=======
+export default SpacesPage;
+>>>>>>> 5843a93bd1cef8fd9eaf4951b299d53f8b66cdb9
