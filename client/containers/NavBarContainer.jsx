@@ -17,12 +17,14 @@ const NavBar = () => {
     {/* <Button>Spaces</Button>
     <Button onClick={handleCluster}>vClusters</Button>
     <Button>Admin</Button> */}
+    
       <Link component='button' onClick={() => {
         history.push('/user')
       }}>Spaces</Link>
       <Link component='button' onClick={() => {
         history.push('/vcluster')
       }}>vClusters</Link>
+  
     </div>
   )
 }
