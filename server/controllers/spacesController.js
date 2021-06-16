@@ -2,16 +2,9 @@ const db = require('../db/models');
 const { runTerminalCommand, kubectl } = require('../../terminalCommands.js')
 const spacesController = {};
 
-// CREATE TABLE "namespaces" (
-//     "_id" smallserial PRIMARY KEY NOT NULL,
-//     "name" varchar NOT NULL,
-//     "team_id" smallint NOT NULL,
-//     "project" varchar
-//   );
-
 spacesController.addNamespace = (req, res, next) => {
-  const { hostNamespace, team_id, project } = req.body;
-  const params = [hostNamespace, team_id, project];
+  const { hostNamespace, team_id, projectName } = req.body;
+  const params = [hostNamespace, team_id, projectName];
   const query = `
   INSERT INTO namespaces2(name, team_id, project)
   VALUES ($1, $2, $3)`

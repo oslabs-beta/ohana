@@ -7,25 +7,25 @@ import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material
 const CreateSpace = () => {
   const [hostNamespace, setHostNamespace] = useState('');
   const [team_id, setTeamId] = useState('');
-  const [project, setProject] = useState('');
+  const [projectName, setProjectName] = useState('');
 
   const handleSetHostNamespace = (e) => {
-    console.log('namespace',e.target.value)
+    console.log('namespace', e.target.value)
     setHostNamespace(e.target.value)
   }
 
   const handleSetTeamId = (e) => {
-    console.log('teamId',e.target.value)
+    console.log('teamId', e.target.value)
     setTeamId(e.target.value);
   }
 
   const handleSetProject = (e) => {
-    console.log('project',e.target.value)
-    setProject(e.target.value);
+    console.log('projectName', e.target.value)
+    setProjectName(e.target.value);
   }
 
   const formSubmit = (e) => {
-    const data = { hostNamespace };
+    const data = { hostNamespace, team_id, projectName };
     e.preventDefault();
     fetch('/spaces/rtcCreate', {
       method: 'POST',
@@ -39,8 +39,6 @@ const CreateSpace = () => {
     .catch(err => console.log(err))
   }
 
-  // const { namespace, team_id, project } = req.body;
-
   return (
     <div id='create-spaces'>
       <h1>Create a namespace</h1>
@@ -49,7 +47,7 @@ const CreateSpace = () => {
         <form method="POST" action="/spaces/create">
           <TextField label='Create Namespace' name='hostNamespace' onChange={handleSetHostNamespace}/>
           <TextField label='Team ID' name='team_id' onChange={handleSetTeamId}/>
-          <TextField label='Project Name' name='project' onChange={handleSetProject}/>
+          <TextField label='Project Name' name='projectName' onChange={handleSetProject}/>
           <Button type="submit" onClick={formSubmit}>Create</Button>
         </form>
       </div>
