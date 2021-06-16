@@ -1,4 +1,18 @@
 const db = require('../db/models');
+<<<<<<< HEAD
+const { runTerminalCommand, vCluster, gcloud } = require('../../terminalCommands.js')
+const clusterController = {};
+
+clusterController.createCluster = (req, res, next) => {
+    console.log(req.body);
+    const { clusterName, vClusterName, hostNamespace } = req.body;
+    runTerminalCommand(gcloud.getCredentials)
+    .then(() => runTerminalCommand(vCluster.create(vClusterName, hostNamespace)))
+    .then(() => runTerminalCommand(vCluster.connect(vClusterName, hostNamespace)))
+    return next();
+}
+
+=======
 const { runTerminalCommand, vCluster } = require('../../terminalCommands')
 
 const clusterController = {};
@@ -29,4 +43,5 @@ clusterController.addCluster = (req, res, next) => {
 }
 
 
+>>>>>>> 17973a421f580fec5662c147822791bd09027559
 module.exports = clusterController;

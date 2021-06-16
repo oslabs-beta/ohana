@@ -17,7 +17,7 @@ const runTerminalCommand = (command) => {
 
 // gcloud variables
 let clusterName = 'klustr-jefftest';
-let gcloudRegion = 'us-west2';
+let gcloudRegion = 'us-west1';
 let numNodes = '2';
 let gcloudUserEmail = 'contact.jeffchen@gmail.com';
 // kubctl variables
@@ -32,13 +32,14 @@ let userName = 'john';
 let portIn = '80';
 let portOut = '8080';
 let space = 'johns-space';
+let vClusterName = 'testing';
 
 // gcloud terminal commands
 const gcloud = {
   // necessary to create a cluster if it doesn't already exist; be aware of regional resource availability
   create: `gcloud container clusters create ${clusterName} --num-nodes=${numNodes} --region=${gcloudRegion}`,
   // 'gcloud container clusters get-credentials <insert name>:<optional tag> 
-  getCredentials: `gcloud container clusters get-credentials ${clusterName} --region=${gcloudRegion}`, // add <name>
+  getCredentials: `gcloud container clusters get-credentials ${clusterName} --region=us-west1`, // add <name>
   // 'gcloud config set account <accountemailaddress>'
   switchAccount: `gcloud config set account ${gcloudUserEmail}`
 }
@@ -97,5 +98,5 @@ module.exports = {
   gcloud,
   kubectl,
   vCluster,
-  runTerminalCommand
+  runTerminalCommand,
 }

@@ -1,13 +1,52 @@
 import React, { useState } from 'react';
+<<<<<<< HEAD
+import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material-ui/core';
+// import { kubectl, vCluster, runTerminalCommand } from '../../terminalCommands.js'
+// import { exec } from 'child_process';
+// const { exec } = require('child_process');
+=======
 import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material-ui/core'
 // import { kubectl, vCluster, runTerminalCommand } from '../../server/terminalCommands.js'
+>>>>>>> 17973a421f580fec5662c147822791bd09027559
 
 const CreateSpace = () => {
-  const [hostNamespace, setHostNamespace] = useState(false)
+  const [hostNamespace, setHostNamespace] = useState('');
+  const [team_id, setTeamId] = useState('');
+  const [projectName, setProjectName] = useState('');
+
+  const handleSetHostNamespace = (e) => {
+    console.log('namespace', e.target.value)
+    setHostNamespace(e.target.value)
+  }
+
+  const handleSetTeamId = (e) => {
+    console.log('teamId', e.target.value)
+    setTeamId(e.target.value);
+  }
+
+  const handleSetProject = (e) => {
+    console.log('projectName', e.target.value)
+    setProjectName(e.target.value);
+  }
+
   const formSubmit = (e) => {
+    const data = { hostNamespace, team_id, projectName };
     e.preventDefault();
+<<<<<<< HEAD
+    fetch('/spaces/rtcCreate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
+=======
     // import terminal commands
     // runTerminalCommand(kubectl.createNamespace);
+>>>>>>> 17973a421f580fec5662c147822791bd09027559
   }
 
   return (
@@ -16,12 +55,14 @@ const CreateSpace = () => {
 
       <div id='spaces'>
         <form method="POST" action="/spaces/create">
-          <TextField label='Create namespace' name='namespace' onChange={setHostNamespace}/>
-          {/* need to add in additional text fields for namespace creation */}
+          <TextField label='Create Namespace' name='hostNamespace' onChange={handleSetHostNamespace}/>
+          <TextField label='Team ID' name='team_id' onChange={handleSetTeamId}/>
+          <TextField label='Project Name' name='projectName' onChange={handleSetProject}/>
           <Button type="submit" onClick={formSubmit}>Create</Button>
         </form>
       </div>
     </div>
   )
 };
+
 export default CreateSpace;
