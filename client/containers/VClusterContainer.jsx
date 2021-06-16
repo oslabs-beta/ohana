@@ -1,7 +1,7 @@
 import React from 'react';
-import VClusters from '../components/vClusters.jsx';
+import VClusters from '../components/VClusters.jsx';
 
-const VclusterContainer = () => {
+const VClusterContainer = () => {
 
   return (
     <div id='vClusterContainer'>
@@ -11,4 +11,4 @@ const VclusterContainer = () => {
   )
 }
 
-export default VclusterContainer;
+export default VClusterContainer;
