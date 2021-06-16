@@ -1,6 +1,6 @@
 import React from 'react';
-import SpacesPage from '../components/SpacesPage.jsx';
-
+import CreateSpace from '../components/CreateSpace.jsx';
+// import SpacesList from '../components/SpacesList.jsx';
 
 const SpacesContainer = () => {
 
@@ -10,7 +10,8 @@ const SpacesContainer = () => {
   return (
     <div id='Spaces-Container'>
       <h1>this is spaces Container</h1>
-      <SpacesPage />
+      <CreateSpace />
+      {/* <SpacesList /> */}
     </div>
   )
 }
