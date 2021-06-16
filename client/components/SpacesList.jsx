@@ -5,13 +5,13 @@ const arrayOfSpaces = ["hi", "test", "okay"];
 // commands to get info from kiosk
 
 const listOfSpaces = arrayOfSpaces.map((space) =>
-    <li>{space}</li>
+  <li>{space}</li>
 );
 
 const SpacesList = () => {
-    return (
-        <ul>{listOfSpaces}</ul>
-    )
+  return (
+    <ul>{listOfSpaces}</ul>
+  )
 }
 
 

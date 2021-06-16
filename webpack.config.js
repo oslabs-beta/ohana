@@ -33,9 +33,9 @@ module.exports = {
     proxy: {
       '/user': 'http://localhost:3000',
       '/admin': 'http://localhost:3000',
+      '/clusters': 'http://localhost:3000',
       '/spaces': 'http://localhost:3000',
       '/vcluster': 'http://localhost:3000'
-
       // '/api/leaders': 'http://localhost:3000',
     }
   },
