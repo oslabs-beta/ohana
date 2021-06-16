@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core'
-import {gcloud, kubectl, vCluster, runTerminalCommand} from '../../server/terminalCommands'
 //import terminal commands
 
 const CreateCluster = () => {
 
   const [clusterName, setClusterName] = useState('');
+  const [vClusterName, setvClusterName] = useState('');
   const [hostNamespace, setHostNamespace] = useState('');
 
   const handleClusterNameChange = (e) => {
     setClusterName(e.target.value)
+  }
+
+  const handleSetvClusterName = (e) => {
+    setvClusterName(e.target.value);
   }
 
   const handleHostNamespaceChange = (e) => {
@@ -17,19 +21,30 @@ const CreateCluster = () => {
   }
 
   const formSubmit = (e) => {
+    const data = { clusterName, vClusterName, hostNamespace };
     e.preventDefault();
-    runTerminalCommand(vCluster.create);
+    fetch('/clusters/rtcCreate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
   }
 
   return (
     <div id='create-clusters'>
     <h1>Create a vCluster</h1>
     <div id='clusters'>
-      <form>
-        <TextField label='Clusters' name='clusters' onChange={handleClusterNameChange} />
-        <TextField label='Host' name='host' onChange={handleHostNamespaceChange} />
+      <form onSubmit={formSubmit}>
+        <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} />
+        <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
+        <TextField label='Host' name='hostNamespace' onChange={handleHostNamespaceChange} />
         {/* need to add in text fields for cluster creation */}
-        <Button type="submit" onClick={formSubmit}>Create</Button>
+        <Button type="submit">Create</Button>
       </form>
     </div>
   </div>

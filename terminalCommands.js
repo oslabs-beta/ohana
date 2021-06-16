@@ -4,19 +4,21 @@ const { exec } = require('child_process');
 // TODO: need to parameterize inputs to create the terminal commands
 
 const runTerminalCommand = (command) => {
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      console.log(error)
-      return;
-    }
-    console.log(`stdout: ${stdout}`)
-    console.log(`stderr: ${stderr}`)
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        console.log(error)
+        return;
+      }
+      console.log(`stdout: ${stdout}`)
+      console.log(`stderr: ${stderr}`)
+    })
   })
 }
 
 // gcloud variables
 let clusterName = 'klustr-jefftest';
-let gcloudRegion = 'us-west2';
+let gcloudRegion = 'us-west1';
 let numNodes = '2';
 let gcloudUserEmail = 'contact.jeffchen@gmail.com';
 // kubctl variables
@@ -31,13 +33,14 @@ let userName = 'john';
 let portIn = '80';
 let portOut = '8080';
 let space = 'johns-space';
+let vClusterName = 'testing';
 
 // gcloud terminal commands
 const gcloud = {
   // necessary to create a cluster if it doesn't already exist; be aware of regional resource availability
   create: `gcloud container clusters create ${clusterName} --num-nodes=${numNodes} --region=${gcloudRegion}`,
   // 'gcloud container clusters get-credentials <insert name>:<optional tag> 
-  getCredentials: `gcloud container clusters get-credentials ${clusterName} --region=${gcloudRegion}`, // add <name>
+  getCredentials: `gcloud container clusters get-credentials ${clusterName} --region=us-west1`, // add <name>
   // 'gcloud config set account <accountemailaddress>'
   switchAccount: `gcloud config set account ${gcloudUserEmail}`
 }
@@ -78,31 +81,22 @@ const kubectl = {
 // function -> create vCluster
 // may need to account for installing vCluster
 
-// v cluster variables, eventually to be user-submitted from front-end / GUI / UI (hard-coded for MVP)
-let vClusterName = 'vcluster-1';
-let hostNamespace = 'host-namespace-1';
+const vCluster = {};
+//   // creates a new virtual cluster; specify name and the namespace 
+//   create: `vcluster create ${vClusterName} -n ${hostNamespace}`,
+//   // connects and port forwards the vcluster and uses the original kubeconfig to mimic original cluster configs
+//   connect: `vcluster connect ${vClusterName} -n ${hostNamespace} \ export KUBECONFIG=./kubeconfig.yaml`,
+//   // deletes the vcluster
+//   delete: `vcluster delete ${vClusterName} -n ${hostNamespace}`,
+// }
 
-const vCluster = {
-  // creates a new virtual cluster; specify name and the namespace 
-  create: `vcluster create ${vClusterName} -n ${hostNamespace}`,
-  // connects and port forwards the vcluster and uses the original kubeconfig to mimic original cluster configs
-  connect: `vcluster connect ${vClusterName} -n ${hostNamespace} \ export KUBECONFIG=./kubeconfig.yaml`,
-  // deletes the vcluster
-  delete: `vcluster delete ${vClusterName} -n ${hostNamespace}`,
-}
-
-// test kubectl expose command
-runTerminalCommand(kubectl.expose);
-
-// test workflow of creating a user, then impersonating that user to create a space via kiosk
-runTerminalCommand(kubectl.connect);
-runTerminalCommand(kubectl.createUser);
-runTerminalCommand(kubectl.createSpace);
+vCluster.create = (vClusterName, hostNamespace) => `vcluster create ${vClusterName} -n ${hostNamespace}`;
+vCluster.connect = (vClusterName, hostNamespace) => `vcluster connect ${vClusterName} -n ${hostNamespace}`;
 
 
 module.exports = {
   gcloud,
   kubectl,
   vCluster,
-  runTerminalCommand
+  runTerminalCommand,
 }

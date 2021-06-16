@@ -5,8 +5,8 @@ import LoginPage from '../components/LoginPage.jsx';
 import AdminContainer from './AdminContainer.jsx';
 import UserContainer from './UserContainer.jsx';
 import CreateUser from '../components/CreateUser.jsx'
-import ClusterContainer from '../components/CreateUser.jsx'
-import SpacesContainer from '../components/CreateUser.jsx'
+import ClusterContainer from './ClusterContainer.jsx'
+import SpacesContainer from './SpacesContainer.jsx'
 
 //added two routes for spaces and clusters
 
@@ -17,9 +17,13 @@ const MainContainer = () => {
         <Route path="/" exact component={LoginPage} />
         <Route path="/admin" exact component={AdminContainer} />
         <Route path="/user" exact component={UserContainer} />
-        <Route path="/spaces" exact component={SpacesContainer} />
-        <Route path="/clusters" exact component={ClusterContainer} />
+        {/* <Route path="/spaces" exact component={SpacesContainer} />
+        <Route path="/clusters" exact component={ClusterContainer} /> */}
+        <Route path="/" exact component={SpacesContainer} />
+        <Route path="/" exact component={ClusterContainer} />
       </Switch>
+      <SpacesContainer/>
+      <ClusterContainer/>
       </div>   
     )
 }
