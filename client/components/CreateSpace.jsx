@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material-ui/core'
-import { kubectl, vCluster, runTerminalCommand } from '../../server/terminalCommands.js'
+// import { kubectl, vCluster, runTerminalCommand } from '../../server/terminalCommands.js'
 
 const CreateSpace = () => {
   const [hostNamespace, setHostNamespace] = useState(false)
   const formSubmit = (e) => {
     e.preventDefault();
     // import terminal commands
-    runTerminalCommand(kubectl.createNamespace);
+    // runTerminalCommand(kubectl.createNamespace);
   }
 
   return (

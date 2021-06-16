@@ -4,9 +4,10 @@ import LoginPage from '../components/LoginPage.jsx';
 // import AdminSignup from '../components/AdminSignup.jsx';
 import AdminContainer from './AdminContainer.jsx';
 import UserContainer from './UserContainer.jsx';
-import CreateUser from '../components/CreateUser.jsx'
-import ClusterContainer from '../components/CreateUser.jsx'
-import SpacesContainer from '../components/CreateUser.jsx'
+import CreateUser from '../components/CreateUser.jsx';
+import ClusterContainer from '../components/CreateUser.jsx';
+import SpacesContainer from '../components/CreateUser.jsx';
+import CreateCluster from '../components/CreateCluster.jsx';
 
 //added two routes for spaces and clusters
 
@@ -20,6 +21,7 @@ const MainContainer = () => {
         <Route path="/spaces" exact component={SpacesContainer} />
         <Route path="/clusters" exact component={ClusterContainer} />
       </Switch>
+      <CreateCluster />
       </div>   
     )
 }
