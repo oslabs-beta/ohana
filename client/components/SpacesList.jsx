@@ -10,7 +10,7 @@ const listOfSpaces = arrayOfSpaces.map((space) =>
 
 const SpacesList = () => {
     return (
-    <ul>{listOfSpaces}</ul>
+        <ul>{listOfSpaces}</ul>
     )
 }
 

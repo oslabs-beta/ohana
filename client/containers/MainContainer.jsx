@@ -6,7 +6,7 @@ import AdminContainer from './AdminContainer.jsx';
 import UserContainer from './UserContainer.jsx';
 import CreateUser from '../components/CreateUser.jsx';
 import SpacesContainer from './SpacesContainer.jsx';
-import VclusterContainer from './VclusterContainer.jsx';
+import VClusterContainer from './VClusterContainer.jsx';
 
 
 export const LoginContext = React.createContext();
@@ -18,30 +18,30 @@ const MainContainer = (props) => {
     login: false,
     logout: true,
   })
-  
+
   // console.log('login context', LoginContext);
 
   // console.log('main', props)
-    return (
-      <div className='MainContainer'> 
-      
-      
+  return (
+    <div className='MainContainer'>
+
+
       <Switch>
-      
+
         <Route path="/" exact>
-        <LoginContext.Provider value={loginStatus}>
-          <LoginPage props={loginStatus}/>
-        </LoginContext.Provider>
+          <LoginContext.Provider value={loginStatus}>
+            <LoginPage props={loginStatus} />
+          </LoginContext.Provider>
         </Route>
         <Route path="/admin" exact component={AdminContainer} />
         <Route path="/user" exact component={SpacesContainer} />
-        <Route path='/vcluster' exact component={VclusterContainer} />
+        <Route path='/vcluster' exact component={VClusterContainer} />
       </Switch>
       {props.children}
-      
-      </div>   
-      
-    )
+
+    </div>
+
+  )
 }
 
 export default MainContainer;

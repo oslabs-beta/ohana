@@ -9,8 +9,8 @@ router.post('/', spacesController.addNamespace, (req, res) => {
 })
 
 // below route may be consolidated into '/' route
-router.post('/add', spacesController.addNamespace, spacesModel.addNamespace, (req, res) => {
-  res.status(200).send('posted to database');
-})
+// router.post('/add', spacesController.addNamespace, spacesModel.addNamespace, (req, res) => {
+//   res.status(200).send('posted to database');
+// })
 
 module.exports = router;
