@@ -1,16 +1,17 @@
 const { exec } = require('child_process');
+const { hostname } = require('os');
 //const { GkeHubMembershipServiceClient } = require('@google-cloud/gke-hub');
 
 // TODO: need to parameterize inputs to create the terminal commands
 
 const runTerminalCommand = (command) => {
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
-      console.log(error)
-      return;
-    }
-    console.log(`stdout: ${stdout}`)
-    console.log(`stderr: ${stderr}`)
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        console.warn(error);
+       }
+       resolve(stdout? stdout : stderr);
+    })
   })
 }
 
@@ -79,25 +80,17 @@ const kubectl = {
 // may need to account for installing vCluster
 
 // v cluster variables, eventually to be user-submitted from front-end / GUI / UI (hard-coded for MVP)
-let vClusterName = 'vcluster-1';
-let hostNamespace = 'host-namespace-1';
+const vCluster = {}
+vCluster.create = (vClusterName, hostNamespace) => `vcluster create ${vClusterName} -n ${hostNamespace}`;
+vCluster.connect = (vClustername, hostNamespace) => `vcluster connect ${vClusterName} -n ${hostNamespace} \ export KUBECONFIG=./kubeconfig.yaml`;
+vCluster.delete = (vClusterName, hostNameSpace) => `vcluster delete ${vClusterName} -n ${hostNamespace}`
+// // test kubectl expose command
+// runTerminalCommand(kubectl.expose);
 
-const vCluster = {
-  // creates a new virtual cluster; specify name and the namespace 
-  create: `vcluster create ${vClusterName} -n ${hostNamespace}`,
-  // connects and port forwards the vcluster and uses the original kubeconfig to mimic original cluster configs
-  connect: `vcluster connect ${vClusterName} -n ${hostNamespace} \ export KUBECONFIG=./kubeconfig.yaml`,
-  // deletes the vcluster
-  delete: `vcluster delete ${vClusterName} -n ${hostNamespace}`,
-}
-
-// test kubectl expose command
-runTerminalCommand(kubectl.expose);
-
-// test workflow of creating a user, then impersonating that user to create a space via kiosk
-runTerminalCommand(kubectl.connect);
-runTerminalCommand(kubectl.createUser);
-runTerminalCommand(kubectl.createSpace);
+// // test workflow of creating a user, then impersonating that user to create a space via kiosk
+// runTerminalCommand(kubectl.connect);
+// runTerminalCommand(kubectl.createUser);
+// runTerminalCommand(kubectl.createSpace);
 
 
 module.exports = {
