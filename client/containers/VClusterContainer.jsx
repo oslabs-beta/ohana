@@ -1,12 +1,12 @@
 import React from 'react';
-import vClusters from '../components/vClusters.jsx';
+import VClusters from '../components/VClusters.jsx';
 
-const VclusterContainer = () => {
+const VClusterContainer = () => {
 
   return (
     <div id='vClusterContainer'>
       <h1>This is vClusterContainer</h1>
-      <vClusters />
+      <VClusters />
     </div>
   )
 }
