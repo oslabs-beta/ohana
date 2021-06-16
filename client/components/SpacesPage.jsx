@@ -1,5 +1,6 @@
 import React from 'react';
 import SpacesList from './SpacesList.jsx';
+import { Button } from '@material-ui/core';
 
 const CreateSpace = () => {
   return (
