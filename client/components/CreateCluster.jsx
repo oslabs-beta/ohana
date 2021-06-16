@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core'
-//import terminal commands
 
 const CreateCluster = () => {
 

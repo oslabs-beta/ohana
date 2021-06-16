@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material-ui/core'
-// import { kubectl, vCluster, runTerminalCommand } from '../../server/terminalCommands.js'
 
 const CreateSpace = () => {
   const [hostNamespace, setHostNamespace] = useState('');
@@ -25,7 +24,7 @@ const CreateSpace = () => {
   const formSubmit = (e) => {
     const data = { hostNamespace, team_id, projectName };
     e.preventDefault();
-    fetch('/spaces/rtcCreate', {
+    fetch('/spaces/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
