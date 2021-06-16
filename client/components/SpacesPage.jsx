@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, TextField } from '@material-ui/core';
 import SpacesList from './SpacesList.jsx';
 
+
 const CreateSpace = () => {
   return (
     <div id='CreateSpace'>
