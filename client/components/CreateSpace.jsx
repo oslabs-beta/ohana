@@ -24,7 +24,7 @@ const CreateSpace = () => {
   const formSubmit = (e) => {
     const data = { hostNamespace, team_id, projectName };
     e.preventDefault();
-    fetch('/spaces/rtcCreate', {
+    fetch('/spaces/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

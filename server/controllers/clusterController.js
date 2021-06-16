@@ -1,22 +1,12 @@
 const db = require('../db/models');
-const { runTerminalCommand, vCluster } = require('../../terminalCommands')
-
+const { runTerminalCommand, vCluster, gcloud } = require('../../terminalCommands.js')
 const clusterController = {};
 
-clusterController.createCluster = (req, res, next) => {
-  const { vClusterName, hostNamespace } = req.body;
-  runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
-    .then(() => {
-      return next();
-    })
-    .catch(err => next({log: `Error in clusterController.createCluster: ${err}`}))
-}
-
 clusterController.addCluster = (req, res, next) => {
-  const { namespace, team_id, project } = req.body;
-  const params = [namespace, team_id, project];
+  const { hostNamespace, vClusterName, projectName } = req.body;
+  const params = [hostNamespace, vClusterName, projectName];
   const query = `
-  INSERT INTO clusters(name, team_id, project)
+  INSERT INTO vclusters3(team_id, namespace_id, project)
   VALUES ($1, $2, $3)`
 
   db.query(query, params)
@@ -24,8 +14,19 @@ clusterController.addCluster = (req, res, next) => {
       return next();
     })
     .catch((err) => {
-      return next({ log: `Error in clusterController.addCluster: ${err}` });
+      return next({ log: `Error in clsuterController.addCluster: ${err}` });
     })
+}
+
+clusterController.createCluster = (req, res, next) => {
+    console.log(req.body);
+    const { clusterName, vClusterName, hostNamespace } = req.body;
+    runTerminalCommand(gcloud.getCredentials(hostNamespace))
+    .then((data) => {
+      console.log('1',data)
+      runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
+    .catch(err => console.log(err))
+  })
 }
 
 

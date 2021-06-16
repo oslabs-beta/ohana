@@ -22,16 +22,16 @@ const CreateCluster = () => {
   const formSubmit = (e) => {
     const data = { clusterName, vClusterName, hostNamespace };
     e.preventDefault();
-    fetch('/clusters/rtcCreate', {
+    fetch('/clusters/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data),
     })
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
   }
 
   return (

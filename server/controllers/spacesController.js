@@ -1,5 +1,5 @@
 const db = require('../db/models');
-const { runTerminalCommand, kubectl } = require('../../terminalCommands.js')
+const { runTerminalCommand, kubectl, gcloud } = require('../../terminalCommands.js')
 const spacesController = {};
 
 spacesController.addNamespace = (req, res, next) => {
@@ -21,8 +21,12 @@ spacesController.addNamespace = (req, res, next) => {
 spacesController.createNamespace = (req, res, next) => {
   console.log(req.body)
   const { hostNamespace } = req.body;
-  runTerminalCommand(kubectl.createNamespace)
+  runTerminalCommand(gcloud.getCredentials(hostNamespace))
+  .then((data) => {
+    console.log(data)
+    runTerminalCommand(kubectl.createNamespace(hostNamespace))
   return next();
+})
 }
 
 module.exports = spacesController;
