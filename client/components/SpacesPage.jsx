@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, TextField } from '@material-ui/core';
 import SpacesList from './SpacesList.jsx';
 import { Button } from '@material-ui/core';
 
@@ -8,8 +9,13 @@ const CreateSpace = () => {
       <h2>Create a New Namespace</h2>
       <form method="POST" action='/spaces/add'>
         <label>
-          Name:
-          <input type="text" name="name" />
+          
+          {/* <input type="text" name="namespace" /> */}
+          <TextField name='namespace' label='Name'/>
+          
+          <TextField type="text" name="team_id" label='Team ID' />
+          
+          <TextField type="text" name="project" label='Project Name'/>
         </label>
         <Button type='submit' label='Create Namespace'>Create Namespace</Button>
       </form>
