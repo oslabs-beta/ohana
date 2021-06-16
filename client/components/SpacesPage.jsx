@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, TextField } from '@material-ui/core';
 import SpacesList from './SpacesList.jsx';
-import { Button } from '@material-ui/core';
+
 
 const CreateSpace = () => {
   return (

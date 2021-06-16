@@ -1,7 +1,7 @@
 // this file contains middleware to perform actions on spaces
-import { kubectl, runTerminalCommends } from '../terminalCommands';
+// import { kubectl, runTerminalCommends } from '../terminalCommands';
 // const terminalCommands = require('../server/terminalCommands');
-// const { kubectl, gcloud, vCluster, runTerminalCommands} = require('../terminalCommands');
+const { kubectl, gcloud, vCluster, runTerminalCommands} = require('../terminalCommands');
 const spacesModel = {};
 
 
