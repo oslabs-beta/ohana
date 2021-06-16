@@ -11,7 +11,7 @@ const LoginPage = (props) => {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState();
   console.log('login props', props)
-  console.log(LoginContext)
+  // console.log(LoginContext)
 
 
   let history = useHistory();
