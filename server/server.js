@@ -2,8 +2,12 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const userRouter = require('./routers/userRouter');
+<<<<<<< HEAD
 const adminRouter = require('./routers/adminRouter')
 const spacesRouter = require('./routers/spacesRouter');
+=======
+const adminRouter = require('./routers/adminRouter');
+>>>>>>> 17973a421f580fec5662c147822791bd09027559
 const clusterRouter = require('./routers/clusterRouter');
 
 app.use(express.json());
@@ -15,8 +19,13 @@ app.get('/', (req, res) => {
 
 app.use('/user', userRouter)
 app.use('/admin', adminRouter)
+<<<<<<< HEAD
 app.use('/spaces', spacesRouter)
 app.use('/clusters', clusterRouter)
+=======
+app.use('/clusters', clusterRouter)
+// app.use('/spaces', spacesRouter)
+>>>>>>> 17973a421f580fec5662c147822791bd09027559
 
 app.use((err, req, res, next) => {
   const defaultErr = {

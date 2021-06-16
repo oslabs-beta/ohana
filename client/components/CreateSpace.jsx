@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+<<<<<<< HEAD
 import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material-ui/core';
 // import { kubectl, vCluster, runTerminalCommand } from '../../terminalCommands.js'
 // import { exec } from 'child_process';
 // const { exec } = require('child_process');
+=======
+import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material-ui/core'
+// import { kubectl, vCluster, runTerminalCommand } from '../../server/terminalCommands.js'
+>>>>>>> 17973a421f580fec5662c147822791bd09027559
 
 const CreateSpace = () => {
   const [hostNamespace, setHostNamespace] = useState('');
@@ -27,6 +32,7 @@ const CreateSpace = () => {
   const formSubmit = (e) => {
     const data = { hostNamespace, team_id, projectName };
     e.preventDefault();
+<<<<<<< HEAD
     fetch('/spaces/rtcCreate', {
       method: 'POST',
       headers: {
@@ -37,6 +43,10 @@ const CreateSpace = () => {
     .then(res => res.json())
     .then(data => console.log(data))
     .catch(err => console.log(err))
+=======
+    // import terminal commands
+    // runTerminalCommand(kubectl.createNamespace);
+>>>>>>> 17973a421f580fec5662c147822791bd09027559
   }
 
   return (
