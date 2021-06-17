@@ -51,18 +51,18 @@ kubectl.createFromConfigAs = (configFile, userName) => `kubectl apply -f /yamlCo
 // get additional detail on pods
 kubectl.describe = (hostNamespace) => `kubectl describe pods -n ${hostNamespace}`
 // kubectl create deployment <insert name> --image=<insert image file/link>
-kubectl.deployImage = (deploymentName, imageFile) => `kubectl create deployment ${deploymentName} --image=${imageFile}`
+kubectl.deployImage = (deploymentName, hostNamespace, imageFile) => `kubectl create deployment ${deploymentName} -n ${hostNamespace} --image=${imageFile}`
 // expose the deployment for kubernetes 
-kubectl.expose = (deploymentName, portIn, portOut) => `kubectl expose deployment ${deploymentName} --type LoadBalancer --port=${portIn} --target-port=${portOut}`
+kubectl.expose = (deploymentName, hostNamespace) => `kubectl expose deployment ${deploymentName} -n ${hostNamespace} --type LoadBalancer --port=80 --target-port=8080`
 // deploy the pod in a specific namespace with the image configuration
-kubectl.deploy = (hostNamespace, userName, configName) => `kubectl apply -n ${hostNamespace} -f /yamlConfigs/deployImage.yaml --as=${userName}`
+kubectl.deploy = (hostNamespace, configFile) => `kubectl apply -n ${hostNamespace} -f /Users/fenris/Desktop/Codesmith/klustr.dev/yamlConfigs/${configFile}.yaml`
 // deploy the pod in a specific namespace with the image configuration impersonating a user; admin only
-kubectl.deployAs = (hostNamespace, userName, configName) => `kubectl apply -n ${hostNamespace} -f /yamlConfigs/deployImage.yaml --as=${userName}`
+kubectl.deployAs = (hostNamespace, configFile, userName) => `kubectl apply -n ${hostNamespace} -f /yamlConfigs/${configFile}.yaml --as=${userName}`
 
 const vCluster = {}
 
 vCluster.create = (vClusterName, hostNamespace) => `vcluster create ${vClusterName} -n ${hostNamespace}`;
-vCluster.connect = (vClusterName, hostNamespace) => `vcluster connect ${vClusterName} -n ${hostNamespace} \ export KUBECONFIG=./kubeconfig.yaml`;
+vCluster.connect = (vClusterName, hostNamespace) => `vcluster connect ${vClusterName} -n ${hostNamespace} \export KUBECONFIG=./kubeconfig.yaml`;
 vCluster.delete = (vClusterName, hostNamespace) => `vcluster delete ${vClusterName} -n ${hostNamespace}`;
 
 

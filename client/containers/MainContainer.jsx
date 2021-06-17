@@ -23,8 +23,8 @@ const MainContainer = () => {
         {/* <Route path="/" exact component={SpacesContainer} />
         <Route path="/" exact component={ClusterContainer} /> */}
       </Switch>
-      <SpacesContainer/>
       <ClusterContainer/>
+      <SpacesContainer/>
       </div>   
     )
 }

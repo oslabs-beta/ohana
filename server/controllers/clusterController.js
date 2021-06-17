@@ -19,21 +19,21 @@ clusterController.addCluster = (req, res, next) => {
     })
 }
 
-clusterController.deleteClusterFromDB = (req, res, next) => {
-  const { hostNamespace, vClusterName, projectName } = req.body;
-  const params = [hostNamespace, vClusterName, projectName];
-  const query = `
-  INSERT INTO vclusters3(team_id, namespace_id, project)
-  VALUES ($1, $2, $3)`
+// clusterController.deleteClusterFromDB = (req, res, next) => {
+//   const { hostNamespace, vClusterName, projectName } = req.body;
+//   const params = [hostNamespace, vClusterName, projectName];
+//   const query = `
+//   INSERT INTO vclusters3(team_id, namespace_id, project)
+//   VALUES ($1, $2, $3)`
 
-  db.query(query, params)
-    .then(() => {
-      return next();
-    })
-    .catch((err) => {
-      return next({ log: `Error in clsuterController.addCluster: ${err}` });
-    })
-}
+//   db.query(query, params)
+//     .then(() => {
+//       return next();
+//     })
+//     .catch((err) => {
+//       return next({ log: `Error in clsuterController.addCluster: ${err}` });
+//     })
+// }
 
 clusterController.createCluster = (req, res, next) => {
     console.log(req.body);
@@ -43,6 +43,7 @@ clusterController.createCluster = (req, res, next) => {
     .then((data) => {
       console.log('1',data)
       runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
+      runTerminalCommand(vCluster.connect(vClusterName, hostNamespace))
     .catch(err => console.log(err))
   })
 }

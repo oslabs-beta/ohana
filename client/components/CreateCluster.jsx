@@ -41,7 +41,7 @@ const CreateCluster = () => {
       <form onSubmit={formSubmit}>
         <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} />
         <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
-        <TextField label='Host' name='hostNamespace' onChange={handleHostNamespaceChange} />
+        <TextField label='Host Namespace' name='hostNamespace' onChange={handleHostNamespaceChange} />
         {/* need to add in text fields for cluster creation */}
         <Button type="submit">Create</Button>
       </form>
