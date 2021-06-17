@@ -4,7 +4,7 @@ const path = require('path');
 const userRouter = require('./routers/userRouter');
 const adminRouter = require('./routers/adminRouter')
 const spacesRouter = require('./routers/spacesRouter');
-//const clusterRouter = require('./routers/clusterRouter');
+const clusterRouter = require('./routers/clusterRouter');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -12,11 +12,11 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
-app.use('/spaces', spacesRouter)
+
 app.use('/user', userRouter)
 app.use('/admin', adminRouter)
-// app.use('/spaces', spacesRouter)
-//app.use('/clusters', clusterRouter)
+app.use('/spaces', spacesRouter)
+app.use('/clusters', clusterRouter)
 
 app.use((err, req, res, next) => {
   const defaultErr = {
