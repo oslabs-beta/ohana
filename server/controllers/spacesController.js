@@ -5,11 +5,11 @@ const spacesController = {};
 //will need to edit the database schema
 
 spacesController.addNamespace = (req, res, next) => {
-  const { hostNamespace, team_id, projectName } = req.body;
-  const params = [hostNamespace, team_id, projectName];
+  const { clusterName, hostNamespace, team_id, projectName } = req.body;
+  const params = [clusterName, hostNamespace, team_id, projectName];
   const query = `
-  INSERT INTO namespaces2(name, team_id, project)
-  VALUES ($1, $2, $3)`
+  INSERT INTO namespaces3(cluster, name, team_id, project)
+  VALUES ($1, $2, $3, $4)`
 
   db.query(query, params)
     .then(() => {
@@ -39,7 +39,7 @@ spacesController.addNamespace = (req, res, next) => {
 spacesController.fetchNamespaces = (req, res, next) => {
   // console.group(req.params)
   const query = `
-  SELECT * FROM namespaces2`
+  SELECT * FROM namespaces3`
   db.query(query)
     .then((data) => {
       res.locals.kyung = data.rows;
@@ -64,15 +64,31 @@ spacesController.createNamespace = (req, res, next) => {
 }
 
 spacesController.deploy = (req, res, next) => {
-  console.log(req.body)
   const { deploymentName, hostNamespace, imageFile } = req.body;
   runTerminalCommand(kubectl.deployImage(deploymentName, hostNamespace, imageFile))
-  .then((data) => {
-    console.log(data)
+  .then(() => {
     runTerminalCommand(kubectl.expose(deploymentName, hostNamespace))
+<<<<<<< HEAD
     // runTerminalCommand(`kubectl get services`)
+=======
+      .then(() => runTerminalCommand(`kubectl get services -n ${hostNamespace} ${deploymentName}`))
+      .then((data) =>{
+        console.log(data);
+        res.locals.jeff = data;
+        return next();
+      })
+>>>>>>> 4765fcce0db6b9d48597b3688aee1f50b5a7fb30
   })
-  return next();
+}
+
+spacesController.getExternalIp = (req, res, next) => {
+  const { deploymentName, hostNamespace } = req.body;
+  console.log(deploymentName);
+  runTerminalCommand(`kubectl get services -n ${hostNamespace} ${deploymentName}`)
+    .then((data) => {
+      res.locals.getServices = data;
+      return next()
+    })
 }
 
 spacesController.fetchSpaces = (req, res, next) => {

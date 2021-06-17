@@ -37,15 +37,28 @@ clusterController.addCluster = (req, res, next) => {
 clusterController.createCluster = (req, res, next) => {
     console.log(req.body);
     const { clusterName, vClusterName, hostNamespace } = req.body;
+    res.locals.vClusterName = vClusterName;
     // need to make gcloud into a function
     runTerminalCommand(gcloud.getCredentials(clusterName))
     .then((data) => {
-      console.log('1',data)
-      runTerminalCommand(vCluster.create(vClusterName, hostNamespace));
-      return next();
+      console.log('1', data)
+      runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
+        .then(() => next())
       // runTerminalCommand(vCluster.connect(vClusterName, hostNamespace))
-  })
+        .catch(err => console.log(err))
+  }).catch(err => next({log: `clusterController.createCluster: ${err}`}))
+}
+
+clusterController.deleteCluster = (req, res, next) => {
+  console.log(req.body);
+  const { clusterName, vClusterName, hostNamespace } = req.body;
+  // need to make gcloud into a function
+  runTerminalCommand(gcloud.getCredentials(clusterName))
+  .then((data) => {
+    console.log('1',data)
+    runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
   .catch(err => console.log(err))
+  })
 }
 
 // clusterController.deleteCluster = (req, res, next) => {
