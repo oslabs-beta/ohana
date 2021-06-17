@@ -71,9 +71,12 @@ const SpacesList = () => {
       <div id='spaces'>
         <Button onClick={handleClick}>Get Spaces</Button>
       </div>
+
     </div>
   )
 }
 
 
+
 export default SpacesList;
+
