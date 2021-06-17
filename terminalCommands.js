@@ -65,47 +65,6 @@ vCluster.create = (vClusterName, hostNamespace) => `vcluster create ${vClusterNa
 vCluster.connect = (vClusterName, hostNamespace) => `vcluster connect ${vClusterName} -n ${hostNamespace} \export KUBECONFIG=./kubeconfig.yaml`;
 vCluster.delete = (vClusterName, hostNamespace) => `vcluster delete ${vClusterName} -n ${hostNamespace}`;
 
-
-
-// kubectl terminal commands || cheatsheet for reference: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
-// const kubectl = {
-//   // get description of pods w/in your namespace
-//   getPods: 'kubectl get pods',
-//   // kubectl logs <pod name> - outputs logs of the specified pod
-//   logs: `kubectl logs ${podName}`,
-//   // get additional detail on pods
-//   describe: `kubectl describe pods -n ${hostNamespace}`,
-//   // create namespace (must specify name) i.e. terminal command: 'kubectl create namespace <insert namespace here>'
-//   createNamespace: `kubectl create namespace ${hostNamespace}`,
-//   // kubectl create deployment <insert name> --image=<insert image file/link>
-//   deployImage: `kubectl create deployment ${deploymentName} --image=${imageFile}`,
-//   // expose the deployment for kubernetes 
-//   expose: `kubectl expose deployment ${deploymentName} --type LoadBalancer --port=${portIn} --target-port=${portOut}`,
-//   // creates a user john which is specified in the account.yaml configuration
-//   createUser: `kubectl apply -f ${configFile}`,
-//   // Alternative: ServiceAccount as Account User (see explanation for account-sa.yaml below)
-//   createServiceAccount: `kubectl apply -f klustr.dev/yamlConfigs/serviceAccount.yaml`,
-//   // set Role Based Access Control (RBAC) 
-//   setRBAC: `kubectl apply -f /yamlConfigs/rbac-creator.yaml`,
-//   // create a virtual space from the space.yaml configuration with the flag as to impersonate user john
-//   createSpace: `kubectl apply -f /yamlConfigs/space.yaml --as=${userName}`,
-//   // deploy the pod in a specific namespace with the image configuration
-//   deploy: `kubectl apply -n ${space} --as=${userName} -f /yamlConfigs/deployImage.yaml`,
-// }
-
-// function -> sign-in user (to ohana app)
-// log in user
-// console login status i.e. login success or login failed
-
-// kiosk used to create accounts that will grant access to users creating specific namespaces and specific resourcing
-// kiosk provides CRDs for Account, AccountQuota, AccountQuotaSet, Template, TemplateInstance
-
-// function -> create vCluster
-// may need to account for installing vCluster
-
-// v cluster variables, eventually to be user-submitted from front-end / GUI / UI (hard-coded for MVP)
-
-
 module.exports = {
   kubectl,
   gcloud,
