@@ -30,6 +30,7 @@ const TeamsDisplay = () => {
 
 
   return (
+    <div id="teamslist">
     <List className={classes.root} subheader={<li />}>
       {['Admins', 'Senior Engineers', 'Junior Engineers'].map((sectionId) => (
         <li key={`section-${sectionId}`} className={classes.listSection}>
@@ -44,6 +45,7 @@ const TeamsDisplay = () => {
         </li>
       ))}
     </List>
+    </div>
   );
 }
 

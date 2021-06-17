@@ -43,7 +43,8 @@ const SpacesList = () => {
   return (
     <div id='SpacesList'>
       <h3>Current Namespaces</h3>
-<TableContainer component={Paper}>
+      <Button id="get-spaces" onClick={handleClick} variant="outlined" color="primary.light">Get Spaces</Button>
+      <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -67,10 +68,6 @@ const SpacesList = () => {
         </TableBody>
       </Table>
     </TableContainer>
-
-      <div id='spaces'>
-        <Button onClick={handleClick}>Get Spaces</Button>
-      </div>
 
     </div>
   )
