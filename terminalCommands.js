@@ -6,8 +6,10 @@ const runTerminalCommand = (command) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {
         console.warn(error);
+
        }
        resolve(stdout ? stdout : stderr);
+
     })
   })
 }
@@ -32,6 +34,7 @@ let space = 'johns-space';
 let vClusterName = 'testing';
 
 // gcloud terminal commands
+
 const gcloud = {}
 // necessary to create a cluster if it doesn't already exist; be aware of regional resource availability
 gcloud.create = (clusterName, numNodes, gcloudRegion) => `gcloud container clusters create ${clusterName} --num-nodes=${numNodes} --region=${gcloudRegion}`
@@ -39,6 +42,7 @@ gcloud.create = (clusterName, numNodes, gcloudRegion) => `gcloud container clust
 gcloud.getCredentials = () => 'gcloud container clusters get-credentials klustr-jefftest --region=us-west1'
 // 'gcloud config set account <accountemailaddress>'
 gcloud.switchAccount = (gcloudUserEmail) => `gcloud config set account ${gcloudUserEmail}`
+
 
 
 const kubectl = {};
@@ -61,9 +65,11 @@ kubectl.deployAs = (hostNamespace, configFile, userName) => `kubectl apply -n ${
 
 const vCluster = {}
 
+
 vCluster.create = (vClusterName, hostNamespace) => `vcluster create ${vClusterName} -n ${hostNamespace}`;
 vCluster.connect = (vClusterName, hostNamespace) => `vcluster connect ${vClusterName} -n ${hostNamespace} \export KUBECONFIG=./kubeconfig.yaml`;
 vCluster.delete = (vClusterName, hostNamespace) => `vcluster delete ${vClusterName} -n ${hostNamespace}`;
+
 
 module.exports = {
   kubectl,

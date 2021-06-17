@@ -75,4 +75,16 @@ spacesController.deploy = (req, res, next) => {
   return next();
 }
 
+spacesController.fetchSpaces = (req, res, next) => {
+  const query = `
+  SELECT * FROM namespaces2;
+  `
+
+  db.query(query)
+    .then((data) => {
+      res.locals.spaces = data.rows
+      return next();
+    })
+}
+
 module.exports = spacesController;

@@ -29,13 +29,14 @@ const CreateCluster = () => {
       },
       body: JSON.stringify(data),
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
   }
 
   return (
     <div id='create-clusters'>
+
     <h1>Create a vCluster</h1>
     <div id='clusters'>
       <form onSubmit={formSubmit}>
@@ -45,8 +46,8 @@ const CreateCluster = () => {
         {/* need to add in text fields for cluster creation */}
         <Button type="submit">Create</Button>
       </form>
+
     </div>
-  </div>
-)
+  )
 }
 export default CreateCluster;

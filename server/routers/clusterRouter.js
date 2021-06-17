@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const clusterController = require('../controllers/clusterController');
 
 router.post('/create',
@@ -11,4 +10,9 @@ router.post('/create',
   }
 )
 
+router.get('/vcluster', 
+  clusterController.fetchClusters, 
+  (req, res) => {
+  res.status(200).json(res.locals.kyung)
+})
 module.exports = router;

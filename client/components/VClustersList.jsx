@@ -14,42 +14,46 @@ const useStyles = makeStyles({
   },
 });
 
-const SpacesList = () => {
-  const [spaces, setSpaces] = useState([])
 
+const VClustersList = () => {
+  const [vClusters, setvClusters] = useState([])
+  
+// fetch vclusters logic
   const handleClick = (e) => {
 
     e.preventDefault();
 
-    fetch('/spaces/fetch')
+    fetch('/clusters/vcluster')
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        setSpaces(data);
+        setvClusters(data);
       })
   }
 
-
-  function createData(id, namespace, team_id, project) {
-    return { id, namespace, team_id, project };
+  // helper function to destructure each object in the array
+  function createData(id, team_id, namespace, project) {
+    return { id, team_id, namespace, project };
   }
-
-  const rows = spaces.map((space) => {
-    return createData(space._id, space.name, space.team_id, space.project);
+  
+  // iterate over array to destructure each object and assign to index in new rows array
+  const rows = vClusters.map((cluster) => {
+    return createData(cluster._id, cluster.team_id, cluster.namespace_id, cluster.project);
   })
 
+  // some material ui shit idk
   const classes = useStyles();
-
+  
   return (
-    <div id='SpacesList'>
-      <h3>Current Namespaces</h3>
+    <div id='vClustersList'>
+      <h3>Current Virtual Clusters</h3>
 <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell align="right">Namespace</TableCell>
+            <TableCell>vCluster ID</TableCell>
             <TableCell align="right">Team ID</TableCell>
+            <TableCell align="right">Namespace</TableCell>
             <TableCell align="right">Project</TableCell>
           </TableRow>
         </TableHead>
@@ -59,8 +63,8 @@ const SpacesList = () => {
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <TableCell align="right">{row.namespace}</TableCell>
               <TableCell align="right">{row.team_id}</TableCell>
+              <TableCell align="right">{row.namespace}</TableCell>
               <TableCell align="right">{row.project}</TableCell>
             </TableRow>
           ))}
@@ -69,14 +73,12 @@ const SpacesList = () => {
     </TableContainer>
 
       <div id='spaces'>
-        <Button onClick={handleClick}>Get Spaces</Button>
+        <Button onClick={handleClick}>Get VClusters</Button>
       </div>
-
     </div>
   )
 }
 
 
 
-export default SpacesList;
-
+export default VClustersList;

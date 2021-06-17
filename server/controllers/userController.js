@@ -28,7 +28,7 @@ userController.bcryptPassword = (req, res, next) => {
 }
 
 userController.addNewUser = (req, res, next) => {
-  console.log(req.body.isAdmin);
+  console.log('addNewUser', req.body.isAdmin)
   const { password } = res.locals;
   const { email, firstName, lastName, teamId, isAdmin } = req.body;
   const params = [email, password, firstName, lastName, teamId, isAdmin];
