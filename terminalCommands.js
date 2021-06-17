@@ -9,8 +9,8 @@ const runTerminalCommand = (command) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {
         console.warn(error);
-       }
-       resolve(stdout? stdout : stderr);
+      }
+      resolve(stdout ? stdout : stderr);
     })
   })
 }
@@ -39,7 +39,8 @@ const gcloud = {
   // necessary to create a cluster if it doesn't already exist; be aware of regional resource availability
   create: `gcloud container clusters create ${clusterName} --num-nodes=${numNodes} --region=${gcloudRegion}`,
   // 'gcloud container clusters get-credentials <insert name>:<optional tag> 
-  getCredentials: 'gcloud container clusters get-credentials klustr-jefftest --region=us-west1', // add <name>
+  // getCredentials: 'gcloud container clusters get-credentials klustr-jefftest --region=us-west1', // add <name>
+  getCredentials: 'gcloud container clusters get-credentials cluster-1 --region=us-west1-a',
   // 'gcloud config set account <accountemailaddress>'
   switchAccount: `gcloud config set account ${gcloudUserEmail}`
 }
@@ -86,9 +87,14 @@ kubectl.createNamespace = (hostNamespace) => `kubectl create namespace ${hostNam
 
 // v cluster variables, eventually to be user-submitted from front-end / GUI / UI (hard-coded for MVP)
 const vCluster = {}
-vCluster.create = (vClusterName, hostNamespace) => `vcluster create ${vClusterName} -n ${hostNamespace}`;
-vCluster.connect = (vClusterName, hostNamespace) => `vcluster connect ${vClusterName} -n ${hostNamespace} \ export KUBECONFIG=./kubeconfig.yaml`;
-vCluster.delete = (vClusterName, hostNamespace) => `vcluster delete ${vClusterName} -n ${hostNamespace}`;
+// vCluster.create = (vClusterName, hostNamespace) => `helm upgrade --install vcluster-1 vcluster \
+// --values /home/mikat/klustr.dev/yamlConfigs/vCluster.yaml \
+// --repo https://charts.loft.sh \
+// --namespace vcluster-1 \
+// --repository-config=''`;
+vCluster.create = (vClusterName, hostNamespace) => `vcluster create ${ vClusterName } -n ${ hostNamespace } `;
+vCluster.connect = (vClusterName, hostNamespace) => `vcluster connect ${vClusterName} -n ${hostNamespace} \ export KUBECONFIG =./ kubeconfig.yaml`;
+vCluster.delete = (vClusterName, hostNamespace) => `vcluster delete ${vClusterName} -n ${hostNamespace} `;
 // // test kubectl expose command
 // runTerminalCommand(kubectl.expose);
 
