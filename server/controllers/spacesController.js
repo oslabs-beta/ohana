@@ -2,6 +2,8 @@ const db = require('../db/models');
 const { runTerminalCommand, kubectl, gcloud } = require('../../terminalCommands.js')
 const spacesController = {};
 
+//will need to edit the database schema
+
 spacesController.addNamespace = (req, res, next) => {
   const { hostNamespace, team_id, projectName } = req.body;
   const params = [hostNamespace, team_id, projectName];
@@ -20,8 +22,9 @@ spacesController.addNamespace = (req, res, next) => {
 
 spacesController.createNamespace = (req, res, next) => {
   console.log(req.body)
-  const { hostNamespace } = req.body;
-  runTerminalCommand(gcloud.getCredentials(hostNamespace))
+  const { clusterName, hostNamespace } = req.body;
+  // need to make gcloud into a function
+  runTerminalCommand(gcloud.getCredentials(clusterName  ))
   .then((data) => {
     console.log(data)
     runTerminalCommand(kubectl.createNamespace(hostNamespace))

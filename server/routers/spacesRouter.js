@@ -5,7 +5,7 @@ const spacesController = require('../controllers/spacesController');
 router.post('/create', 
 spacesController.addNamespace,
 spacesController.createNamespace, (req, res) => {
-  res.status(200).send('posted to database');
+  res.status(200).send('Added Space to Database and successfully created Space');
 })
 
 module.exports = router;
