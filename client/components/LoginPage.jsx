@@ -94,10 +94,10 @@ const LoginPage = (props) => {
 
   return (
     <div id='LoginPage'>
-      <form method="POST" action="/user/login" onSubmit={handleSubmit}>
+      <form id='LoginForm' method="POST" action="/user/login" onSubmit={handleSubmit}>
         <TextField label='Email' name='email' onChange={handleEmail}></TextField><br></br>
         <TextField label='Password' type='password' name='password' onChange={handlePassword}></TextField><br></br>
-        <Button type="submit">Login</Button>
+        <Button type="submit" variant="contained" color="secondary">Login</Button>
       </form>
     </div>
 

@@ -7,6 +7,9 @@ const CreateSpace = () => {
   const [projectName, setProjectName] = useState('');
   const [imageFile, setImageFile] = useState('');
   const [deploymentName, setDeploymentName] = useState('');
+  const [clusterName, setClusterName] = useState('');
+  const [externalIp, setExternalIp] = useState('');
+  const [clickMe, setClickMe] = useState('');
 
   const handleSetHostNamespace = (e) => {
     console.log('namespace', e.target.value)
@@ -33,8 +36,13 @@ const CreateSpace = () => {
     setDeploymentName(e.target.value);
   }
 
+  const handleSetClusterName= (e) => {
+    console.log('clusterName', e.target.value)
+    setClusterName(e.target.value);
+  }
+
   const formSubmit = (e) => {
-    const data = { hostNamespace, team_id, projectName };
+    const data = { clusterName, hostNamespace, team_id, projectName };
     e.preventDefault();
     fetch('/spaces/create', {
       method: 'POST',
@@ -44,7 +52,9 @@ const CreateSpace = () => {
       body: JSON.stringify(data),
     })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {
+      setExternalIp(data);
+    })
     .catch(err => console.log(err))
   }
 
@@ -63,20 +73,57 @@ const CreateSpace = () => {
     .catch(err => console.log(err))
   }
 
+  const getIp = (e) => {
+    e.preventDefault();
+    const data = { deploymentName, hostNamespace }
+    fetch('/spaces/getip', {
+      method:'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(data => {
+      const array = data.split(' ')
+      console.log(array);
+      array.forEach(element => {
+        if (element.slice(0,3) === '34.') {
+          console.log(element);
+          setExternalIp(element);
+        };
+      })
+      // setExternalIp(array[43]);
+      setClickMe(`Click here to visit ${deploymentName}`);
+    })
+  }
+ 
+
   return (
     <div id='create-spaces'>
       <h1>Create a namespace and deploy</h1>
 
       <div id='spaces'>
         <form method="POST" action="/spaces/create">
+          <h2>Create a Namespace</h2>
+          <TextField label='Host Cluster' name='hostCluster' onChange={handleSetClusterName}/>
           <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace}/>
           <TextField label='Team ID' name='team_id' onChange={handleSetTeamId}/>
           <TextField label='Project Name' name='projectName' onChange={handleSetProject}/>
-          <TextField label='Deployment Name' name='deploymentName' onChange={handleSetDeploymentName}/>
-          <TextField label='Config File' name='ImageFile' onChange={handleSetImageFile}/>
-          <Button type="submit" onClick={deployButton}>Deploy</Button>
-          <Button type="submit" onClick={formSubmit}>Create</Button>
+          <Button type="submit" variant="contained" color="primary" onClick={formSubmit}>Create</Button>
         </form>
+        <form>
+          <h2>Deploy an Image</h2>
+          
+          <TextField label='Deployment Name' name='deploymentName' onChange={handleSetDeploymentName}/>
+          <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace}/>
+          <TextField label='Config File' name='ImageFile' onChange={handleSetImageFile}/>
+          <Button type="submit" variant="contained" color="primary" onClick={deployButton}>Deploy</Button>
+        </form>
+          <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace}/>
+          <TextField label='Get Deployment' name='deploymentName' onChange={handleSetDeploymentName}/>
+          <Button type="submit" variant="contained" color="secondary" onClick={getIp}>Get External IP</Button>
+        <a href={`http://${externalIp}`}>{clickMe}</a>
       </div>
     </div>
   )
