@@ -5,6 +5,8 @@ const CreateSpace = () => {
   const [hostNamespace, setHostNamespace] = useState('');
   const [team_id, setTeamId] = useState('');
   const [projectName, setProjectName] = useState('');
+  const [imageFile, setImageFile] = useState('');
+  const [deploymentName, setDeploymentName] = useState('');
 
   const handleSetHostNamespace = (e) => {
     console.log('namespace', e.target.value)
@@ -19,6 +21,16 @@ const CreateSpace = () => {
   const handleSetProject = (e) => {
     console.log('projectName', e.target.value)
     setProjectName(e.target.value);
+  }
+
+  const handleSetImageFile = (e) => {
+    console.log('imageFile', e.target.value)
+    setImageFile(e.target.value);
+  }
+
+  const handleSetDeploymentName = (e) => {
+    console.log('deploymentName', e.target.value)
+    setDeploymentName(e.target.value);
   }
 
   const formSubmit = (e) => {
@@ -36,15 +48,33 @@ const CreateSpace = () => {
     .catch(err => console.log(err))
   }
 
+  const deployButton = (e) => {
+    const data = { deploymentName, hostNamespace, imageFile };
+    e.preventDefault();
+    fetch('/spaces/deploy', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
+  }
+
   return (
     <div id='create-spaces'>
-      <h1>Create a namespace</h1>
+      <h1>Create a namespace and deploy</h1>
 
       <div id='spaces'>
         <form method="POST" action="/spaces/create">
-          <TextField label='Create Namespace' name='hostNamespace' onChange={handleSetHostNamespace}/>
+          <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace}/>
           <TextField label='Team ID' name='team_id' onChange={handleSetTeamId}/>
           <TextField label='Project Name' name='projectName' onChange={handleSetProject}/>
+          <TextField label='Deployment Name' name='deploymentName' onChange={handleSetDeploymentName}/>
+          <TextField label='Config File' name='ImageFile' onChange={handleSetImageFile}/>
+          <Button type="submit" onClick={deployButton}>Deploy</Button>
           <Button type="submit" onClick={formSubmit}>Create</Button>
         </form>
       </div>

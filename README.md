@@ -2,14 +2,64 @@
 
 REQUIREMENTS:
 - Node.js version 12.18.3+
+- Google Cloud SDK
+- vClusters
+- Helm
 
 INSTALL:gi
 - With NPM:
 
-npm install --save klustrdev
-
 TO GET STARTED:
-- run ```npm install``` , we need to do this because our npm dependencies 
+- Run ```npm install``` , we need to do this because our npm dependencies 
+- Run ```ohana-*** with the "nix", "mac", "win", "m1" flags``` depending on your operating system or command line interface
+- Google cloud may need to be installed locally for macOS: ```https://cloud.google.com/sdk/docs/quickstart#mac```
+
+FOR ADMINS TO CONNECT:
+- utilize gcloud init to set up a configuration; regions are currently locked to ```us-west1``` or ```us-west1-a```. functionality to choose or create will come in a later update; 
+- Run ```gcloud config set account <account-email-address>``` to change accounts if managing more than one cluster; functionality in UI to be included later
+- Connect to the cluster with your google cloud account using ```gcloud auth login```; you may be asked to verify in a browser
+
+FOR ADMINS TO MANAGE TEAMS:
+- Use an admin account and log in with your credentials. You will be taken to the admin panel where you can create teams, users, and have a view of the existing teams and users
+- Create users within the UI; functionality to use a .yaml configuration for RBAC configuration
+- Once users have their own account, they'll be able to log in
+
+FOR USERS:
+- Once you have your account and can log in, the UI is intuitive to connect and create
+- Input the necessary fields in the vCluster page: 
+- ```Cluster``` : Original Cluster name to connect to
+- ```vCluster```: the vCluster name you want
+- ```Host Namespace```: 
+
+
+// necessary to create a cluster if it doesn't already exist; be aware of regional resource availability
+gcloud.create = (clusterName, numNodes, gcloudRegion) => `gcloud container clusters create ${clusterName} --num-nodes=${numNodes} --region=${gcloudRegion}`
+// 'gcloud container clusters get-credentials <insert name>:<optional tag> 
+gcloud.getCredentials = (clusterName) => `gcloud container clusters get-credentials ${clusterName} --region=us-west1`
+// 'gcloud config set account <accountemailaddress>'
+gcloud.switchAccount = (gcloudUserEmail) => `gcloud config set account ${gcloudUserEmail}`
+
+
+
+const kubectl = {};
+
+kubectl.createNamespace = (hostNamespace) => `kubectl create namespace ${hostNamespace}`
+// can create spaces, accounts, configurations, namespaces etc based on the config file passed in
+kubectl.createFromConfig = (configFile) => `kubectl apply -f ${configFile}`
+// can create spaces, accounts, configurations, namespaces, roles, etc based on the config file passed in impersonating a user; admin only
+kubectl.createFromConfigAs = (configFile, userName) => `kubectl apply -f /yamlConfigs/${configFile}.yaml --as=${userName}`
+// get additional detail on pods
+kubectl.describe = (hostNamespace) => `kubectl describe pods -n ${hostNamespace}`
+// kubectl create deployment <insert name> --image=<insert image file/link>
+kubectl.deployImage = (deploymentName, hostNamespace, imageFile) => `kubectl create deployment ${deploymentName} -n ${hostNamespace} --image=${imageFile}`
+// expose the deployment for kubernetes 
+kubectl.expose = (deploymentName, hostNamespace) => `kubectl expose deployment ${deploymentName} -n ${hostNamespace} --type LoadBalancer --port=80 --target-port=8080`
+// deploy the pod in a specific namespace with the image configuration
+kubectl.deploy = (hostNamespace, configFile) => `kubectl apply -n ${hostNamespace} -f /Users/fenris/Desktop/Codesmith/klustr.dev/yamlConfigs/${configFile}.yaml`
+// deploy the pod in a specific namespace with the image configuration impersonating a user; admin only
+kubectl.deployAs = (hostNamespace, configFile, userName) => `kubectl apply -n ${hostNamespace} -f /yamlConfigs/${configFile}.yaml --as=${userName}`
+
+
 Stage 1: successfully initialize node, git repo, webpack and running express backend server.
   - webpack: 
     - current loaders: preset-react, preset-env

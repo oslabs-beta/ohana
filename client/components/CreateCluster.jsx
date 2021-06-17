@@ -36,16 +36,16 @@ const CreateCluster = () => {
 
   return (
     <div id='create-clusters'>
-      <h1>Create a vCluster</h1>
-      <div id='clusters'>
-        <form onSubmit={formSubmit}>
-          <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} />
-          <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
-          <TextField label='Host' name='hostNamespace' onChange={handleHostNamespaceChange} />
-          {/* need to add in text fields for cluster creation */}
-          <Button type="submit">Create</Button>
-        </form>
-      </div>
+
+    <h1>Create a vCluster</h1>
+    <div id='clusters'>
+      <form onSubmit={formSubmit}>
+        <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} />
+        <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
+        <TextField label='Host Namespace' name='hostNamespace' onChange={handleHostNamespaceChange} />
+        <Button type="submit">Create</Button>
+      </form>
+    </div>
     </div>
   )
 }
