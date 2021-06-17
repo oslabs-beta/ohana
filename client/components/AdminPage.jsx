@@ -3,9 +3,6 @@ import TeamsDisplay from './TeamsDisplay.jsx'
 import CreateTeam from './CreateTeam.jsx';
 import CreateUser from './CreateUser.jsx';
 
-
-
-
 const AdminPage = () => {
 
 

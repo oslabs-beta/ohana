@@ -19,6 +19,11 @@ Stage 1: successfully initialize node, git repo, webpack and running express bac
   - backend database
     - not yet implemented
 
+
+ - Assumes you already have a cluster that is currently running on GKE
+ - Assumes you have admin privileges for said cluster (Admin)
+  -- the Admin would then grant you rights to the namespace, which would allow you to create a vcluster
+
 Commands used to get started:
 1) ```npm init -y```                                  ---> creates package.json file
 2) ```touch README.md```                              ---> creates a blank README file
