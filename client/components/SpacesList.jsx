@@ -1,12 +1,18 @@
 import React from 'react';
 
-const SpacesList = () => {
+const arrayOfSpaces = ["hi", "test", "okay"];
+// refresh list of currently active spaces - either by querying db or by running terminal
+// commands to get info from kiosk
 
+const listOfSpaces = arrayOfSpaces.map((space) =>
+  <li>{space}</li>
+);
+
+const SpacesList = () => {
   return (
-    <div id='spaces-list'>
-      <h3>Current Virtual Clusters</h3>
-    </div>
+    <ul>{listOfSpaces}</ul>
   )
 }
+
 
 export default SpacesList;

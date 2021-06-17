@@ -12,10 +12,9 @@
   "author": "klustr",
   "license": "ISC",
   "browser:": {
-    "child_process" : false
+    "child_process": false
   },
   "dependencies": {
-
     "@material-ui/core": "^4.11.4",
     "bcrypt": "^5.0.1",
     "child_process": "^1.0.2",

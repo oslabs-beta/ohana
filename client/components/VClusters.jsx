@@ -1,12 +1,14 @@
 import React from 'react';
+import VClustersList from './VClustersList.jsx';
 
-const vClustersList = () => {
+const VClusters = () => {
 
   return (
     <div id='vClustersList'>
       <h3>Current Virtual Clusters</h3>
+      <VClustersList />
     </div>
   )
 }
 
-export default vClustersList;
+export default VClusters;

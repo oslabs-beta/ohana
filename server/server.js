@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
 app.use('/user', userRouter)
 app.use('/admin', adminRouter)
 app.use('/spaces', spacesRouter)
+app.use('/vcluster', clusterRouter)
 app.use('/clusters', clusterRouter)
 
 app.use((err, req, res, next) => {
