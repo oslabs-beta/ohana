@@ -44,7 +44,7 @@ clusterController.createCluster = (req, res, next) => {
       console.log('1', data)
       runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
 
-      runTerminalCommand(vCluster.connect(vClusterName, hostNamespace))
+      // runTerminalCommand(vCluster.connect(vClusterName, hostNamespace))
     .catch(err => console.log(err))
   })
 }
@@ -61,10 +61,10 @@ clusterController.deleteCluster = (req, res, next) => {
 })
 }
 
-        .then(() => next())
-        .catch(err => console.log(err))
-    })
-}
+//         // .then(() => next())
+//         // .catch(err => console.log(err))
+//     })
+// }
 
 clusterController.fetchClusters = (req, res, next) => {
   const query = `

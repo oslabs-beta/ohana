@@ -46,8 +46,9 @@ const CreateCluster = () => {
         {/* need to add in text fields for cluster creation */}
         <Button type="submit">Create</Button>
       </form>
-
+    </div>
     </div>
   )
 }
+
 export default CreateCluster;
