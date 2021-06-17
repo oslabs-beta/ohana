@@ -15,6 +15,7 @@ clusterController.addCluster = (req, res, next) => {
       return next({ log: `Error in clsuterController.addCluster: ${err}` });
     })
 }
+
 clusterController.createCluster = (req, res, next) => {
   console.log(req.body);
   const { clusterName, vClusterName, hostNamespace } = req.body;
@@ -24,6 +25,18 @@ clusterController.createCluster = (req, res, next) => {
       runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
         .then(() => next())
         .catch(err => console.log(err))
+    })
+}
+
+clusterController.fetchClusters = (req, res, next) => {
+  const query = `
+  SELECT * FROM vclusters3;
+  `
+
+  db.query(query)
+    .then((data) => {
+      res.locals.kyung = data.rows
+      return next();
     })
 }
 module.exports = clusterController;
