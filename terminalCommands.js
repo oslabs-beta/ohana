@@ -87,12 +87,12 @@ kubectl.createNamespace = (hostNamespace) => `kubectl create namespace ${hostNam
 
 // v cluster variables, eventually to be user-submitted from front-end / GUI / UI (hard-coded for MVP)
 const vCluster = {}
-vCluster.create = (vClusterName, hostNamespace) => `helm upgrade --install vcluster-1 vcluster \
---values /home/mikat/klustr.dev/yamlConfigs/vCluster.yaml \
---repo https://charts.loft.sh \
---namespace vcluster-1 \
---repository-config=''`;
-//vCluster.create = (vClusterName, hostNamespace) => `vcluster create ${ vClusterName } -n ${ hostNamespace } `;
+// vCluster.create = (vClusterName, hostNamespace) => `helm upgrade --install vcluster-1 vcluster \
+// --values /home/mikat/klustr.dev/yamlConfigs/vCluster.yaml \
+// --repo https://charts.loft.sh \
+// --namespace vcluster-1 \
+// --repository-config=''`;
+vCluster.create = (vClusterName, hostNamespace) => `vcluster create ${ vClusterName } -n ${ hostNamespace } `;
 vCluster.connect = (vClusterName, hostNamespace) => `vcluster connect ${vClusterName} -n ${hostNamespace} \ export KUBECONFIG =./ kubeconfig.yaml`;
 vCluster.delete = (vClusterName, hostNamespace) => `vcluster delete ${vClusterName} -n ${hostNamespace} `;
 // // test kubectl expose command
