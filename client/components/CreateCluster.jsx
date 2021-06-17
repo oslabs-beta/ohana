@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, CircularProgress } from '@material-ui/core'
 
 const CreateCluster = () => {
 
   const [clusterName, setClusterName] = useState('');
   const [vClusterName, setvClusterName] = useState('');
   const [hostNamespace, setHostNamespace] = useState('');
+  const [inProgress, setInProgress] = useState('');
+  const [currentProcess, setCurrentProcess] = useState('');
 
   const handleClusterNameChange = (e) => {
     setClusterName(e.target.value)
@@ -21,6 +23,8 @@ const CreateCluster = () => {
 
   const formSubmit = (e) => {
     const data = { clusterName, vClusterName, hostNamespace };
+    setCurrentProcess(`Creating vCluster: ${vClusterName}`)
+    setInProgress(<CircularProgress />);
     e.preventDefault();
     fetch('/clusters/create', {
       method: 'POST',
@@ -30,23 +34,27 @@ const CreateCluster = () => {
       body: JSON.stringify(data),
     })
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        setCurrentProcess(data);
+        setInProgress('');
+      })
       .catch(err => console.log(err))
   }
 
   return (
     <div id='create-clusters'>
-
     <h1>Create a vCluster</h1>
     <div id='clusters'>
       <form onSubmit={formSubmit}>
-        <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} />
+        <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} color="primary" />
         <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
         <TextField label='Host Namespace' name='hostNamespace' onChange={handleHostNamespaceChange} />
         {/* need to add in text fields for cluster creation */}
-        <Button type="submit">Create</Button>
+        {/* <Button type="submit">Create</Button> */}
+        <Button variant="contained" color="primary" type="submit">Create</Button>
+        <span>{currentProcess}</span><span>{inProgress}</span>
       </form>
-
+    </div>
     </div>
   )
 }
