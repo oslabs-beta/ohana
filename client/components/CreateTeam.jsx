@@ -10,7 +10,7 @@ const CreateTeam = () => {
       <TextField label='Team Lead'></TextField><br></br>
       <TextField label='Team Lead Email'></TextField><br></br>
       <TextField label='Project Name'></TextField><br></br>
-      <Button>Create Team</Button>
+      <Button variant="contained" color="primary">Create Team</Button>
     </div>
   )
 }

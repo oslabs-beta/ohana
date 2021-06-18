@@ -18,7 +18,7 @@ const CreateUser = () => {
       {/* <Select>Select Team</Select> */}
       <FormControlLabel control={<Checkbox/>} name='isAdmin' label='Add as Admin' labelPlacement='end'
       onChange={handleAdmin} value={isAdmin}/><br></br>
-      <Button type='submit' label='Create User'>Create User</Button>
+      <Button type='submit' label='Create User' variant="contained" color="primary">Create User</Button>
       </form>
     </div>
   )

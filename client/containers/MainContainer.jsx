@@ -24,8 +24,6 @@ const MainContainer = (props) => {
   // console.log('main', props)
   return (
     <div className='MainContainer'>
-
-
       <Switch>
         <Route path="/" exact>
           <LoginContext.Provider value={loginStatus}>

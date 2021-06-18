@@ -16,15 +16,16 @@ const NavBar = () => {
     <div id='navbar'>
       {/* <Button>Spaces</Button>
     <Button onClick={handleCluster}>vClusters</Button>
-    <Button>Admin</Button> */}
-
-      <Link component='button' onClick={() => {
-        history.push('/user')
-      }}>Spaces</Link>
-      <Link component='button' onClick={() => {
-        history.push('/vcluster')
-      }}>vClusters</Link>
-
+     */}
+    <Button className='navButtons' onClick={() => {history.push('/admin')}}>
+      Admin
+    </Button>
+    <Button className='navButtons' onClick={() => {history.push('/user')}}>
+      Spaces
+    </Button>
+    <Button className='navButtons' onClick={() => {history.push('/vcluster')}}>
+      vClusters
+    </Button>
     </div>
   )
 }

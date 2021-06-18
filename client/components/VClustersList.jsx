@@ -47,7 +47,8 @@ const VClustersList = () => {
   return (
     <div id='vClustersList'>
       <h3>Current Virtual Clusters</h3>
-<TableContainer component={Paper}>
+      <Button id="get-vclusters" onClick={handleClick} variant="outlined" color="primary.light">Get VClusters</Button>
+      <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -71,10 +72,6 @@ const VClustersList = () => {
         </TableBody>
       </Table>
     </TableContainer>
-
-      <div id='spaces'>
-        <Button onClick={handleClick}>Get VClusters</Button>
-      </div>
     </div>
   )
 }
