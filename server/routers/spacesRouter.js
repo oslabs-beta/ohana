@@ -14,7 +14,15 @@ spacesController.createNamespace, (req, res) => {
 router.post('/deploy',
 spacesController.deploy,
   (req, res) => {
-  res.status(200).send('Successfully deployed');
+  const { jeff } = res.locals;
+  res.status(200).json(jeff);
+})
+
+router.post('/getip',
+spacesController.getExternalIp,
+  (req, res) => {
+  const { getServices } = res.locals;
+  res.status(200).json(getServices);
 })
 
 router.get('/fetch', spacesController.fetchSpaces, (req, res) => {

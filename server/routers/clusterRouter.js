@@ -6,7 +6,8 @@ router.post('/create',
   clusterController.addCluster,
   clusterController.createCluster,
   (req, res) => {
-    res.status(200).json('Successfully created cluster');
+    const { vClusterName } = res.locals;
+    res.status(200).json(`Successfully created ${vClusterName} on cluster-1!`);
   }
 )
 
