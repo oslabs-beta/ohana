@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material-ui/core'
+import { Button, TextField, Select } from '@material-ui/core'
 
 const CreateSpace = () => {
   const [hostNamespace, setHostNamespace] = useState('');
@@ -12,32 +12,26 @@ const CreateSpace = () => {
   const [clickMe, setClickMe] = useState('');
 
   const handleSetHostNamespace = (e) => {
-    console.log('namespace', e.target.value)
     setHostNamespace(e.target.value)
   }
 
   const handleSetTeamId = (e) => {
-    console.log('teamId', e.target.value)
     setTeamId(e.target.value);
   }
 
   const handleSetProject = (e) => {
-    console.log('projectName', e.target.value)
     setProjectName(e.target.value);
   }
 
   const handleSetImageFile = (e) => {
-    console.log('imageFile', e.target.value)
     setImageFile(e.target.value);
   }
 
   const handleSetDeploymentName = (e) => {
-    console.log('deploymentName', e.target.value)
     setDeploymentName(e.target.value);
   }
 
-  const handleSetClusterName= (e) => {
-    console.log('clusterName', e.target.value)
+  const handleSetClusterName = (e) => {
     setClusterName(e.target.value);
   }
 
@@ -51,11 +45,11 @@ const CreateSpace = () => {
       },
       body: JSON.stringify(data),
     })
-    .then(res => res.json())
-    .then(data => {
-      setExternalIp(data);
-    })
-    .catch(err => console.log(err))
+      .then(res => res.json())
+      .then(data => {
+        setExternalIp(data);
+      })
+      .catch(err => console.log(err))
   }
 
   const deployButton = (e) => {
@@ -68,36 +62,32 @@ const CreateSpace = () => {
       },
       body: JSON.stringify(data),
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
   }
 
   const getIp = (e) => {
     e.preventDefault();
     const data = { deploymentName, hostNamespace }
     fetch('/spaces/getip', {
-      method:'POST',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     })
-    .then(res => res.json())
-    .then(data => {
-      const array = data.split(' ')
-      console.log(array);
-      array.forEach(element => {
-        if (element.slice(0,3) === '34.') {
-          console.log(element);
-          setExternalIp(element);
-        };
+      .then(res => res.json())
+      .then(data => {
+        const array = data.split(' ')
+        array.forEach(element => {
+          if (element.slice(0, 3) === '34.') {
+            setExternalIp(element);
+          };
+        })
+        setClickMe(`Click here to visit ${deploymentName}`);
       })
-      // setExternalIp(array[43]);
-      setClickMe(`Click here to visit ${deploymentName}`);
-    })
   }
- 
 
   return (
     <div id='create-spaces'>
@@ -106,23 +96,23 @@ const CreateSpace = () => {
       <div id='spaces'>
         <form method="POST" action="/spaces/create">
           <h2>Create a Namespace</h2>
-          <TextField label='Host Cluster' name='hostCluster' onChange={handleSetClusterName}/>
-          <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace}/>
-          <TextField label='Team ID' name='team_id' onChange={handleSetTeamId}/>
-          <TextField label='Project Name' name='projectName' onChange={handleSetProject}/>
+          <TextField label='Host Cluster' name='hostCluster' onChange={handleSetClusterName} />
+          <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace} />
+          <TextField label='Team ID' name='team_id' onChange={handleSetTeamId} />
+          <TextField label='Project Name' name='projectName' onChange={handleSetProject} />
           <Button type="submit" variant="contained" color="primary" onClick={formSubmit}>Create</Button>
         </form>
         <form>
           <h2>Deploy an Image</h2>
-          
-          <TextField label='Deployment Name' name='deploymentName' onChange={handleSetDeploymentName}/>
-          <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace}/>
-          <TextField label='Config File' name='ImageFile' onChange={handleSetImageFile}/>
+
+          <TextField label='Deployment Name' name='deploymentName' onChange={handleSetDeploymentName} />
+          <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace} />
+          <TextField label='Config File' name='ImageFile' onChange={handleSetImageFile} />
           <Button type="submit" variant="contained" color="primary" onClick={deployButton}>Deploy</Button>
         </form>
-          <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace}/>
-          <TextField label='Get Deployment' name='deploymentName' onChange={handleSetDeploymentName}/>
-          <Button type="submit" variant="contained" color="secondary" onClick={getIp}>Get External IP</Button>
+        <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace} />
+        <TextField label='Get Deployment' name='deploymentName' onChange={handleSetDeploymentName} />
+        <Button type="submit" variant="contained" color="secondary" onClick={getIp}>Get External IP</Button>
         <a href={`http://${externalIp}`}>{clickMe}</a>
       </div>
     </div>

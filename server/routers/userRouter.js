@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-// Add middleware here
 const userController = require('../controllers/userController');
 
 router.post('/create',
-  // userController.bcryptEmail,
   userController.bcryptPassword,
   userController.addNewUser,
   (req, res) => {
@@ -13,13 +11,11 @@ router.post('/create',
   })
 
 router.post('/login',
-  // userController.bcryptEmail,
   userController.loginCheck,
   userController.isAdminCheck,
   userController.assignJwt,
   (req, res) => {
     const { token } = res.locals;
-    console.log(token)
     res.status(200).json(token)
   }
 )

@@ -16,7 +16,6 @@ adminController.bcryptEmail = (req, res, next) => {
 }
 
 adminController.bcryptPassword = (req, res, next) => {
-  console.log(req.body)
   const { password } = req.body;
   bcrypt.hash(password, saltRounds)
     .then((hash) => {
@@ -39,12 +38,9 @@ adminController.addNewAdmin = (req, res, next) => {
 }
 
 adminController.assignJwt = (req, res, next) => {
-  console.log('assigning jwt')
   const { email, firstName, lastName } = req.body;
-  console.log({ email, firstName, lastName, isAdmin: true })
   jwt.sign({ email, firstName, lastName, isAdmin: true }, secret, (err, token) => {
     if (err) return next({ log: `Error in adminController.assignJwt: ${err}` })
-    console.log(token);
     res.locals.token = token;
     return next();
   })

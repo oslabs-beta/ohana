@@ -1,19 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const clusterController = require('../controllers/clusterController');
+const vClusterController = require('../controllers/vClusterController');
 
 router.post('/create',
-  clusterController.addCluster,
-  clusterController.createCluster,
+  vClusterController.addVCluster,
+  vClusterController.createVCluster,
   (req, res) => {
     const { vClusterName } = res.locals;
     res.status(200).json(`Successfully created ${vClusterName} on cluster-1!`);
   }
 )
 
-router.get('/vcluster', 
-  clusterController.fetchClusters, 
+router.get('/',
+  vClusterController.fetchVClusters,
   (req, res) => {
-  res.status(200).json(res.locals.kyung)
-})
+    res.status(200).json(res.locals.kyung)
+  })
+
 module.exports = router;

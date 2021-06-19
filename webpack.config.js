@@ -36,7 +36,6 @@ module.exports = {
       '/clusters': 'http://localhost:3000',
       '/spaces': 'http://localhost:3000',
       '/vcluster': 'http://localhost:3000'
-      // '/api/leaders': 'http://localhost:3000',
     }
   },
   plugins: [new webpack.HotModuleReplacementPlugin()]
