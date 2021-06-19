@@ -68,16 +68,12 @@ spacesController.deploy = (req, res, next) => {
   runTerminalCommand(kubectl.deployImage(deploymentName, hostNamespace, imageFile))
   .then(() => {
     runTerminalCommand(kubectl.expose(deploymentName, hostNamespace))
-<<<<<<< HEAD
-    // runTerminalCommand(`kubectl get services`)
-=======
       .then(() => runTerminalCommand(`kubectl get services -n ${hostNamespace} ${deploymentName}`))
       .then((data) =>{
         console.log(data);
         res.locals.jeff = data;
         return next();
       })
->>>>>>> 4765fcce0db6b9d48597b3688aee1f50b5a7fb30
   })
 }
 

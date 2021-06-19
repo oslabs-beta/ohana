@@ -6,7 +6,6 @@ const runTerminalCommand = (command) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {
         console.warn(error);
-
        }
        resolve(stdout ? stdout : stderr);
 
@@ -14,27 +13,7 @@ const runTerminalCommand = (command) => {
   })
 }
 
-// gcloud variables
-let clusterName = 'klustr-jefftest';
-let gcloudRegion = 'us-west1';
-let numNodes = '2';
-let gcloudUserEmail = 'contact.jeffchen@gmail.com';
-// kubctl variables
-let imageFile = 'docker.io/klustr/watchr'
-// imageFile only for watchr purposes
-let deploymentName = 'klustr-deployment'
-// changed to hostNameSpace instead of namespace
-let hostNamespace = 'kiosk';
-let configFile = '/yamlConfigs/account.yaml';
-let podName = 'klustr-deployment-786bd87dd4-pvrk6';
-let userName = 'john';
-let portIn = '80';
-let portOut = '8080';
-let space = 'johns-space';
-let vClusterName = 'testing';
-
 // gcloud terminal commands
-
 const gcloud = {}
 // necessary to create a cluster if it doesn't already exist; be aware of regional resource availability
 gcloud.create = (clusterName, numNodes, gcloudRegion) => `gcloud container clusters create ${clusterName} --num-nodes=${numNodes} --region=${gcloudRegion}`
@@ -42,8 +21,6 @@ gcloud.create = (clusterName, numNodes, gcloudRegion) => `gcloud container clust
 gcloud.getCredentials = (clusterName) => `gcloud container clusters get-credentials ${clusterName} --region=us-west1-a`
 // 'gcloud config set account <accountemailaddress>'
 gcloud.switchAccount = (gcloudUserEmail) => `gcloud config set account ${gcloudUserEmail}`
-
-
 
 const kubectl = {};
 
@@ -64,7 +41,6 @@ kubectl.deploy = (hostNamespace, configFile) => `kubectl apply -n ${hostNamespac
 kubectl.deployAs = (hostNamespace, configFile, userName) => `kubectl apply -n ${hostNamespace} -f /yamlConfigs/${configFile}.yaml --as=${userName}`
 
 const vCluster = {}
-
 
 vCluster.create = (vClusterName, hostNamespace) => `vcluster create ${vClusterName} -n ${hostNamespace}`;
 vCluster.connect = (vClusterName, hostNamespace) => `vcluster connect ${vClusterName} -n ${hostNamespace} \export KUBECONFIG=./kubeconfig.yaml`;

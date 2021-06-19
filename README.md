@@ -5,13 +5,15 @@ REQUIREMENTS:
 - Google Cloud SDK
 - vClusters
 - Helm
+- 
 
 INSTALL:gi
 - With NPM:
 
 TO GET STARTED:
 - Run ```npm install``` , we need to do this because our npm dependencies 
-- Run ```ohana-*** with the "nix", "mac", "win", "m1" flags``` depending on your operating system or command line interface
+- Run ```ohana-*** with the "nix", "mac", "win", "m1" ``` flags depending on your operating system or command line interface
+- Please note that if you are using WSL and Windows, please install using the ```ohana-nix``` flag; if you are using powershell, please install using the ```ohana-win``` flag
 - Google cloud may need to be installed locally for macOS: ```https://cloud.google.com/sdk/docs/quickstart#mac```
 
 FOR ADMINS TO CONNECT:
