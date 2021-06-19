@@ -6,8 +6,14 @@ const runTerminalCommand = (command) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {
         console.warn(error);
+<<<<<<< HEAD
        }
        resolve(stdout ? stdout : stderr);
+=======
+
+      }
+      resolve(stdout ? stdout : stderr);
+>>>>>>> 024d21d4cd91b8d6e22f04c65da2dd6db11af187
 
     })
   })

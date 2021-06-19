@@ -26,7 +26,8 @@ const CreateCluster = () => {
     setCurrentProcess(`Creating vCluster: ${vClusterName}`)
     setInProgress(<CircularProgress />);
     e.preventDefault();
-    fetch('/clusters/create', {
+
+    fetch('/vclusters/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -43,6 +44,7 @@ const CreateCluster = () => {
 
   return (
     <div id='create-clusters'>
+<<<<<<< HEAD
     <h1>Create a vCluster</h1>
     <div id='clusters'>
       <form onSubmit={formSubmit}>
@@ -53,6 +55,18 @@ const CreateCluster = () => {
         <span>{currentProcess}</span><span>{inProgress}</span>
       </form>
     </div>
+=======
+      <h1>Create a vCluster</h1>
+      <div id='clusters'>
+        <form onSubmit={formSubmit}>
+          <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} color="primary" />
+          <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
+          <TextField label='Host Namespace' name='hostNamespace' onChange={handleHostNamespaceChange} />
+          <Button variant="contained" color="primary" type="submit">Create</Button>
+          <span>{currentProcess}</span><span>{inProgress}</span>
+        </form>
+      </div>
+>>>>>>> 024d21d4cd91b8d6e22f04c65da2dd6db11af187
     </div>
   )
 }

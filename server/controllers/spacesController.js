@@ -56,25 +56,28 @@ spacesController.createNamespace = (req, res, next) => {
   const { clusterName, hostNamespace } = req.body;
   // need to make gcloud into a function
   runTerminalCommand(gcloud.getCredentials(clusterName))
-  .then((data) => {
-    console.log(data)
-    runTerminalCommand(kubectl.createNamespace(hostNamespace))
-  return next();
-  })
+    .then((data) => {
+      console.log(data)
+      runTerminalCommand(kubectl.createNamespace(hostNamespace))
+        .then((data) => {
+          console.log(data)
+          return next();
+        })
+    })
 }
 
 spacesController.deploy = (req, res, next) => {
   const { deploymentName, hostNamespace, imageFile } = req.body;
   runTerminalCommand(kubectl.deployImage(deploymentName, hostNamespace, imageFile))
-  .then(() => {
-    runTerminalCommand(kubectl.expose(deploymentName, hostNamespace))
-      .then(() => runTerminalCommand(`kubectl get services -n ${hostNamespace} ${deploymentName}`))
-      .then((data) =>{
-        console.log(data);
-        res.locals.jeff = data;
-        return next();
-      })
-  })
+    .then(() => {
+      runTerminalCommand(kubectl.expose(deploymentName, hostNamespace))
+        .then(() => runTerminalCommand(`kubectl get services -n ${hostNamespace} ${deploymentName}`))
+        .then((data) => {
+          console.log(data);
+          res.locals.jeff = data;
+          return next();
+        })
+    })
 }
 
 spacesController.getExternalIp = (req, res, next) => {

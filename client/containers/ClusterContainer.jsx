@@ -4,13 +4,10 @@ import VClustersList from '../components/VClustersList.jsx';
 
 const ClusterContainer = () => {
 
-
-
-
   return (
     <div id='vClusterContainer'>
-    <CreateCluster />
-    <VClustersList />
+      <CreateCluster />
+      <VClustersList />
     </div>
   )
 }

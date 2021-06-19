@@ -1,8 +1,9 @@
 const db = require('../db/models');
 const { runTerminalCommand, vCluster, gcloud } = require('../../terminalCommands.js')
-const clusterController = {};
+const vClusterController = {};
 
-clusterController.addCluster = (req, res, next) => {
+
+vClusterController.addVCluster = (req, res, next) => {
   const { hostNamespace, vClusterName, projectName } = req.body;
   const params = [hostNamespace, vClusterName, projectName];
   const query = `
@@ -14,7 +15,7 @@ clusterController.addCluster = (req, res, next) => {
       return next();
     })
     .catch((err) => {
-      return next({ log: `Error in clsuterController.addCluster: ${err}` });
+      return next({ log: `Error in clsuterController.addVCluster: ${err}` });
     })
 }
 
@@ -34,51 +35,42 @@ clusterController.addCluster = (req, res, next) => {
 //     })
 // }
 
-clusterController.createCluster = (req, res, next) => {
-    console.log(req.body);
-    const { clusterName, vClusterName, hostNamespace } = req.body;
-    res.locals.vClusterName = vClusterName;
-    // need to make gcloud into a function
-    runTerminalCommand(gcloud.getCredentials(clusterName))
+vClusterController.createVCluster = (req, res, next) => {
+
+  console.log(req.body);
+  const { clusterName, vClusterName, hostNamespace } = req.body;
+  res.locals.vClusterName = vClusterName;
+  // need to make gcloud into a function
+  runTerminalCommand(gcloud.getCredentials(clusterName))
     .then((data) => {
       console.log('1', data)
       runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
         .then(() => next())
-      // runTerminalCommand(vCluster.connect(vClusterName, hostNamespace))
+        // runTerminalCommand(vCluster.connect(vClusterName, hostNamespace))
         .catch(err => console.log(err))
-  }).catch(err => next({log: `clusterController.createCluster: ${err}`}))
+    }).catch(err => next({ log: `clusterController.createCluster: ${err}` }))
 }
 
-clusterController.deleteCluster = (req, res, next) => {
+vClusterController.deleteVCluster = (req, res, next) => {
   console.log(req.body);
   const { clusterName, vClusterName, hostNamespace } = req.body;
   // need to make gcloud into a function
   runTerminalCommand(gcloud.getCredentials(clusterName))
-  .then((data) => {
-    console.log('1',data)
-    runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
-  .catch(err => console.log(err))
-  })
+    .then((data) => {
+      console.log('1', data)
+      runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
+        .catch(err => console.log(err))
+    })
 }
 
-// clusterController.deleteCluster = (req, res, next) => {
-//   console.log(req.body);
-//   const { clusterName, vClusterName, hostNamespace } = req.body;
-//   runTerminalCommand(gcloud.getCredentials(clusterName))
-//   .then((data) => {
-//     console.log('1',data)
-//     runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
-//   .catch(err => console.log(err))
-//   })
-// }
-
-clusterController.fetchClusters = (req, res, next) => {
+vClusterController.fetchVClusters = (req, res, next) => {
   const query = `
-  SELECT * FROM vclusters3;`
+  SELECT * FROM vclusters3;
+  `
   db.query(query)
     .then((data) => {
       res.locals.kyung = data.rows
       return next();
     })
 }
-module.exports = clusterController;
+module.exports = vClusterController;

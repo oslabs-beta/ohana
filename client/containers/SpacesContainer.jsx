@@ -4,9 +4,6 @@ import SpacesList from '../components/SpacesList.jsx';
 
 const SpacesContainer = () => {
 
-
-
-
   return (
     <div id='Spaces-Container'>
       <CreateSpace />
