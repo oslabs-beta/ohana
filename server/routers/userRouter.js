@@ -8,6 +8,7 @@ router.post('/create',
   userController.addNewUser,
   userController.editAccessUser,
   userController.createServiceAccount,
+  userController.createTenancy,
   (req, res) => {
     res.status(200).send('Successfully added new user');
   })

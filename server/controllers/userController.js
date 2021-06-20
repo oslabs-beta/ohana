@@ -59,7 +59,7 @@ userController.addNewUser = (req, res, next) => {
 //     })
 // }
 
-// new
+// new || do we need to add this into the db as well?
 userController.createServiceAccount = (req, res, next) => {
   const { email } = req.body
   // run terminal command for service account
@@ -70,34 +70,28 @@ userController.createServiceAccount = (req, res, next) => {
     return next();
     })
   .catch((err) => {
-    return next({ log: `Error in userController.editAccessUser: ${err}` });
+    return next({ log: `Error in userController.createServiceAccount: ${err}` });
     })
   }
 
 // create tenancy with the useraccount.yaml
-// userController.createTenancy = (req, res, next) => {
-//   const { editAccess } = req.body
-//   runTerminalCommand(kubectl.currentContext())
-//   .then((data) => {
-//     const clusterName = data.split('_').slice(-1).toString().trim();
-//     runTerminalCommand(gcloud.getCredentials(clusterName))
-//   .then((data) => {
-//     if (editAccess === 'true') {
-//       // need to create config files automatically
-//       runTerminalCommand(kubectl.createFromConfig(configFile))
-//       return next();
-//     } else {
-//       runTerminalCommand(kubectl.createFromConfig(configFile))
-//       return next();
-//     }
-//   })
-//   .catch((err) => {
-//     return next({ log: `Error in userController.editAccessUser: ${err}` });
-//     })
-//   })
-// }
+userController.createTenancy = (req, res, next) => {
+  const { email } = req.body
+  // need to generate a yaml file here
+  // const accountConfigFile = generateYaml with email
+  // const spaceConfigFile = generateYaml with email
+  runTerminalCommand(kubectl.createFromConfigAs(configFile, email))
+  .then((data) => {
+    console.log('what is data', data)
+    runTerminalCommand(kubectl.createFromConfigAs(configFile, email))
+    return next();
+  })
+  .catch((err) => {
+    return next({log: `Error in userController.createTenancy: ${err}`})
+  })
+}
 
-
+// this is new do not delete
 // userController.editAccessUser = (req, res, next) => {
 //   const { editAccess } = req.body
 //   runTerminalCommand(kubectl.currentContext())

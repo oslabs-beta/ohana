@@ -30,7 +30,7 @@ kubectl.createNamespace = (hostNamespace) => `kubectl create namespace ${hostNam
 // can create spaces, accounts, configurations, namespaces etc based on the config file passed in
 kubectl.createFromConfig = (configFile) => `kubectl apply -f ${configFile}`
 // can create spaces, accounts, configurations, namespaces, roles, etc based on the config file passed in impersonating a user; admin only
-kubectl.createFromConfigAs = (configFile, userName) => `kubectl apply -f /yamlConfigs/${configFile}.yaml --as=${userName}`
+kubectl.createFromConfigAs = (configFile, email) => `kubectl apply -f /yamlConfigs/${configFile}.yaml --as=${email}`
 // get additional detail on pods
 kubectl.describe = (hostNamespace) => `kubectl describe pods -n ${hostNamespace}`
 // kubectl create deployment <insert name> --image=<insert image file/link>
