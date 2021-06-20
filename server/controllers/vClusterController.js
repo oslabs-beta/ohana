@@ -7,7 +7,7 @@ vClusterController.addVCluster = (req, res, next) => {
   const { hostNamespace, vClusterName, projectName } = req.body;
   const params = [hostNamespace, vClusterName, projectName];
   const query = `
-  INSERT INTO vclusters3(team_id, namespace_id, project)
+  INSERT INTO vclusters(team_id, namespace_id, project)
   VALUES ($1, $2, $3)`
 
   db.query(query, params)
@@ -54,7 +54,6 @@ vClusterController.createVCluster = (req, res, next) => {
 vClusterController.deleteVCluster = (req, res, next) => {
   console.log(req.body);
   const { clusterName, vClusterName, hostNamespace } = req.body;
-  // need to make gcloud into a function
   runTerminalCommand(gcloud.getCredentials(clusterName))
     .then((data) => {
       console.log('1', data)
@@ -65,7 +64,7 @@ vClusterController.deleteVCluster = (req, res, next) => {
 
 vClusterController.fetchVClusters = (req, res, next) => {
   const query = `
-  SELECT * FROM vclusters3;
+  SELECT * FROM vclusters;
   `
   db.query(query)
     .then((data) => {
