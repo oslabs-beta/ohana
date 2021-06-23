@@ -16,7 +16,7 @@ router.post('/login',
   userController.assignJwt,
   (req, res) => {
     const { token } = res.locals;
-    res.status(200).json(token)
+    res.status(200).json(token);
   }
 )
 

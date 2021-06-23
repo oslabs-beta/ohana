@@ -60,6 +60,7 @@ userController.loginCheck = (req, res, next) => {
 };
 
 userController.isAdminCheck = (req, res, next) => {
+  console.log('checking for jwt', req.headers);
   const { email } = req.body;
   const params = [email];
   const query = `

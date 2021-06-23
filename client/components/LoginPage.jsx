@@ -15,6 +15,7 @@ const LoginPage = (props) => {
   // when the component re-renders, check if the isLoggedIn is truthy and push
   // homepage endpoint so the route can render the proper page
   useEffect(() => {
+    console.log(history);
     if (isLoggedIn) {
       if (isAdmin) history.push('/admin')
       else {
@@ -49,6 +50,7 @@ const LoginPage = (props) => {
         return res.json();
       })
       .then((token) => {
+        console.log('res',token);
         setToken(token)
 
         fetch('/user/verify', {
