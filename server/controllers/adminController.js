@@ -76,4 +76,5 @@ adminController.verifyAdmin = (req, res, next) => {
   })
 }
 
+
 module.exports = adminController;

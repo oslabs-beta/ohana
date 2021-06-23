@@ -20,7 +20,7 @@ const NavBar = () => {
     <Button className='navButtons' onClick={() => {history.push('/admin')}}>
       Admin
     </Button>
-    <Button className='navButtons' onClick={() => {history.push('/user')}}>
+    <Button className='navButtons' onClick={() => {history.push('/spaces')}}>
       Spaces
     </Button>
     <Button className='navButtons' onClick={() => {history.push('/vcluster')}}>
