@@ -25,7 +25,7 @@ const MainContainer = (props) => {
           </LoginContext.Provider>
         </Route>
         <Route path="/admin" exact component={AdminContainer} />
-        <Route path="/user" exact component={SpacesContainer} />
+        <Route path="/spaces" exact component={SpacesContainer} />
         <Route path='/vcluster' exact component={ClusterContainer} />
       </Switch>
 

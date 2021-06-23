@@ -2,7 +2,11 @@ const db = require('../db/models');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
+const { runTerminalCommand } = require('../../terminalCommands');
 const secret = 'ohana';
+
+let configFile = '/yamlConfigs/userAccount.yaml';
+let viewConfigFile = '/yamlConfigs/viewUserAccount.yaml';
 
 const userController = {};
 
@@ -19,6 +23,7 @@ const userController = {};
 
 userController.bcryptPassword = (req, res, next) => {
   const { password } = req.body;
+  console.log('hitting bcrypt controller', password)
   bcrypt.hash(password, saltRounds)
     .then((hash) => {
       res.locals.password = hash;
@@ -28,17 +33,34 @@ userController.bcryptPassword = (req, res, next) => {
 }
 
 userController.addNewUser = (req, res, next) => {
+  console.log('hitting addNewUser controller')
   const { password } = res.locals;
-  const { email, firstName, lastName, teamId, isAdmin } = req.body;
-  const params = [email, password, firstName, lastName, teamId, isAdmin];
+  const { email, firstName, lastName, teamId, isAdmin, editAccess } = req.body;
+  const params = [email, password, firstName, lastName, isAdmin, teamId, editAccess];
   const query = `
-  INSERT INTO users(email, password, first_name, last_name, team_id, is_admin)
-  VALUES ($1, $2, $3, $4, $5, $6);`
+  INSERT INTO users(email, password, first_name, last_name, is_admin, team_id, edit_access)
+  VALUES ($1, $2, $3, $4, $5, $6, $7);`
   db.query(query, params)
     .then(() => next())
     .catch((err) => {
       return next({ log: `Error in userController.addNewUser: ${err}` });
     })
+}
+
+// userController.editUser 
+userController.editAccessUser = (req, res, next) => {
+  console.log('hitting editAccess controller')
+  const { editAccess } = req.body;
+  console.log('Checking if true', editAccess);
+
+  if (editAccess === true) {
+    console.log('running terminal command')
+    runTerminalCommand(kubectl.createFromConfig(configFile))
+      .then(() => next())
+      .catch((err) => {
+        return next({ log: `Error in userController.editAccessUser: ${err}` });
+      })
+  }
 }
 
 userController.loginCheck = (req, res, next) => {

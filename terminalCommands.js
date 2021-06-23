@@ -26,6 +26,7 @@ let deploymentName = 'klustr-deployment'
 // changed to hostNameSpace instead of namespace
 let hostNamespace = 'kiosk';
 let configFile = '/yamlConfigs/account.yaml';
+let userConfigFile = '/yamlConfigs/userAccount.yaml';
 let podName = 'klustr-deployment-786bd87dd4-pvrk6';
 let userName = 'john';
 let portIn = '80';
