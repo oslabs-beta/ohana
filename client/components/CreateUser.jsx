@@ -3,9 +3,16 @@ import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material
 
 const CreateUser = () => {
   const [isAdmin, setAdmin] = useState(false)
+  const [editAccess, setAccess] = useState(false)
+
   const handleAdmin = (e) => {
     setAdmin(e.target.checked);
   }
+
+  const handleAccess = (e) => {
+    setAccess(e.target.checked);
+  }
+
   return (
     <div id='createuser'>
       <form method="POST" action='/user/create'>
@@ -16,6 +23,8 @@ const CreateUser = () => {
         {/* <Select>Select Team</Select> */}
         <FormControlLabel control={<Checkbox />} name='isAdmin' label='Add as Admin' labelPlacement='end'
           onChange={handleAdmin} value={isAdmin} /><br></br>
+        <FormControlLabel control={<Checkbox />} name='editAccess' label='Edit Perms' labelPlacement='end'
+          onChange={handleAccess} value={editAccess} /><br></br>
         <Button type='submit' label='Create User' variant="contained" color="primary">Create User</Button>
       </form>
     </div>

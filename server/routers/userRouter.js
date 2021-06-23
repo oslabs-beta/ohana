@@ -6,6 +6,9 @@ const userController = require('../controllers/userController');
 router.post('/create',
   userController.bcryptPassword,
   userController.addNewUser,
+  userController.editAccessUser,
+  userController.createServiceAccount,
+  userController.createTenancy,
   (req, res) => {
     res.status(200).send('Successfully added new user');
   })
