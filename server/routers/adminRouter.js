@@ -6,6 +6,7 @@ const adminController = require('../controllers/adminController');
 //   adminController.bcryptPassword,
 //   adminController.addNewAdmin,
 //   adminController.assignJwt,
+//   adminController.assignUserJwt,
 //   (req, res) => {
 //     const { token } = res.locals;
 //     res.status(200).json(token);
@@ -13,6 +14,7 @@ const adminController = require('../controllers/adminController');
 
 // router.post('/verify',
 //   adminController.verifyAdmin,
+//   adminController.verifyUser,
 //   (req, res) => {
 //     const { isAdmin } = res.locals;
 //     res.status(200).json(isAdmin);

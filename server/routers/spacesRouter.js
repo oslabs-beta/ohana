@@ -22,7 +22,8 @@ router.post('/getip',
     res.status(200).json(getServices);
   })
 
-router.get('/fetch', spacesController.fetchSpaces, (req, res) => {
+router.get('/fetch', 
+spacesController.fetchSpaces, (req, res) => {
   res.status(200).json(res.locals.spaces);
 })
 

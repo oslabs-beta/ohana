@@ -9,6 +9,10 @@ const vClusterRouter = require('./routers/vClusterRouter');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get('*', (req, res) => {
+  return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
+});
+
 app.use('/user', userRouter)
 app.use('/admin', adminRouter)
 app.use('/spaces', spacesRouter)

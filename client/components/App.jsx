@@ -3,8 +3,6 @@ import MainContainer from '../containers/MainContainer.jsx'
 import NavBar from '../containers/NavBarContainer.jsx'
 import { BrowserRouter as Router } from 'react-router-dom';
 
-
-
 const App = (props) => {
 
   return (
@@ -15,7 +13,6 @@ const App = (props) => {
       </Router>
     </div>
   );
-
 };
 
 export default App;
