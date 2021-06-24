@@ -39,7 +39,7 @@ spacesController.addNamespace = (req, res, next) => {
 spacesController.fetchNamespaces = (req, res, next) => {
   // console.group(req.params)
   const query = `
-  SELECT * FROM namespaces3`
+  SELECT * FROM namespace`
   db.query(query)
     .then((data) => {
       res.locals.kyung = data.rows;

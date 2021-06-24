@@ -15,10 +15,11 @@ const LoginPage = (props) => {
   // when the component re-renders, check if the isLoggedIn is truthy and push
   // homepage endpoint so the route can render the proper page
   useEffect(() => {
+    console.log(history);
     if (isLoggedIn) {
       if (isAdmin) history.push('/admin')
       else {
-        history.push('/user')
+        history.push('/vcluster')
       }
     }
   })
@@ -48,9 +49,7 @@ const LoginPage = (props) => {
       .then((res) => {
         return res.json();
       })
-      .then((token) => {
-        setToken(token)
-
+      .then(() => {
         fetch('/user/verify', {
           method: 'POST',
           headers: {
