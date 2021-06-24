@@ -4,7 +4,7 @@ const path = require('path');
 const userRouter = require('./routers/userRouter');
 const adminRouter = require('./routers/adminRouter')
 const spacesRouter = require('./routers/spacesRouter');
-const clusterRouter = require('./routers/clusterRouter');
+const vClusterRouter = require('./routers/vClusterRouter');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,8 +16,7 @@ app.get('/', (req, res) => {
 app.use('/user', userRouter)
 app.use('/admin', adminRouter)
 app.use('/spaces', spacesRouter)
-app.use('/vcluster', clusterRouter)
-app.use('/clusters', clusterRouter)
+app.use('/vclusters', vClusterRouter)
 
 app.use((err, req, res, next) => {
   const defaultErr = {
@@ -28,7 +27,6 @@ app.use((err, req, res, next) => {
   console.log(errorObj.log);
   return res.status(500).json(errorObj.message);
 });
-
 
 app.listen(3000, () => {
   console.log('Listening on port 3000...');

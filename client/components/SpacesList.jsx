@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+// required styling for material-ui for table
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -24,11 +25,9 @@ const SpacesList = () => {
     fetch('/spaces/fetch')
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         setSpaces(data);
       })
   }
-
 
   function createData(id, namespace, team_id, project) {
     return { id, namespace, team_id, project };
@@ -45,35 +44,33 @@ const SpacesList = () => {
       <h3>Current Namespaces</h3>
       <Button id="get-spaces" onClick={handleClick} variant="outlined" color="primary.light">Get Spaces</Button>
       <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell align="right">Namespace</TableCell>
-            <TableCell align="right">Team ID</TableCell>
-            <TableCell align="right">Project</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.id}
-              </TableCell>
-              <TableCell align="right">{row.namespace}</TableCell>
-              <TableCell align="right">{row.team_id}</TableCell>
-              <TableCell align="right">{row.project}</TableCell>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell align="right">Namespace</TableCell>
+              <TableCell align="right">Team ID</TableCell>
+              <TableCell align="right">Project</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell component="th" scope="row">
+                  {row.id}
+                </TableCell>
+                <TableCell align="right">{row.namespace}</TableCell>
+                <TableCell align="right">{row.team_id}</TableCell>
+                <TableCell align="right">{row.project}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
     </div>
   )
 }
-
-
 
 export default SpacesList;
 

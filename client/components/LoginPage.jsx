@@ -10,9 +10,6 @@ const LoginPage = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [token, setToken] = useState();
-  console.log('login props', props)
-  // console.log(LoginContext)
-
 
   let history = useHistory();
   // when the component re-renders, check if the isLoggedIn is truthy and push
@@ -49,40 +46,32 @@ const LoginPage = (props) => {
       })
     })
       .then((res) => {
-        console.log('RES: ', res);
         return res.json();
       })
-      .then((data) => {
-        console.log('this is data', data)
-        // console.log(data.loggedIn)
-        setToken(data)
-        fetch('/admin/verify', {
+      .then((token) => {
+        setToken(token)
+
+        fetch('/user/verify', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            data,
+            token,
           })
         })
           .then(res => {
-            console.log('JWT res', res);
             return res.json();
           })
           .then(res => {
-            console.log('res line 69', res)
             setAdmin(res);
             if (typeof res === 'boolean') {
               setLoggedIn(true);
             }
-            // console.log('isAdmin', isAdmin)
           })
       }
       )
-
   }
-
-  console.log('isAdmin', isAdmin)
 
   const handleEmail = (e) => {
     setEmail(e.target.value);

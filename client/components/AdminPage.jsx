@@ -5,7 +5,6 @@ import CreateUser from './CreateUser.jsx';
 
 const AdminPage = () => {
 
-
   return (
     <div id='adminpage'>
       <CreateTeam />
@@ -13,8 +12,6 @@ const AdminPage = () => {
       <CreateUser />
     </div>
   )
-
-
 }
 
 // test commit
