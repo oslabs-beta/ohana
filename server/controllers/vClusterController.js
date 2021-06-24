@@ -62,12 +62,7 @@ vClusterController.deleteVCluster = (req, res, next) => {
     })
 }
 
-<<<<<<< HEAD:server/controllers/vClusterController.js
 vClusterController.fetchVClusters = (req, res, next) => {
-=======
-
-clusterController.fetchClusters = (req, res, next) => {
->>>>>>> 25a8c8b1bd3fc18932dffba4befce05475ea6b39:server/controllers/clusterController.js
   const query = `
   SELECT * FROM vclusters3;
   `

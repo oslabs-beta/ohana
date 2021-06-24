@@ -3,7 +3,7 @@ const router = express.Router();
 const vClusterController = require('../controllers/vClusterController');
 
 router.post('/create',
-  vClusterController.addVCluster,
+  // vClusterController.addVCluster,
   vClusterController.createVCluster,
   (req, res) => {
     const { vClusterName } = res.locals;

@@ -2,7 +2,10 @@ FROM node:latest AS app
 WORKDIR /
 COPY . .
 RUN npm install
-RUN npm run ohana-nix
-RUN npm run dev
-EXPOSE 3000
+EXPOSE 8080
 ENTRYPOINT ["node", "./server/server.js"]
+
+FROM debian:latest
+WORKDIR /
+COPY --from=app / .
+CMD npm run dev
