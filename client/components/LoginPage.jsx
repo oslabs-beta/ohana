@@ -19,7 +19,7 @@ const LoginPage = (props) => {
     if (isLoggedIn) {
       if (isAdmin) history.push('/admin')
       else {
-        history.push('/user')
+        history.push('/vcluster')
       }
     }
   })
@@ -49,10 +49,7 @@ const LoginPage = (props) => {
       .then((res) => {
         return res.json();
       })
-      .then((token) => {
-        console.log('res',token);
-        setToken(token)
-
+      .then(() => {
         fetch('/user/verify', {
           method: 'POST',
           headers: {

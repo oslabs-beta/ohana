@@ -5,9 +5,11 @@ const userRouter = require('./routers/userRouter');
 const adminRouter = require('./routers/adminRouter')
 const spacesRouter = require('./routers/spacesRouter');
 const vClusterRouter = require('./routers/vClusterRouter');
+const cookieParser = require('cookie-parser')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use('/user', userRouter)
 app.use('/admin', adminRouter)
@@ -15,6 +17,7 @@ app.use('/spaces', spacesRouter)
 app.use('/vclusters', vClusterRouter)
 
 app.get('*', (req, res) => {
+  console.log('req.cookies',req.signedCookies)
   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
 
