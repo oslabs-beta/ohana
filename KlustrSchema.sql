@@ -16,11 +16,11 @@ CREATE TABLE "teams" (
   "project" varchar NOT NULL
 );
 
-CREATE TABLE "namespaces" (
+CREATE TABLE "namespaces2" (
   "_id" smallserial PRIMARY KEY NOT NULL,
   "name" varchar NOT NULL,
-  "team_id" smallint NOT NULL,
-  "project" varchar
+  "team_id" smallint,
+  "project" varchar,
   -- added this
   "cluster_id" smallint
   -- need to make cluster_id NOT NULL
@@ -30,7 +30,7 @@ CREATE TABLE "vclusters" (
   "_id" smallserial PRIMARY KEY NOT NULL,
   "owner_id" smallint NOT NULL,
   "team_id" smallint NOT NULL,
-  "namespace_id" smallint NOT NULL,
+  "namespace_id" smallint,
   "project" varchar
 );
 
@@ -50,6 +50,6 @@ ALTER TABLE "vclusters" ADD FOREIGN KEY ("owner_id") REFERENCES "users" ("_id");
 
 ALTER TABLE "namespaces" ADD FOREIGN KEY ("team_id") REFERENCES "teams" ("_id");
 
-ALTER TABLE "namespaces" ADD FOREIGN KEY ("cluster_id") REFERENCES "clusters" ("_id");
+-- ALTER TABLE "namespaces" ADD FOREIGN KEY ("cluster_id") REFERENCES "clusters" ("_id");
 
 ALTER TABLE "vclusters" ADD FOREIGN KEY ("team_id") REFERENCES "teams" ("_id");

@@ -31,7 +31,7 @@ vClusterController.addVCluster = (req, res, next) => {
 //       return next();
 //     })
 //     .catch((err) => {
-//       return next({ log: `Error in clsuterController.addCluster: ${err}` });
+//       return next({ log: `Error in clusterController.addCluster: ${err}` });
 //     })
 // }
 

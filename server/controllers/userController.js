@@ -75,21 +75,21 @@ userController.createServiceAccount = (req, res, next) => {
   }
 
 // create tenancy with the useraccount.yaml
-// userController.createTenancy = (req, res, next) => {
-//   const { email } = req.body
-//   // need to generate a yaml file here
-//   // const accountConfigFile = generateYaml with email
-//   // const spaceConfigFile = generateYaml with email
-//   runTerminalCommand(kubectl.createFromConfigAs(configFile, email))
-//   .then((data) => {
-//     console.log('what is data', data)
-//     runTerminalCommand(kubectl.createFromConfigAs(configFile, email))
-//     return next();
-//   })
-//   .catch((err) => {
-//     return next({log: `Error in userController.createTenancy: ${err}`})
-//   })
-// }
+userController.createTenancy = (req, res, next) => {
+  const { email } = req.body
+  // need to generate a yaml file here
+  // const accountConfigFile = generateYaml with email
+  // const spaceConfigFile = generateYaml with email
+  runTerminalCommand(kubectl.createFromConfigAs(configFile, email))
+  .then((data) => {
+    console.log('what is data', data)
+    runTerminalCommand(kubectl.createFromConfigAs(configFile, email))
+    return next();
+  })
+  .catch((err) => {
+    return next({log: `Error in userController.createTenancy: ${err}`})
+  })
+}
 
 // this is new do not delete
 // userController.editAccessUser = (req, res, next) => {

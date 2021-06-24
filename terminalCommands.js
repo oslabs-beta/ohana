@@ -8,7 +8,6 @@ const runTerminalCommand = (command) => {
         console.warn(error);
       }
       resolve(stdout ? stdout : stderr);
-
     })
   })
 }
@@ -18,7 +17,7 @@ const gcloud = {}
 // necessary to create a cluster if it doesn't already exist; be aware of regional resource availability
 gcloud.create = (clusterName, numNodes, gcloudRegion) => `gcloud container clusters create ${clusterName} --num-nodes=${numNodes} --region=${gcloudRegion}`
 // 'gcloud container clusters get-credentials <insert name>:<optional tag> 
-gcloud.getCredentials = (clusterName) => `gcloud container clusters get-credentials ${clusterName} --region=us-west1`
+gcloud.getCredentials = (clusterName) => `gcloud container clusters get-credentials ${clusterName} --region=us-west1-a`
 // 'gcloud config set account <accountemailaddress>'
 gcloud.switchAccount = (gcloudUserEmail) => `gcloud config set account ${gcloudUserEmail}`
 
