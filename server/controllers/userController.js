@@ -88,8 +88,8 @@ userController.verifyAdmin = (req, res, next) => {
 
 userController.assignJwt = (req, res, next) => {
   const { isAdminResult } = res.locals;
-  const { email, firstName, lastName } = req.body;
-  jwt.sign({ email, firstName, lastName, isAdmin: isAdminResult }, secret, (err, token) => {
+  const { email } = req.body;
+  jwt.sign({ email, isAdmin: isAdminResult }, secret, (err, token) => {
     if (err) return next({ log: `Error in userController.assignJwt: ${err}` })
     res.locals.token = token;
     return next();
