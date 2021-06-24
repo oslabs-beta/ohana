@@ -24,7 +24,7 @@ CREATE TABLE "namespaces2" (
   -- added this
   "cluster_id" smallint
   -- need to make cluster_id NOT NULL
-);
+);  
 
 CREATE TABLE "vclusters" (
   "_id" smallserial PRIMARY KEY NOT NULL,

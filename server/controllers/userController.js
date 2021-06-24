@@ -148,15 +148,6 @@ userController.isAdminCheck = (req, res, next) => {
     }).catch(err => next({ log: `Error in userController.isAdminCheck: ${err}` }))
 }
 
-userController.verifyAdmin = (req, res, next) => {
-  const { token } = req.body;
-  jwt.verify(token, secret, (err, decoded) => {
-    if (err) return next({ log: `Error in userController.verifyAdmin: ${err}` });
-    res.locals.isAdmin = decoded.isAdmin;
-    return next();
-  })
-}
-
 userController.assignJwt = (req, res, next) => {
   const { isAdminResult } = res.locals;
   const { email, firstName, lastName } = req.body;
@@ -166,5 +157,15 @@ userController.assignJwt = (req, res, next) => {
     return next();
   })
 }
+
+userController.verifyAdmin = (req, res, next) => {
+  const { AuthToken } = req.cookies;
+  jwt.verify(AuthToken, secret, (err, decoded) => {
+    if (err) return next({ log: `Error in userController.verifyAdmin: ${err}` });
+    res.locals.isAdmin = decoded.isAdmin;
+    return next();
+  })
+}
+
 
 module.exports = userController;

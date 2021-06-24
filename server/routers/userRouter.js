@@ -6,7 +6,7 @@ const userController = require('../controllers/userController');
 router.post('/create',
   userController.bcryptPassword,
   userController.addNewUser,
-  // userController.editAccessUser,
+  // userController.editAccessUser, 
   // userController.createServiceAccount,
   // userController.createTenancy,
   (req, res) => {
@@ -19,7 +19,8 @@ router.post('/login',
   userController.assignJwt,
   (req, res) => {
     const { token } = res.locals;
-    res.status(200).json(token)
+    res.cookie('AuthToken',token, { maxAge: 900000, httpOnly: true });
+    res.status(200).json(token);
   }
 )
 
