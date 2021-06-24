@@ -31,7 +31,7 @@ CREATE TABLE "vclusters" (
   "_id" smallserial PRIMARY KEY NOT NULL,
   "owner_id" smallint NOT NULL,
   "team_id" smallint NOT NULL,
-  "host_namespace" varchar,
+  "namespace_id" varchar,
   "project" varchar
 );
 
