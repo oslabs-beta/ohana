@@ -28,12 +28,9 @@ const MainContainer = (props) => {
         <Route path="/user" exact component={SpacesContainer} />
         <Route path='/vcluster' exact component={ClusterContainer} />
       </Switch>
-
       {props.children}
-
     </div>
   )
 }
 
 export default MainContainer;
-
