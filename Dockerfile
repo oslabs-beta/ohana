@@ -1,7 +1,8 @@
 FROM node:latest AS app
 WORKDIR /
-COPY . .
+COPY package*.json ./
 RUN npm install
+COPY . .
 EXPOSE 8080
 ENTRYPOINT ["node", "./server/server.js"]
 
