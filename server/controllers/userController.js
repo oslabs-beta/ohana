@@ -139,6 +139,11 @@ userController.loginCheck = (req, res, next) => {
     WHERE email = '${email}'`
   db.query(query)
     .then((result) => {
+      if (!result.rows.length) {
+        console.log('user does not exist')
+        res.locals.user = false
+        return next({ log: 'Incorrect username/password', message: 'Incorrect username/password' });
+      }
       bcrypt.compare(password, result.rows[0].password, (err, result) => {
         if (err) return next({ log: `Error in userController.loginCheck: ${err}` });
         if (!result) return next({ log: 'Incorrect username/password', message: 'Incorrect username/password' });
