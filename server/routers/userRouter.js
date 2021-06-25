@@ -5,6 +5,7 @@ const userController = require('../controllers/userController');
 
 router.post('/create',
   userController.bcryptPassword,
+  userController.teamIdLookup,
   userController.addNewUser,
   // userController.editAccessUser, 
   // userController.createServiceAccount,
