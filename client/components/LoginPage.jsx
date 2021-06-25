@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, TextField } from '@material-ui/core'
 import { useHistory } from 'react-router-dom';
-import LoginContext from '../containers/MainContainer.jsx';
+import { AppContext } from './AppContext'
 
 
 const LoginPage = (props) => {
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [isAdmin, setAdmin] = useState(false);
+  const { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin } = useContext(AppContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [token, setToken] = useState();
@@ -15,7 +14,6 @@ const LoginPage = (props) => {
   // when the component re-renders, check if the isLoggedIn is truthy and push
   // homepage endpoint so the route can render the proper page
   useEffect(() => {
-    console.log(history);
     if (isLoggedIn) {
       if (isAdmin) history.push('/admin')
       else {
@@ -63,10 +61,12 @@ const LoginPage = (props) => {
             return res.json();
           })
           .then(res => {
-            setAdmin(res);
+            setIsAdmin(res);
             if (typeof res === 'boolean') {
-              setLoggedIn(true);
+              setIsLoggedIn(true);
             }
+            if (isAdmin) history.push('/admin')
+            else history.push('/vcluster')
           })
       }
       )
