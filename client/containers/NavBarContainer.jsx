@@ -3,7 +3,8 @@ import { Button, Link } from '@material-ui/core';
 import { Switch, Route } from 'react-router-dom';
 import SpacesContainer from './SpacesContainer.jsx'
 import { useHistory } from 'react-router-dom';
-export const LoginContext = React.createContext();
+// export const LoginContext = React.createContext();
+
 const NavBar = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isAdmin, setAdmin] = useState(false);

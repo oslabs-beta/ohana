@@ -1,16 +1,15 @@
 const express = require('express');
 const router = express.Router();
-
 const userController = require('../controllers/userController');
 
 router.post('/create',
-  userController.bcryptPassword,
-  userController.addNewUser,
+  // userController.bcryptPassword,
+  // userController.addNewUser,
   // userController.editAccessUser, 
-  // userController.createServiceAccount,
+  userController.createServiceAccount,
   // userController.createTenancy,
   (req, res) => {
-    res.status(200).send('Successfully added new user');
+    res.status(200).json('Successfully added new user');
   })
 
 router.post('/login',

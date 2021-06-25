@@ -29,7 +29,7 @@ kubectl.createNamespace = (hostNamespace) => `kubectl create namespace ${hostNam
 // can create spaces, accounts, configurations, namespaces etc based on the config file passed in
 kubectl.createFromConfig = (configFile) => `kubectl apply -f ${configFile}`
 // can create spaces, accounts, configurations, namespaces, roles, etc based on the config file passed in impersonating a user; admin only
-kubectl.createFromConfigAs = (configFile, email) => `kubectl apply -f /yamlConfigs/${configFile}.yaml --as=${email}`
+kubectl.createFromConfigAs = (configFile, email) => `kubectl apply -f /Users/fenris/Desktop/Codesmith/klustr.dev/yamlConfigs/userAccount.yaml --as=dev-account`
 // get additional detail on pods
 kubectl.describe = (hostNamespace) => `kubectl describe pods -n ${hostNamespace}`
 // kubectl create deployment <insert name> --image=<insert image file/link>
@@ -50,22 +50,24 @@ vCluster.delete = (vClusterName, hostNamespace) => `vcluster delete ${vClusterNa
 
 const serviceAccount = {}
 
-serviceAccount.user = (email) => `USER_NAME=${email} \ kubectl -n kiosk create serviceaccount $USER_NAME`
-serviceAccount.userConfig = (email) => { `USER_NAME=${email} \ KUBECONFIG_PATH="$HOME/.kube/config-kiosk" \ kubectl config view --minify --raw >$KUBECONFIG_PATH
-export KUBECONFIG=$KUBECONFIG_PATH \ 
-CURRENT_CONTEXT=$(kubectl config current-context) \
-kubectl config rename-context $CURRENT_CONTEXT kiosk-admin \
-CLUSTER_NAME=$(kubectl config view -o jsonpath="{.clusters[].name}") \
-ADMIN_USER=$(kubectl config view -o jsonpath="{.users[].name}") \
-SA_NAME=$(kubectl -n kiosk get serviceaccount ${email} -o jsonpath="{.secrets[0].name}") \
-SA_TOKEN=$(kubectl -n kiosk get secret $SA_NAME -o jsonpath="{.data.token}" | base64 -d) \
-kubectl config set-credentials ${email} --token=$SA_TOKEN \
-kubectl config set-context kiosk-user --cluster=$CLUSTER_NAME --user=${email} \
-kubectl config use-context kiosk-user`
-}
-// set cluster name = to cluster id or team id?
-// admin user??
-// SA token = JWT or we are using dex?
+serviceAccount.user = (email) => `USER_NAME="${email}" \ kubectl -n kiosk create serviceaccount "${email}"`
+
+//fs write file?
+
+// serviceAccount.userConfig = (email) => { 
+// `USER_NAME="${email}" KUBECONFIG_PATH="$HOME/.kube/config-kiosk" && 
+// kubectl config view --minify --raw > "$HOME/.kube/config-kiosk" &&
+// export KUBECONFIG="$HOME/.kube/config-kiosk"`
+// CURRENT_CONTEXT=$(kubectl config current-context) \
+// kubectl config rename-context $CURRENT_CONTEXT kiosk-admin \
+// CLUSTER_NAME=$(kubectl config view -o jsonpath="{.clusters[].name}") \
+// ADMIN_USER=$(kubectl config view -o jsonpath="{.users[].name}") \
+// SA_NAME=$(kubectl -n kiosk get serviceaccount ${email} -o jsonpath="{.secrets[0].name}") \
+// SA_TOKEN=$(kubectl -n kiosk get secret $SA_NAME -o jsonpath="{.data.token}" | base64 -d) \
+// kubectl config set-credentials ${email} --token=$SA_TOKEN \
+// kubectl config set-context kiosk-user --cluster=$CLUSTER_NAME --user=${email} \
+// kubectl config use-context kiosk-user
+// }
 
 
 module.exports = {

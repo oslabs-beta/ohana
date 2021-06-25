@@ -4,6 +4,7 @@ const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 const { runTerminalCommand, kubectl, gcloud, serviceAccount } = require('../../terminalCommands');
 const secret = 'ohana';
+const path = require('path');
 
 let configFile = '/Users/fenris/Desktop/Codesmith/klustr.dev/yamlConfigs/UserAccount.yaml';
 
@@ -62,17 +63,24 @@ userController.addNewUser = (req, res, next) => {
 // new || do we need to add this into the db as well?
 userController.createServiceAccount = (req, res, next) => {
   const { email } = req.body
+  console.log('req.body', req.body)
   // run terminal command for service account
+  // fs write file for the script to define the user
+  // runTerminalCommand('/Users/fenris/Desktop/Codesmith/klustr.dev/script.sh')
   runTerminalCommand(serviceAccount.user(email))
   .then((data) => {
     console.log('what is data', data)
-    runTerminalCommand(serviceAccount.userConfig(email))
+  runTerminalCommand('/Users/fenris/Desktop/Codesmith/klustr.dev/script.sh')
+  .then((data) => {
+    console.log('script', data)
+    runTerminalCommand(kubectl.createFromConfigAs(email))
     return next();
-    })
+  })
   .catch((err) => {
     return next({ log: `Error in userController.createServiceAccount: ${err}` });
     })
-  }
+  })
+}
 
 // create tenancy with the useraccount.yaml
 userController.createTenancy = (req, res, next) => {

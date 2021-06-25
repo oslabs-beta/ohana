@@ -21,9 +21,6 @@ CREATE TABLE "namespaces2" (
   "name" varchar NOT NULL,
   "team_id" smallint,
   "project" varchar,
-  -- added this
-  "cluster_id" smallint
-  -- need to make cluster_id NOT NULL
 );  
 
 CREATE TABLE "vclusters" (
