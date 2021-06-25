@@ -12,6 +12,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.get('/cookies', 
+  userController.verifyAdmin,
+  (req, res) => {
+    const { isAdmin } = res.locals;
+    console.log('cookies', isAdmin)
+    return res.status(200).json({isAdmin, isLoggedIn: true});
+})
+
 app.get('/admin', 
   userController.verifyAdmin,
   (req, res) => {

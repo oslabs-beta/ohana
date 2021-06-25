@@ -35,7 +35,8 @@ module.exports = {
       '/admin': 'http://localhost:3000',
       '/clusters': 'http://localhost:3000',
       '/spaces': 'http://localhost:3000',
-      '/vcluster': 'http://localhost:3000'
+      '/vcluster': 'http://localhost:3000',
+      '/cookies': 'http://localhost:3000'
     }
   },
   plugins: [new webpack.HotModuleReplacementPlugin()]
