@@ -15,6 +15,7 @@ const LoginPage = (props) => {
   // homepage endpoint so the route can render the proper page
   useEffect(() => {
     if (isLoggedIn) {
+      console.log(isLoggedIn, 'is logged in login')
       if (isAdmin) history.push('/admin')
       else {
         history.push('/vcluster')
@@ -26,11 +27,9 @@ const LoginPage = (props) => {
     e.preventDefault();
     setRedirect(true);
   }
-  // if (redirect === true) return <Redirect to='/adminsignup' />
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const form = e.target
 
     e.preventDefault();
@@ -49,7 +48,8 @@ const LoginPage = (props) => {
       })
       .then(() => {
         fetch('/user/verify', {
-          method: 'POST',
+          // method: 'POST',
+          method: form.method,
           headers: {
             'Content-Type': 'application/json',
           },
@@ -65,12 +65,11 @@ const LoginPage = (props) => {
             if (typeof res === 'boolean') {
               setIsLoggedIn(true);
             }
-            if (isAdmin) history.push('/admin')
-            else history.push('/vcluster')
+            (isAdmin) ? history.push('/admin') : history.push('/vcluster');
           })
-      }
+        }
       )
-  }
+    }
 
   const handleEmail = (e) => {
     setEmail(e.target.value);

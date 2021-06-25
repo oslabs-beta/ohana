@@ -42,7 +42,7 @@ const SpacesList = () => {
   return (
     <div id='SpacesList'>
       <h3>Current Namespaces</h3>
-      <Button id="get-spaces" onClick={handleClick} variant="outlined" color="primary.light">Get Spaces</Button>
+      <Button id="get-spaces" onClick={handleClick} variant="outlined">Get Spaces</Button>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>

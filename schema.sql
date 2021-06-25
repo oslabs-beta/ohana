@@ -29,3 +29,10 @@ CREATE TABLE "vclusters5" (
   "vClusterName" varchar,
   "project" varchar
 );
+
+CREATE TABLE "clusters5" {
+  "_id" smallserial PRIMARY KEY,
+  "clusterName" varchar,
+  "region" varchar,
+  "zone" varchar,
+}

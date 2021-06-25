@@ -1,22 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
+// do we need useEffect or useState?
 import { Button, Link } from '@material-ui/core';
-import { Switch, Route } from 'react-router-dom';
-import SpacesContainer from './SpacesContainer.jsx'
+// import { Switch, Route } from 'react-router-dom';
+// import SpacesContainer from './SpacesContainer.jsx'
 import { useHistory } from 'react-router-dom';
 import { AppContext } from '../components/AppContext'
 
 const NavBar = () => {
   const { isAdmin } = useContext(AppContext)
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  let adminButton = '';
-  if (isAdmin) adminButton = <Button className='navButtons' onClick={() => {history.push('/admin')}}>Admin</Button>
   let history = useHistory();
+  let adminButton = '';
+  if (isAdmin) adminButton = <Button className='navButtons' onClick={() => { history.push('/admin') }}>Admin</Button>
+
+  console.log(AppContext)
+  console.log(useContext(AppContext))
 
   return (
     <div id='navbar'>
-      {/* <Button>Spaces</Button>
-    <Button onClick={handleCluster}>vClusters</Button>
-     */}
     {adminButton}
     <Button className='navButtons' onClick={() => {history.push('/spaces')}}>
       Spaces
@@ -28,4 +28,3 @@ const NavBar = () => {
   )
 }
 export default NavBar;
-

@@ -28,7 +28,6 @@ const TeamsDisplay = () => {
 
   const classes = useStyles();
 
-
   return (
     <div id="teamslist">
     <List className={classes.root} subheader={<li />}>

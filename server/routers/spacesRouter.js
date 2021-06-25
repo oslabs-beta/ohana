@@ -3,10 +3,8 @@ const router = express.Router();
 const spacesController = require('../controllers/spacesController');
 
 router.post('/create',
-  // spacesController.addNamespace,
-  spacesController.createNamespace, (req, res) => {
-    res.status(200).send('posted to database');
-  })
+  spacesController.addNamespace,
+  spacesController.createNamespace, (req, res) => res.status(200).send('posted to database'));
 
 router.post('/deploy',
   spacesController.deploy,
@@ -23,8 +21,7 @@ router.post('/getip',
   })
 
 router.get('/fetch', 
-spacesController.fetchSpaces, (req, res) => {
-  res.status(200).json(res.locals.spaces);
-})
+  spacesController.fetchSpaces, 
+  (req, res) => res.status(200).json(res.locals.spaces));
 
 module.exports = router;

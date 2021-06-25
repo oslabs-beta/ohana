@@ -3,6 +3,7 @@ import { Button, TextField } from '@material-ui/core';
 import SpacesList from './SpacesList.jsx';
 
 const CreateSpace = () => {
+  
   return (
     <div id='CreateSpace'>
       <h2>Create a New Namespace</h2>
@@ -19,6 +20,7 @@ const CreateSpace = () => {
 }
 
 const SpacesPage = () => {
+
   return (
     <div id='SpacesPage'>
       <h1>Currently Active Spaces</h1>
