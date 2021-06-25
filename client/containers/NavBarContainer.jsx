@@ -7,21 +7,14 @@ import { AppContext } from '../components/AppContext'
 
 const NavBar = () => {
   const { isAdmin } = useContext(AppContext)
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  // const [isAdmin, setAdmin] = useState(false);
+  console.log(AppContext)
+  console.log(useContext(AppContext))
   let adminButton = '';
   if (isAdmin) adminButton = <Button className='navButtons' onClick={() => {history.push('/admin')}}>Admin</Button>
   let history = useHistory();
-  // console.log('nav', isLoggedIn)
-  // console.log('nav admin', isAdmin)
-  // console.log('nav context', LoginContext);
-  // setLoggedIn(useContext(LoginContext))
 
   return (
     <div id='navbar'>
-      {/* <Button>Spaces</Button>
-    <Button onClick={handleCluster}>vClusters</Button>
-     */}
     {adminButton}
     <Button className='navButtons' onClick={() => {history.push('/spaces')}}>
       Spaces
