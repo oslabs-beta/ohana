@@ -1,11 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, TextField } from '@material-ui/core'
 import { useHistory } from 'react-router-dom';
-<<<<<<< HEAD
-// import LoginContext from '../containers/MainContainer.jsx';
-=======
 import { AppContext } from './AppContext'
->>>>>>> 4c6d36e0ec3cc4e9beed50f02f659089328aa64c
 
 
 const LoginPage = (props) => {

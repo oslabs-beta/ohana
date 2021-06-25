@@ -20,9 +20,6 @@ const MainContainer = (props) => {
     <div className='MainContainer'>
       <Switch>
         <Route path="/" exact>
-          <LoginContext.Provider value={loginStatus}>
-            <LoginPage props={loginStatus} context={props.context} />
-          </LoginContext.Provider>
         </Route>
         <Route path="/admin" exact component={AdminContainer} />
         <Route path="/spaces" exact component={SpacesContainer} />

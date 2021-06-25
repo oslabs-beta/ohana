@@ -5,16 +5,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { AppContext } from './AppContext'
 
 const App = (props) => {
-<<<<<<< HEAD
-   
-=======
   let navBar = '';
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const value = { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin };
   if (isLoggedIn) navBar = <NavBar />;
 
->>>>>>> 4c6d36e0ec3cc4e9beed50f02f659089328aa64c
   return (
     <div className="App">
       <Router>
