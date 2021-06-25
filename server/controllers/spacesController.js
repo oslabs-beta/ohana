@@ -5,11 +5,11 @@ const spacesController = {};
 //will need to edit the database schema
 
 spacesController.addNamespace = (req, res, next) => {
-  const { clusterName, hostNamespace, team_id, projectName } = req.body;
-  const params = [clusterName, hostNamespace, team_id, projectName];
+  const { clusterName, team_id, projectName } = req.body;
+  const params = [clusterName, team_id, projectName];
   const query = `
-  INSERT INTO namespaces3(cluster, name, team_id, project)
-  VALUES ($1, $2, $3, $4)`
+  INSERT INTO namespaces5(name, team_id, project)
+  VALUES ($1, $2, $3)`
 
   db.query(query, params)
     .then(() => {
@@ -39,7 +39,7 @@ spacesController.addNamespace = (req, res, next) => {
 spacesController.fetchNamespaces = (req, res, next) => {
   // console.group(req.params)
   const query = `
-  SELECT * FROM namespaces3`
+  SELECT * FROM namespaces5`
   db.query(query)
     .then((data) => {
       res.locals.kyung = data.rows;
@@ -92,7 +92,7 @@ spacesController.getExternalIp = (req, res, next) => {
 
 spacesController.fetchSpaces = (req, res, next) => {
   const query = `
-  SELECT * FROM namespaces2;
+  SELECT * FROM namespaces5;
   `
 
   db.query(query)

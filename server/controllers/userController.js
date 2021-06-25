@@ -32,7 +32,7 @@ userController.addNewUser = (req, res, next) => {
   const { email, firstName, lastName, teamId, isAdmin } = req.body;
   const params = [email, password, firstName, lastName, teamId, isAdmin];
   const query = `
-  INSERT INTO users(email, password, first_name, last_name, team_id, is_admin)
+  INSERT INTO users5(email, password, first_name, last_name, team_id, is_admin)
   VALUES ($1, $2, $3, $4, $5, $6);`
   db.query(query, params)
     .then(() => next())
@@ -45,7 +45,7 @@ userController.loginCheck = (req, res, next) => {
   const { email, password } = req.body;
   const query = `
     SELECT password
-    FROM users
+    FROM users5
     WHERE email = '${email}'
   `
   db.query(query)
@@ -64,7 +64,7 @@ userController.isAdminCheck = (req, res, next) => {
   const params = [email];
   const query = `
   SELECT is_admin
-  FROM users
+  FROM users5
   WHERE email=$1;
   `
   db.query(query, params)

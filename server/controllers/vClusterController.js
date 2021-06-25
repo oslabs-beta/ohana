@@ -7,7 +7,7 @@ vClusterController.addVCluster = (req, res, next) => {
   const { hostNamespace, vClusterName, projectName } = req.body;
   const params = [hostNamespace, vClusterName, projectName];
   const query = `
-  INSERT INTO vclusters3(team_id, namespace_id, project)
+  INSERT INTO vclusters5(hostNamespace, vClusterName, project)
   VALUES ($1, $2, $3)`
   db.query(query, params)
     .then(() => {
@@ -64,7 +64,7 @@ vClusterController.deleteVCluster = (req, res, next) => {
 
 vClusterController.fetchVClusters = (req, res, next) => {
   const query = `
-  SELECT * FROM vclusters3;
+  SELECT * FROM vclusters5;
   `
   db.query(query)
     .then((data) => {
