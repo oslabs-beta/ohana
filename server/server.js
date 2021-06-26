@@ -30,19 +30,18 @@ app.get('/admin',
     if (isAdmin === false) return res.redirect('/vcluster')
 })
 
+app.use('/user', userRouter)
+app.use('/spaces', spacesRouter)
+app.use('/vclusters', vClusterRouter)
+app.use('/admin', userRouter)
+
+
 app.get('*', (req, res) => {
   console.log('req.cookies',req.cookies)
   const { AuthToken } = req.cookies;
   if (AuthToken === undefined) return res.redirect('/')
   return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
 });
-
-app.use('/user', userRouter)
-app.use('/spaces', spacesRouter)
-app.use('/vclusters', vClusterRouter)
-app.use('/admin', userRouter)
-// app.use('/admin', adminRouter)
-
 
 app.use((err, req, res, next) => {
   const defaultErr = {

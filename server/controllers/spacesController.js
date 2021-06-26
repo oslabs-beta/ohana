@@ -94,7 +94,7 @@ spacesController.fetchSpaces = (req, res, next) => {
   `
   db.query(query)
     .then((data) => {
-      console.log(data)
+      console.log('fetchspaces data', data)
       res.locals.spaces = data.rows
       return next();
     })

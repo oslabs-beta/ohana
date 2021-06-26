@@ -18,11 +18,12 @@ const CreateCluster = () => {
       res.json()
     .then(data => {
       console.log('what is in my fetch request 1', data)
-      setAvailableClusters(data.rows);
+      const availableClusters = data.map(element => element.name)
+      setAvailableClusters(availableClusters);
     })
   })
   .catch(err => console.log(err))
-}, [availableClusters])
+}, [])
 
   useEffect(() => {
     fetch('vclusters/fetchnamespaces')
@@ -31,11 +32,12 @@ const CreateCluster = () => {
       res.json()
     .then(data => {
       console.log('what is in my fetch request 2', data)
-      setAvailableNamespaces(data.rows)
+      const availableNamespaces = data.map(element => element.name)
+      setAvailableNamespaces(availableNamespaces)
     })
   })
   .catch(err => console.log(err))
-}, [availableNamespaces])
+}, [])
 
   const handleClusterNameChange = (e) => {
     setClusterName(e.target.value)
@@ -69,10 +71,8 @@ const CreateCluster = () => {
       })
       .catch(err => console.log(err))
   }
-  const availableClusters1 = ['asdf','hello'];
-  const availableNamespaces1 = ['asdf','hello'];
-  const clusterList = availableClusters1.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
-  const namespaceList = availableNamespaces1.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
+  const clusterList = availableClusters.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
+  const namespaceList = availableNamespaces.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
 
   return (
     <div id='create-clusters'>

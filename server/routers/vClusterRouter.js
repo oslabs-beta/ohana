@@ -17,7 +17,7 @@ router.get('/',
     res.status(200).json(res.locals.kyung)
   });
 
-router.get('/fetchspaces', 
+router.get('/fetchnamespaces', 
   vClusterController.fetchNamespaces, 
   (req, res) => {
     res.status(200).json(res.locals.clusternamespaces)

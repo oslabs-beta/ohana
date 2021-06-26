@@ -21,11 +21,12 @@ const CreateSpace = () => {
       res.json()
     .then(data => {
       console.log('what is in my fetch request 1', data)
-      setDeploymentArray(data.rows);
+      const deploymentArray = data.map(element => element.name)
+      setDeploymentArray(deploymentArray);
     })
   })
   .catch(err => console.log(err))
-}, [deploymentArray])
+}, [])
 
   useEffect(() => {
     fetch('spaces/fetchclusters')
@@ -34,11 +35,12 @@ const CreateSpace = () => {
       res.json()
     .then(data => {
       console.log('what is in my fetch request 2', data)
-      setClusterArray(data.rows)
+      const clusterArray = data.map(element => element.name)
+      setClusterArray(clusterArray)
     })
   })
   .catch(err => console.log(err))
-}, [clusterArray])
+}, [])
 
   const handleSetHostClusterName = (e) => {
     setHostClusterName(e.target.value);
@@ -122,11 +124,8 @@ const CreateSpace = () => {
       })
   }
 
-  const clusterArray1 = ['asdf','hello'];
-  const deploymentArray1 = ['asdf','hello'];
-  const clusterList = clusterArray1.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
-  const deploymentList = deploymentArray1.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
-  
+  const clusterList = clusterArray.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
+  const deploymentList = deploymentArray.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
 
   return (
     <div id='create-spaces'>
