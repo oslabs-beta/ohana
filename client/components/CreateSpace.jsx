@@ -21,7 +21,7 @@ const CreateSpace = () => {
       res.json()
     .then(data => {
       console.log('what is in my fetch request 1', data)
-      setClusterArray(data.rows);
+      setDeploymentArray(data.rows);
     })
   })
   .catch(err => console.log(err))
@@ -34,7 +34,7 @@ const CreateSpace = () => {
       res.json()
     .then(data => {
       console.log('what is in my fetch request 2', data)
-      setDeploymentArray(data.rows)
+      setClusterArray(data.rows)
     })
   })
   .catch(err => console.log(err))
@@ -137,9 +137,9 @@ const CreateSpace = () => {
           <h2>Create a Namespace</h2>
           <FormControl>
           <InputLabel id="inputLabels">Select Cluster</InputLabel>
-          <Select label='Select Cluster' name='hostCluster' onChange={handleSetHostClusterName}>
+            <Select label='Select Cluster' name='hostCluster' onChange={handleSetHostClusterName}>
             {clusterList}
-          </Select>
+            </Select>
           </FormControl>
           <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetCreateHostNamespace} />
           <TextField label='Team ID' name='team_id' onChange={handleSetTeamId} />
@@ -150,10 +150,10 @@ const CreateSpace = () => {
           <h2>Deploy an Image</h2>
           <TextField label='Deployment Name' name='deploymentName' onChange={handleSetDeploymentName} />
           <FormControl>
-          <InputLabel id="inputLabels">Select Namespace</InputLabel>
-          <Select label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetDeployHostNamespace}>
-          {deploymentList}
-          </Select>
+            <InputLabel id="inputLabels">Select Namespace</InputLabel>
+            <Select label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetDeployHostNamespace}>
+            {deploymentList}
+            </Select>
           </FormControl>
           {/* <TextField label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetDeployHostNamespace} /> */}
           <TextField label='Image File' name='ImageFile' onChange={handleSetImageFile} />
@@ -161,9 +161,9 @@ const CreateSpace = () => {
         </form>
           <FormControl>
           <InputLabel id="inputLabels">Select Namespace</InputLabel>
-          <Select label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetDeployHostNamespace}>
-          {deploymentList}
-          </Select>
+            <Select label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetDeployHostNamespace}>
+            {deploymentList}
+            </Select>
           </FormControl>
           {/* <TextField label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetDeployHostNamespace} /> */}
         <TextField label='Deployment Name' name='deploymentName' onChange={handleSetDeploymentName} />

@@ -73,7 +73,7 @@ vClusterController.fetchNamespaces = (req, res, next) => {
 
 vClusterController.fetchClusters = (req, res, next) => {
   const query = `
-  SELECT clusterName FROM clusters5;
+  SELECT name FROM clusters6;
   `
   db.query(query)
     .then((data) => {
