@@ -30,6 +30,7 @@ const LoginPage = (props) => {
   // if (redirect === true) return <Redirect to='/adminsignup' />
 
   const handleSubmit = (e) => {
+    console.log('submitted')
     e.preventDefault();
 
     const form = e.target
