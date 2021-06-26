@@ -11,9 +11,9 @@ router.post('/create',
   }
 )
 
-router.get('/vcluster', 
-clusterController.fetchClusters, 
-(req, res) => {
-  res.status(200).json(res.locals.kyung)
-})
+router.get('/vcluster',
+  clusterController.fetchClusters,
+  (req, res) => {
+    res.status(200).json(res.locals.kyung)
+  })
 module.exports = router;

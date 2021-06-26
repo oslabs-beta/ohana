@@ -3,7 +3,8 @@ import { Button, TextField, Select } from '@material-ui/core'
 
 const CreateSpace = () => {
   const [hostNamespace, setHostNamespace] = useState('');
-  const [team_id, setTeamId] = useState('');
+  // const [team_id, setTeamId] = useState('');
+  const [teamName, setTeamName] = useState('');
   const [projectName, setProjectName] = useState('');
   const [imageFile, setImageFile] = useState('');
   const [deploymentName, setDeploymentName] = useState('');
@@ -15,8 +16,8 @@ const CreateSpace = () => {
     setHostNamespace(e.target.value)
   }
 
-  const handleSetTeamId = (e) => {
-    setTeamId(e.target.value);
+  const handleSetTeamName = (e) => {
+    setTeamName(e.target.value);
   }
 
   const handleSetProject = (e) => {
@@ -36,7 +37,8 @@ const CreateSpace = () => {
   }
 
   const formSubmit = (e) => {
-    const data = { clusterName, hostNamespace, team_id, projectName };
+    // const data = { clusterName, hostNamespace, team_id, projectName };
+    const data = { clusterName, hostNamespace };
     e.preventDefault();
     fetch('/spaces/create', {
       method: 'POST',
@@ -94,14 +96,24 @@ const CreateSpace = () => {
       <h1>Create a namespace and deploy</h1>
 
       <div id='spaces'>
-        <form method="POST" action="/spaces/create">
+        {/* <form method="POST" action="/spaces/create">
           <h2>Create a Namespace</h2>
           <TextField label='Host Cluster' name='hostCluster' onChange={handleSetClusterName} />
           <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace} />
           <TextField label='Team ID' name='team_id' onChange={handleSetTeamId} />
           <TextField label='Project Name' name='projectName' onChange={handleSetProject} />
           <Button type="submit" variant="contained" color="primary" onClick={formSubmit}>Create</Button>
+        </form> */}
+
+        <form method="POST" action="/spaces/create">
+          <h2>Create a Namespace</h2>
+          <TextField label='Host Cluster' name='hostCluster' onChange={handleSetClusterName} />
+          <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace} />
+          {/* <TextField label='Team Name' name='teamName' onChange={handleSetTeamName} /> */}
+
+          <Button type="submit" variant="contained" color="primary" onClick={formSubmit}>Create</Button>
         </form>
+
         <form>
           <h2>Deploy an Image</h2>
 

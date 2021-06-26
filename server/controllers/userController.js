@@ -38,7 +38,6 @@ userController.teamIdLookup = (req, res, next) => {
   const query = `SELECT _id FROM teams WHERE name='${teamName}'`;
   db.query(query)
     .then((data) => {
-      console.log(data.rows[0]._id)
       res.locals.teamId = data.rows[0]._id;
       return next();
     })

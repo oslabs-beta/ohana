@@ -3,20 +3,36 @@ const { runTerminalCommand, kubectl, gcloud } = require('../../terminalCommands.
 const spacesController = {};
 
 //will need to edit the database schema
-
-spacesController.addNamespace = (req, res, next) => {
-  const { clusterName, hostNamespace, team_id, projectName } = req.body;
-  const params = [clusterName, hostNamespace, team_id, projectName];
-  const query = `
-  INSERT INTO namespaces2(cluster_id, name, team_id, project)
-  VALUES ($1, $2, $3, $4)`
-
-  db.query(query, params)
-    .then(() => {
+spacesController.clusterIdLookup = (req, res, next) => {
+  const { clusterName, hostNamespace } = req.body;
+  const query = `SELECT _id FROM clusters WHERE name='${clusterName}'`;
+  db.query(query)
+    .then((data) => {
+      console.log(data.rows[0]._id);
+      res.locals.clusterId = data.rows[0]._id;
       return next();
     })
     .catch((err) => {
-      return next({ log: `Error in spacesController.addNamespace: ${err}` });
+      return next({
+        log: `Error in spacesController.clusterIdLookup: ${err}`,
+        message: `Error looking up cluster id`
+      })
+    })
+}
+
+spacesController.addNamespace = (req, res, next) => {
+  const { hostNamespace } = req.body;
+  const { clusterId } = res.locals;
+  const params = [hostNamespace, clusterId];
+  const query = 'INSERT INTO namespaces (name, cluster_id) VALUES ($1, $2)';
+
+  db.query(query, params)
+    .then(() => next())
+    .catch((err) => {
+      return next({
+        log: `Error in spacesController.addNamespace: ${err}`,
+        message: `Unable to create new namespace`
+      });
     })
 }
 

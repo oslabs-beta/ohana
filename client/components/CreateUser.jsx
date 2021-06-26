@@ -3,7 +3,7 @@ import { Button, TextField, Select, FormControlLabel, Checkbox } from '@material
 
 const CreateUser = () => {
   const [isAdmin, setAdmin] = useState(false)
-  const [editAccess, setAccess] = useState(false)
+  // const [editAccess, setAccess] = useState(false)
 
   const handleAdmin = (e) => {
     setAdmin(e.target.checked);
