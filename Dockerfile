@@ -1,3 +1,17 @@
+# Set arguments
+## Add gcloud service account here
+ARG gcloud_account=newadmin@klustr-316321.iam.gserviceaccount.com
+
+## Add gcloud account key file path here
+ARG key_path=/secret/klustr-316321-f31f9767f260.json
+
+## Add GKE project_id here
+ARG project_id=klustr-316321
+
+## Add GKE Cluster zone here
+ARG cluster_zone=us-west1-a
+
+
 # ohana app image
 FROM node:latest AS app
 WORKDIR /
@@ -8,7 +22,8 @@ EXPOSE 8080
 ENTRYPOINT ["node", "./server/server.js"]
 
 ## Installs gcloud and kubectl as well as other products
-FROM gcr.io/google.com/cloudsdktool/cloud-sdk:latest as gcloud
+###### old gcloud link gcr.io/google.com/cloudsdktool/cloud-sdk:latest
+FROM gcr.io/google.com/cloudsdktool/cloud-sdk:slim as gcloud
 WORKDIR /
 
 ## Install debian as OS for container
@@ -20,11 +35,11 @@ RUN apt-get update
 RUN apt-get install sudo
 # RUN apt-get install vim
 # authenticate gcloud service account via json token
-RUN gcloud auth activate-service-account newadmin@klustr-316321.iam.gserviceaccount.com --key-file=/secret/klustr-316321-f31f9767f260.json
-RUN gcloud config set project klustr-316321
+RUN gcloud auth activate-service-account ${gcloud_account}  --key-file=${key_path}
+RUN gcloud config set project ${project_id}
 RUN sudo apt-get install kubectl
 # generate kubectl config file via gcloud cli (note 'cluster-1' is cluster name to be replaced)
-RUN gcloud container clusters get-credentials cluster-1 --zone=us-west1-a
+RUN gcloud container clusters get-credentials cluster-1 --zone=${cluster_zone}
 
 ## run sequential commands to install helm
 RUN curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
