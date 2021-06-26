@@ -4,15 +4,28 @@ const spacesController = {};
 
 //will need to edit the database schema
 
-spacesController.addNamespace = (req, res, next) => {
-  const { clusterName, hostNamespace, team_id, projectName } = req.body;
-  const params = [clusterName, hostNamespace, team_id, projectName];
+spacesController.fetchClusters = (req, res, next) => {
   const query = `
-  INSERT INTO namespaces2(cluster_id, name, team_id, project)
-  VALUES ($1, $2, $3, $4)`
+  SELECT clusterName FROM clusters5;
+  `
+  db.query(query)
+    .then((data) => {
+      console.log(data)
+      res.locals.clusters = data.rows
+      return next();
+    })
+}
+
+spacesController.addNamespace = (req, res, next) => {
+  const { createHostNamespace, team_id, projectName } = req.body;
+  const params = [createHostNamespace, team_id, projectName];
+  const query = `
+  INSERT INTO namespaces5(name, team_id, project)
+  VALUES ($1, $2, $3)`
 
   db.query(query, params)
-    .then(() => {
+    .then((data) => {
+      console.log(data)
       return next();
     })
     .catch((err) => {
@@ -35,21 +48,6 @@ spacesController.addNamespace = (req, res, next) => {
 //       return next({ log: `Error in spacesController.addNamespace: ${err}` });
 //     })
 // }
-
-spacesController.fetchNamespaces = (req, res, next) => {
-  // console.group(req.params)
-  const query = `
-  SELECT * FROM namespace`
-  db.query(query)
-    .then((data) => {
-      res.locals.kyung = data.rows;
-      console.log('what is data', data);
-      return next();
-    })
-    .catch((err) => {
-      return next({ log: `Error in spacesController.fetchNamespaces: ${err}` });
-    })
-}
 
 spacesController.createNamespace = (req, res, next) => {
   console.log(req.body)
@@ -92,12 +90,24 @@ spacesController.getExternalIp = (req, res, next) => {
 
 spacesController.fetchSpaces = (req, res, next) => {
   const query = `
-  SELECT * FROM namespaces2;
+  SELECT * FROM namespaces5;
   `
-
   db.query(query)
     .then((data) => {
+      console.log(data)
       res.locals.spaces = data.rows
+      return next();
+    })
+}
+
+spacesController.fetchNamespaces = (req, res, next) => {
+  const query = `
+  SELECT name FROM namespaces5;
+  `
+  db.query(query)
+    .then((data) => {
+      console.log(data)
+      res.locals.namespaces = data.rows
       return next();
     })
 }

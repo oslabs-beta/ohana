@@ -16,12 +16,12 @@ const useStyles = makeStyles({
 });
 
 const SpacesList = () => {
+  
+  const classes = useStyles();
   const [spaces, setSpaces] = useState([])
 
   const handleClick = (e) => {
-
     e.preventDefault();
-
     fetch('/spaces/fetch')
       .then(response => response.json())
       .then(data => {
@@ -36,8 +36,6 @@ const SpacesList = () => {
   const rows = spaces.map((space) => {
     return createData(space._id, space.name, space.team_id, space.project);
   })
-
-  const classes = useStyles();
 
   return (
     <div id='SpacesList'>

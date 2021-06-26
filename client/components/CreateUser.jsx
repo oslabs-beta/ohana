@@ -38,7 +38,7 @@ const CreateUser = () => {
 
   return (
     <div id='createuser'>
-      <form method="POST" action='/user/create' onsubmit={handleSubmit}>
+      <form method="POST" action='/user/create' onSubmit={handleSubmit}>
       {/* <form onsubmit={handleSubmit}> */}
         <TextField label='User Email' name='email' onChange={handleEmail} value={email}></TextField><br></br>
         <TextField type='password' label='User Password' name='password'></TextField><br></br>

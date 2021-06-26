@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import CreateCluster from '../components/CreateCluster.jsx';
 import VClustersList from '../components/VClustersList.jsx';
+import { AppContext } from '../components/AppContext'
 
 const ClusterContainer = () => {
-  
+
   const { setIsLoggedIn, setIsAdmin } = useContext(AppContext);
   useEffect(() => {
     fetch('/cookies')

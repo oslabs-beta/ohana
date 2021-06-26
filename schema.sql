@@ -34,5 +34,5 @@ CREATE TABLE "clusters5" {
   "_id" smallserial PRIMARY KEY,
   "clusterName" varchar,
   "region" varchar,
-  "zone" varchar,
+  "zone" varchar
 }
