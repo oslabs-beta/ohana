@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TextField, Button, CircularProgress, Select, MenuItem } from '@material-ui/core'
+import React, { useState, useEffect } from 'react';
+import { TextField, Button, CircularProgress, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 
 const CreateCluster = () => {
 
@@ -10,6 +10,32 @@ const CreateCluster = () => {
   const [currentProcess, setCurrentProcess] = useState('');
   const [availableClusters, setAvailableClusters] = useState([]);
   const [availableNamespaces, setAvailableNamespaces] = useState([]);
+
+  useEffect(() => {
+    fetch('vclusters/fetchclusters')
+    .then(res => {
+      console.log('fetchclusters', res)
+      res.json()
+    .then(data => {
+      console.log('what is in my fetch request 1', data)
+      setAvailableClusters(data.rows);
+    })
+  })
+  .catch(err => console.log(err))
+}, [availableClusters])
+
+  useEffect(() => {
+    fetch('vclusters/fetchnamespaces')
+    .then(res => {
+      console.log('fetchnamespaces', res)
+      res.json()
+    .then(data => {
+      console.log('what is in my fetch request 2', data)
+      setAvailableNamespaces(data.rows)
+    })
+  })
+  .catch(err => console.log(err))
+}, [availableNamespaces])
 
   const handleClusterNameChange = (e) => {
     setClusterName(e.target.value)
@@ -43,25 +69,31 @@ const CreateCluster = () => {
       })
       .catch(err => console.log(err))
   }
+  const availableClusters1 = ['asdf','hello'];
+  const availableNamespaces1 = ['asdf','hello'];
+  const clusterList = availableClusters1.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
+  const namespaceList = availableNamespaces1.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
 
-  let namespaceArray = ['kiosk', 'default']
-  // let namespaceOptions = [];
-  let options = namespaceArray.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
-  console.log(options)  
   return (
     <div id='create-clusters'>
       <h1>Create a vCluster</h1>
       <div id='clusters'>
         <form onSubmit={formSubmit}>
           {/* <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} color="primary" /> */}
-          <Select label='Select Cluster' onChange={handleClusterNameChange}>
-            <MenuItem value="cluster-1">cluster-1</MenuItem>
-          </Select>
-          <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
+          <FormControl>
+          <InputLabel id="inputLabels">Select Cluster</InputLabel>
+            <Select label='Select Cluster' onChange={handleClusterNameChange}>
+            {clusterList}
+            </Select>
+          </FormControl>
+          <TextField label='vCluster Name' name='vClusterName' onChange={handleSetvClusterName} />
           {/* <TextField label='Host Namespace' name='hostNamespace' onChange={handleHostNamespaceChange} /> */}
-          <Select label='Select Namespace' onChange={handleHostNamespaceChange}>
-            {options}
-          </Select>
+          <FormControl>
+          <InputLabel id="inputLabels">Select Namespace</InputLabel>
+            <Select label='Select Namespace' onChange={handleHostNamespaceChange}>
+            {namespaceList}
+            </Select>
+          </FormControl>
           <Button variant="contained" color="primary" type="submit">Create</Button>
           <span>{currentProcess}</span><span>{inProgress}</span>
         </form>

@@ -40,6 +40,7 @@ app.get('*', (req, res) => {
 app.use('/user', userRouter)
 app.use('/spaces', spacesRouter)
 app.use('/vclusters', vClusterRouter)
+app.use('/admin', userRouter)
 // app.use('/admin', adminRouter)
 
 

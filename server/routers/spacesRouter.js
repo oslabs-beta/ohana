@@ -22,14 +22,20 @@ router.post('/getip',
 
 router.get('/fetch', 
   spacesController.fetchSpaces, 
-  (req, res) => res.send(200).json(res.locals.spaces));
+  (req, res) => {
+    res.status(200).json(res.locals.spaces)
+  });
 
 router.get('/fetchspaces', 
   spacesController.fetchNamespaces, 
-  (req, res) => res.send(200).json(res.locals.namespaces));
+  (req, res) => {
+    res.status(200).json(res.locals.namespaces)
+  });
 
-  router.get('/fetchclusters', 
+router.get('/fetchclusters', 
   spacesController.fetchClusters, 
-  (req, res) => res.send(200).json(res.locals.clusters));
+  (req, res) => {
+    res.status(200).json(res.locals.clusters)
+  });
 
 module.exports = router;

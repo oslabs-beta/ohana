@@ -18,7 +18,7 @@ const LoginPage = (props) => {
       console.log(isLoggedIn, 'is logged in login')
       if (isAdmin) history.push('/admin')
       else {
-        history.push('/vcluster')
+        history.push('/vclusters')
       }
     }
   })
@@ -48,8 +48,7 @@ const LoginPage = (props) => {
       })
       .then(() => {
         fetch('/user/verify', {
-          // method: 'POST',
-          method: form.method,
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -65,7 +64,7 @@ const LoginPage = (props) => {
             if (typeof res === 'boolean') {
               setIsLoggedIn(true);
             }
-            (isAdmin) ? history.push('/admin') : history.push('/vcluster');
+            (isAdmin) ? history.push('/admin') : history.push('/vclusters');
           })
         }
       )

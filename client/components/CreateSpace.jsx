@@ -24,7 +24,8 @@ const CreateSpace = () => {
       setClusterArray(data.rows);
     })
   })
-})
+  .catch(err => console.log(err))
+}, [deploymentArray])
 
   useEffect(() => {
     fetch('spaces/fetchclusters')
@@ -36,7 +37,8 @@ const CreateSpace = () => {
       setDeploymentArray(data.rows)
     })
   })
-})
+  .catch(err => console.log(err))
+}, [clusterArray])
 
   const handleSetHostClusterName = (e) => {
     setHostClusterName(e.target.value);
@@ -120,8 +122,11 @@ const CreateSpace = () => {
       })
   }
 
-  const clusterList = clusterArray.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
-  const deploymentList = deploymentArray.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
+  const clusterArray1 = ['asdf','hello'];
+  const deploymentArray1 = ['asdf','hello'];
+  const clusterList = clusterArray1.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
+  const deploymentList = deploymentArray1.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
+  
 
   return (
     <div id='create-spaces'>
@@ -131,7 +136,7 @@ const CreateSpace = () => {
         <form method="POST" action="/spaces/create">
           <h2>Create a Namespace</h2>
           <FormControl>
-          <InputLabel class="inputLabels">Select Cluster</InputLabel>
+          <InputLabel id="inputLabels">Select Cluster</InputLabel>
           <Select label='Select Cluster' name='hostCluster' onChange={handleSetHostClusterName}>
             {clusterList}
           </Select>
@@ -147,7 +152,7 @@ const CreateSpace = () => {
           <FormControl>
           <InputLabel id="inputLabels">Select Namespace</InputLabel>
           <Select label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetDeployHostNamespace}>
-            {deploymentList}
+          {deploymentList}
           </Select>
           </FormControl>
           {/* <TextField label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetDeployHostNamespace} /> */}
@@ -157,7 +162,7 @@ const CreateSpace = () => {
           <FormControl>
           <InputLabel id="inputLabels">Select Namespace</InputLabel>
           <Select label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetDeployHostNamespace}>
-            {deploymentList}
+          {deploymentList}
           </Select>
           </FormControl>
           {/* <TextField label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetDeployHostNamespace} /> */}

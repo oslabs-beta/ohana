@@ -3,6 +3,7 @@ import { Button, TextField } from '@material-ui/core'
 
 const CreateTeam = () => {
 
+  // should add in dropdown for team
   return (
     <div id='createteam'>
       <TextField label='Team Name'></TextField><br></br>

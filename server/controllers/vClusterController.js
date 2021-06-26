@@ -9,7 +9,6 @@ vClusterController.addVCluster = (req, res, next) => {
   const query = `
   INSERT INTO vclusters5(hostNamespace, vClusterName, projectName)
   VALUES ($1, $2, $3)`
-
   db.query(query, params)
     .then(() => {
       return next();
@@ -36,7 +35,6 @@ vClusterController.addVCluster = (req, res, next) => {
 // }
 
 vClusterController.createVCluster = (req, res, next) => {
-
   console.log(req.body);
   const { clusterName, vClusterName, hostNamespace } = req.body;
   res.locals.vClusterName = vClusterName;
@@ -51,20 +49,9 @@ vClusterController.createVCluster = (req, res, next) => {
     }).catch(err => next({ log: `clusterController.createCluster: ${err}` }))
 }
 
-// vClusterController.deleteVCluster = (req, res, next) => {
-//   console.log(req.body);
-//   const { clusterName, vClusterName, hostNamespace } = req.body;
-//   runTerminalCommand(gcloud.getCredentials(clusterName))
-//     .then((data) => {
-//       console.log('1', data)
-//       runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
-//         .catch(err => console.log(err))
-//     })
-// }
-
 vClusterController.fetchVClusters = (req, res, next) => {
   const query = `
-  SELECT * FROM vclusters;
+  SELECT * FROM vclusters5;
   `
   db.query(query)
     .then((data) => {
@@ -72,4 +59,28 @@ vClusterController.fetchVClusters = (req, res, next) => {
       return next();
     })
 }
+
+vClusterController.fetchNamespaces = (req, res, next) => {
+  const query = `
+  SELECT name FROM namespaces5;
+  `
+  db.query(query)
+    .then((data) => {
+      res.locals.clusternamespaces = data.rows
+      return next();
+    })
+}
+
+vClusterController.fetchClusters = (req, res, next) => {
+  const query = `
+  SELECT clusterName FROM clusters5;
+  `
+  db.query(query)
+    .then((data) => {
+      res.locals.clusterclusters = data.rows
+      return next();
+    })
+}
+
+
 module.exports = vClusterController;
