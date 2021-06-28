@@ -1,9 +1,10 @@
 apiVersion: tenancy.kiosk.sh/v1alpha1
-kind: Account
+kind: Space
 metadata:
-  name: johns-account
+  name: dev1-space
 spec:
+  account: dev-account
   subjects:
   - kind: User
-    name: john
+    name: dev1
     apiGroup: rbac.authorization.k8s.io

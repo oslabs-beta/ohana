@@ -1,9 +1,13 @@
 apiVersion: tenancy.kiosk.sh/v1alpha1
 kind: Account
 metadata:
-  name: johns-account
+  name: dev-account
+  # spec:
+  # space:
+  # limit: 2
 spec:
   subjects:
   - kind: User
-    name: john
+    name: dev1
+    # need to replace name with the user email
     apiGroup: rbac.authorization.k8s.io

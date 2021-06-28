@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/server.js",
-    "dev": "concurrently \"node server/server.js\" \"webpack serve --open\"",
+    "dev": "concurrently \"nodemon server/server.js\" \"webpack serve --open\"",
+    "ohana-win": "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 && chmod 700 get_helm.sh && ./get_helm.sh && md -Force \"$Env:APPDATA\\vcluster\"; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]'Tls,Tls11,Tls12'; Invoke-WebRequest -UseBasicParsing ((Invoke-WebRequest -URI \"https://github.com/loft-sh/vcluster/releases/latest\" -UseBasicParsing).Content -replace \"(?ms).*`\"([^`\"]*vcluster-windows-amd64.exe)`\".*\",\"https://github.com/`$1\") -o $Env:APPDATA\\vcluster\\vcluster.exe; $env:Path += \";\" + $Env:APPDATA + \"\\vcluster\"; [Environment]::SetEnvironmentVariable(\"Path\", $env:Path, [System.EnvironmentVariableTarget]::User); && (New-Object Net.WebClient).DownloadFile(\"https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe\", \"$env:Temp\\GoogleCloudSDKInstaller.exe\")& $env:Temp\\GoogleCloudSDKInstaller.exe",
+    "ohana-mac": "brew install helm && curl -s -L \"https://github.com/loft-sh/vcluster/releases/latest\" | sed -nE 's!.*\"([^\"]*vcluster-darwin-amd64)\".*!https://github.com\\1!p' | xargs -n 1 curl -L -o vcluster && chmod +x vcluster; sudo mv vcluster /usr/local/bin;",
+    "ohana-m1": "brew install helm && curl -s -L \"https://github.com/loft-sh/vcluster/releases/latest\" | sed -nE 's!.*\"([^\"]*vcluster-darwin-arm64)\".*!https://github.com\\1!p' | xargs -n 1 curl -L -o vcluster && chmod +x vcluster; sudo mv vcluster /usr/local/bin;",
     "ohana-nix": "curl https://baltocdn.com/helm/signing.asc | sudo apt-key add - && sudo apt-get install apt-transport-https --yes echo \"deb https://baltocdn.com/helm/stable/debian/ all main\" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list && sudo apt-get update && sudo apt-get install helm && sudo apt-get update && sudo apt-get install google-cloud-sdk && curl -s -L \"https://github.com/loft-sh/vcluster/releases/latest\" | sed -nE 's!.*\"([^\"]*vcluster-linux-amd64)\".*!https://github.com\\1!p' | xargs -n 1 curl -L -o vcluster && chmod +x vcluster; sudo mv vcluster /usr/local/bin;"
   },
   "keywords": [],
@@ -19,6 +22,7 @@
     "@material-ui/core": "^4.11.4",
     "bcrypt": "^5.0.1",
     "child_process": "^1.0.2",
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "helm": "^0.2.1",
     "jsonwebtoken": "^8.5.1",

@@ -8,8 +8,8 @@ spacesController.addNamespace = (req, res, next) => {
   const { clusterName, team_id, projectName } = req.body;
   const params = [clusterName, team_id, projectName];
   const query = `
-  INSERT INTO namespaces5(name, team_id, project)
-  VALUES ($1, $2, $3)`
+  INSERT INTO namespaces2(cluster_id, name, team_id, project)
+  VALUES ($1, $2, $3, $4)`
 
   db.query(query, params)
     .then(() => {
@@ -39,7 +39,7 @@ spacesController.addNamespace = (req, res, next) => {
 spacesController.fetchNamespaces = (req, res, next) => {
   // console.group(req.params)
   const query = `
-  SELECT * FROM namespaces5`
+  SELECT * FROM namespace`
   db.query(query)
     .then((data) => {
       res.locals.kyung = data.rows;
