@@ -6,7 +6,9 @@ const adminRouter = require('./routers/adminRouter');
 const spacesRouter = require('./routers/spacesRouter');
 const teamsRouter = require('./routers/teamsRouter')
 const vClusterRouter = require('./routers/vClusterRouter');
-const userController = require('./controllers/userController')
+const userController = require('./controllers/userController');
+const clusterController = require('./controllers/clusterController')
+const clusterRouter = require('./routers/clusterRouter')
 const cookieParser = require('cookie-parser')
 
 app.use(express.json());
@@ -31,18 +33,19 @@ app.get('/admin',
     if (isAdmin === false) return res.redirect('/vcluster')
   })
 
-app.get('*', (req, res) => {
-  console.log('req.cookies', req.cookies)
-  const { AuthToken } = req.cookies;
-  if (AuthToken === undefined) return res.redirect('/')
-  return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
-});
-
-app.use('/user', userRouter)
-app.use('/spaces', spacesRouter)
-app.use('/vclusters', vClusterRouter)
-app.use('/teams', teamsRouter)
-
+  
+  app.use('/user', userRouter)
+  app.use('/spaces', spacesRouter)
+  app.use('/vclusters', vClusterRouter)
+  app.use('/teams', teamsRouter)
+  app.use('/clusters', clusterRouter)
+  
+  app.get('*', (req, res) => {
+    console.log('req.cookies', req.cookies)
+    const { AuthToken } = req.cookies;
+    if (AuthToken === undefined) return res.redirect('/')
+    return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
+  });
 
 app.use((err, req, res, next) => {
   const defaultErr = {

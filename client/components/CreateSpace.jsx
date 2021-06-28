@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Button, TextField, Select } from '@material-ui/core'
+import React, { useState, useEffect, useContext } from 'react';
+import { Button, TextField, Select, MenuItem } from '@material-ui/core'
+import { AppContext } from './AppContext';
 
 const CreateSpace = () => {
   const [hostNamespace, setHostNamespace] = useState('');
@@ -11,6 +12,10 @@ const CreateSpace = () => {
   const [clusterName, setClusterName] = useState('');
   const [externalIp, setExternalIp] = useState('');
   const [clickMe, setClickMe] = useState('');
+  const { clusterNames } = useContext(AppContext)
+
+  const clusterNamesDropdown = [];
+  clusterNames.forEach(name => clusterNamesDropdown.push(<MenuItem value={name}>{name}</MenuItem>))
 
   const handleSetHostNamespace = (e) => {
     setHostNamespace(e.target.value)
@@ -98,7 +103,10 @@ const CreateSpace = () => {
       <div id='spaces'>
         {/* <form method="POST" action="/spaces/create">
           <h2>Create a Namespace</h2>
-          <TextField label='Host Cluster' name='hostCluster' onChange={handleSetClusterName} />
+          {/* <TextField label='Host Cluster' name='hostCluster' onChange={handleSetClusterName} /> */}
+          <Select>
+            {clusterNamesDropdown}
+          </Select>
           <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace} />
           <TextField label='Team ID' name='team_id' onChange={handleSetTeamId} />
           <TextField label='Project Name' name='projectName' onChange={handleSetProject} />
