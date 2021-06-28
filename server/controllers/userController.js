@@ -176,7 +176,7 @@ userController.isAdminCheck = (req, res, next) => {
   const params = [email];
   const query = `
   SELECT is_admin
-  FROM users5
+  FROM users
   WHERE email=$1;
   `
   db.query(query, params)
