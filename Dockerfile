@@ -2,14 +2,17 @@
 ## Add gcloud service account here
 ARG gcloud_account=newadmin@klustr-316321.iam.gserviceaccount.com
 
+
 ## Add gcloud account key file path here
 ARG key_path=/secret/klustr-316321-f31f9767f260.json
 
 ## Add GKE project_id here
 ARG project_id=klustr-316321
 
+
 ## Add GKE Cluster zone here
 ARG cluster_zone=us-west1-a
+
 
 
 # ohana app image
@@ -35,11 +38,15 @@ RUN apt-get update
 RUN apt-get install sudo
 # RUN apt-get install vim
 # authenticate gcloud service account via json token
-RUN gcloud auth activate-service-account ${gcloud_account}  --key-file=${key_path}
-RUN gcloud config set project ${project_id}
+ENV gcloud_acc=gcloud_account
+ENV secret=key_path
+RUN gcloud auth activate-service-account ${gcloud_acc}  --key-file=${secret}
+ENV project=project_id
+RUN gcloud config set project ${project}
 RUN sudo apt-get install kubectl
 # generate kubectl config file via gcloud cli (note 'cluster-1' is cluster name to be replaced)
-RUN gcloud container clusters get-credentials cluster-1 --zone=${cluster_zone}
+ENV cluster=cluster_zone
+RUN gcloud container clusters get-credentials cluster-1 --zone=${cluster}
 
 ## run sequential commands to install helm
 RUN curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
