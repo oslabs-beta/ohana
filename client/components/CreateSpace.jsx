@@ -104,14 +104,14 @@ const CreateSpace = () => {
         {/* <form method="POST" action="/spaces/create">
           <h2>Create a Namespace</h2>
           {/* <TextField label='Host Cluster' name='hostCluster' onChange={handleSetClusterName} /> */}
-          <Select>
-            {clusterNamesDropdown}
-          </Select>
-          <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace} />
-          <TextField label='Team ID' name='team_id' onChange={handleSetTeamId} />
-          <TextField label='Project Name' name='projectName' onChange={handleSetProject} />
-          <Button type="submit" variant="contained" color="primary" onClick={formSubmit}>Create</Button>
-        </form> */}
+        {/* <Select>
+          {clusterNamesDropdown}
+        </Select>
+        <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace} />
+        <TextField label='Team ID' name='team_id' onChange={handleSetTeamId} />
+        <TextField label='Project Name' name='projectName' onChange={handleSetProject} />
+        <Button type="submit" variant="contained" color="primary" onClick={formSubmit}>Create</Button> */}
+
 
         <form method="POST" action="/spaces/create">
           <h2>Create a Namespace</h2>
