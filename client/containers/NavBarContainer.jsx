@@ -8,22 +8,22 @@ import { AppContext } from '../components/AppContext'
 
 const NavBar = () => {
   const { isAdmin } = useContext(AppContext)
-  let history = useHistory();
   let adminButton = '';
   if (isAdmin) adminButton = <Button className='navButtons' onClick={() => { history.push('/admin') }}>Admin</Button>
-
+  let history = useHistory();
+  
   console.log(AppContext)
   console.log(useContext(AppContext))
 
   return (
     <div id='navbar'>
-    {adminButton}
-    <Button className='navButtons' onClick={() => {history.push('/spaces')}}>
-      Spaces
-    </Button>
-    <Button className='navButtons' onClick={() => {history.push('/vcluster')}}>
-      vClusters
-    </Button>
+      {adminButton}
+      <Button className='navButtons' onClick={() => { history.push('/spaces') }}>
+        Spaces
+      </Button>
+      <Button className='navButtons' onClick={() => { history.push('/vcluster') }}>
+        vClusters
+      </Button>
     </div>
   )
 }

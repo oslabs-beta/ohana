@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { TextField, Button, CircularProgress, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
+import { AppContext } from './AppContext';
 
 const CreateSpace = () => {
   const [hostCluster, setHostClusterName] = useState('');
@@ -11,36 +12,41 @@ const CreateSpace = () => {
   const [deploymentName, setDeploymentName] = useState('');
   const [externalIp, setExternalIp] = useState('');
   const [clickMe, setClickMe] = useState('');
-  const [clusterArray, setClusterArray] = useState([]);
+  // const [clusterArray, setClusterArray] = useState([]);
+
   const [deploymentArray, setDeploymentArray] = useState([]);
+  const { clusterNames } = useContext(AppContext)
 
-  useEffect(() => {
-    fetch('spaces/fetchspaces')
-    .then(res => {
-      console.log('spaces/spaces', res)
-      res.json()
-    .then(data => {
-      console.log('what is in my fetch request 1', data)
-      const deploymentArray = data.map(element => element.name)
-      setDeploymentArray(deploymentArray);
-    })
-  })
-  .catch(err => console.log(err))
-}, [])
+  const clusterNamesDropdown = [];
+  clusterNames.forEach(name => clusterNamesDropdown.push(<MenuItem value={name}>{name}</MenuItem>))
 
-  useEffect(() => {
-    fetch('spaces/fetchclusters')
-    .then(res => {
-      console.log('spaces/clusters', res)
-      res.json()
-    .then(data => {
-      console.log('what is in my fetch request 2', data)
-      const clusterArray = data.map(element => element.name)
-      setClusterArray(clusterArray)
-    })
-  })
-  .catch(err => console.log(err))
-}, [])
+//   useEffect(() => {
+//     fetch('spaces/fetchspaces')
+//     .then(res => {
+//       console.log('spaces/spaces', res)
+//       res.json()
+//     .then(data => {
+//       console.log('what is in my fetch request 1', data)
+//       const deploymentArray = data.map(element => element.name)
+//       setDeploymentArray(deploymentArray);
+//     })
+//   })
+//   .catch(err => console.log(err))
+// }, [])
+
+//   useEffect(() => {
+//     fetch('spaces/fetchclusters')
+//     .then(res => {
+//       console.log('spaces/clusters', res)
+//       res.json()
+//     .then(data => {
+//       console.log('what is in my fetch request 2', data)
+//       const clusterArray = data.map(element => element.name)
+//       setClusterArray(clusterArray)
+//     })
+//   })
+//   .catch(err => console.log(err))
+// }, [])
 
   const handleSetHostClusterName = (e) => {
     setHostClusterName(e.target.value);
@@ -134,13 +140,18 @@ const CreateSpace = () => {
       <div id='spaces'>
         <form method="POST" action="/spaces/create">
           <h2>Create a Namespace</h2>
-          <FormControl>
+          {/* <FormControl>
           <InputLabel id="inputLabels">Select Cluster</InputLabel>
             <Select label='Select Cluster' name='hostCluster' onChange={handleSetHostClusterName}>
             {clusterList}
             </Select>
-          </FormControl>
+          </FormControl> */}
           <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetCreateHostNamespace} />
+          {/* <TextField label='Host Cluster' name='hostCluster' onChange={handleSetClusterName} /> */}
+          <Select>
+            {clusterNamesDropdown}
+          </Select>
+          <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetHostNamespace} />
           <TextField label='Team ID' name='team_id' onChange={handleSetTeamId} />
           <TextField label='Project Name' name='projectName' onChange={handleSetProject} />
           <Button type="submit" variant="contained" color="primary" onSubmit={formSubmit}>Create</Button>

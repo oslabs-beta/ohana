@@ -2,9 +2,8 @@ const db = require('../db/models');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
-const { runTerminalCommand, kubectl, gcloud, serviceAccount } = require('../../terminalCommands');
+const { runTerminalCommand } = require('../../terminalCommands');
 const secret = 'ohana';
-const path = require('path');
 
 const userController = {};
 
@@ -21,6 +20,7 @@ const userController = {};
 
 userController.bcryptPassword = (req, res, next) => {
   const { password } = req.body;
+  console.log('hitting bcrypt controller', password)
   bcrypt.hash(password, saltRounds)
     .then((hash) => {
       res.locals.password = hash;
@@ -29,13 +29,31 @@ userController.bcryptPassword = (req, res, next) => {
     .catch((err) => next({ log: `Error in userController.bcrypt: ${err}` }));
 }
 
+userController.teamIdLookup = (req, res, next) => {
+  const { teamName } = req.body;
+  // look up the team id value stored
+  const query = `SELECT _id FROM teams WHERE name='${teamName}'`;
+  db.query(query)
+    .then((data) => {
+      console.log(data.rows[0]._id)
+      res.locals.teamId = data.rows[0]._id;
+      return next();
+    })
+    .catch((err) => {
+      return next({
+        log: `Error in userController.teamIdLookup: ${err}`,
+        message: `Please enter valid team name`
+      })
+    })
+}
+
 userController.addNewUser = (req, res, next) => {
   console.log('hitting addNewUser controller')
-  const { password } = res.locals;
-  const { email, firstName, lastName, teamId, isAdmin } = req.body;
-  const params = [email, password, firstName, lastName, isAdmin, teamId, editAccess];
+  const { teamId, password } = res.locals;
+  const { email, firstName, lastName, isAdmin } = req.body;
+  const params = [email, password, firstName, lastName, isAdmin, teamId];
   const query = `
-  INSERT INTO users5(email, password, first_name, last_name, is_admin, team_id)
+  INSERT INTO users(email, password, first_name, last_name, is_admin, team_id)
   VALUES ($1, $2, $3, $4, $5, $6);`
   db.query(query, params)
     .then(() => next())
@@ -43,6 +61,51 @@ userController.addNewUser = (req, res, next) => {
       return next({ log: `Error in userController.addNewUser: ${err}` });
     })
 }
+
+// userController.editUser 
+userController.editAccessUser = (req, res, next) => {
+  console.log('hitting editAccess controller')
+  const { editAccess } = req.body;
+  console.log('Checking if true', editAccess);
+
+  if (editAccess === true) {
+    console.log('running terminal command')
+    runTerminalCommand(kubectl.createFromConfig(configFile))
+      .then(() => next())
+      .catch((err) => {
+        return next({ log: `Error in userController.editAccessUser: ${err}` });
+      })
+  }
+}
+
+// userController.addNewUser = (req, res, next) => {
+//   const { password } = res.locals;
+//   const { email, firstName, lastName, teamId, isAdmin, editAccess } = req.body;
+//   const params = [email, password, firstName, lastName, isAdmin, teamId, editAccess];
+//   const query = `
+//   INSERT INTO users(email, password, first_name, last_name, is_admin, team_id, edit_access)
+//   VALUES ($1, $2, $3, $4, $5, $6, $7);`
+//   db.query(query, params)
+//     .then(() => next())
+//     .catch((err) => {
+//       return next({ log: `Error in userController.addNewUser: ${err}` });
+//     })
+// }
+
+// new || do we need to add this into the db as well?
+// userController.createServiceAccount = (req, res, next) => {
+//   const { email } = req.body
+//   // run terminal command for service account
+//   runTerminalCommand(serviceAccount.user(email))
+//     .then((data) => {
+//       console.log('what is data', data)
+//       runTerminalCommand(serviceAccount.userConfig(email))
+//       return next();
+//     })
+//     .catch((err) => {
+//       return next({ log: `Error in userController.createServiceAccount: ${err}` });
+//     })
+// }
 
 userController.loginCheck = (req, res, next) => {
   const { email, password } = req.body;
@@ -52,6 +115,11 @@ userController.loginCheck = (req, res, next) => {
     WHERE email = '${email}'`
   db.query(query)
     .then((result) => {
+      if (!result.rows.length) {
+        console.log('user does not exist')
+        res.locals.user = false
+        return next({ log: 'Incorrect username/password', message: 'Incorrect username/password' });
+      }
       bcrypt.compare(password, result.rows[0].password, (err, result) => {
         if (err) return next({ log: `Error in userController.loginCheck: ${err}` });
         if (!result) return next({ log: 'Incorrect username/password', message: 'Incorrect username/password' });

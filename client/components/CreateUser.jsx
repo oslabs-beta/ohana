@@ -44,11 +44,12 @@ const CreateUser = () => {
         <TextField type='password' label='User Password' name='password'></TextField><br></br>
         <TextField label='First Name' name='firstName'></TextField><br></br>
         <TextField label='Last Name' name='lastName'></TextField><br></br>
+        <TextField label='Team Name' name='teamName'></TextField><br></br>
         {/* <Select>Select Team</Select> */}
         <FormControlLabel control={<Checkbox />} name='isAdmin' label='Add as Admin' labelPlacement='end'
           onChange={handleAdmin} value={isAdmin} /><br></br>
-        <FormControlLabel control={<Checkbox />} name='editAccess' label='Edit Perms' labelPlacement='end'
-          onChange={handleAccess} value={editAccess} /><br></br>
+        {/* <FormControlLabel control={<Checkbox />} name='editAccess' label='Edit Perms' labelPlacement='end'
+          onChange={handleAccess} value={editAccess} /><br></br> */}
         <Button type='submit' label='Create User' variant="contained" color="primary">Create User</Button>
       </form>
     </div>

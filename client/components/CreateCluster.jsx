@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { TextField, Button, CircularProgress, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
+import { AppContext } from './AppContext';
 
 const CreateCluster = () => {
 
@@ -8,36 +9,39 @@ const CreateCluster = () => {
   const [hostNamespace, setHostNamespace] = useState('');
   const [inProgress, setInProgress] = useState('');
   const [currentProcess, setCurrentProcess] = useState('');
-  const [availableClusters, setAvailableClusters] = useState([]);
   const [availableNamespaces, setAvailableNamespaces] = useState([]);
+  const { clusterNames } = useContext(AppContext)
 
-  useEffect(() => {
-    fetch('vclusters/fetchclusters')
-    .then(res => {
-      console.log('fetchclusters', res)
-      res.json()
-    .then(data => {
-      console.log('what is in my fetch request 1', data)
-      const availableClusters = data.map(element => element.name)
-      setAvailableClusters(availableClusters);
-    })
-  })
-  .catch(err => console.log(err))
-}, [])
+  const clusterNamesDropdown = [];
+  clusterNames.forEach(name => clusterNamesDropdown.push(<MenuItem value={name}>{name}</MenuItem>))
 
-  useEffect(() => {
-    fetch('vclusters/fetchnamespaces')
-    .then(res => {
-      console.log('fetchnamespaces', res)
-      res.json()
-    .then(data => {
-      console.log('what is in my fetch request 2', data)
-      const availableNamespaces = data.map(element => element.name)
-      setAvailableNamespaces(availableNamespaces)
-    })
-  })
-  .catch(err => console.log(err))
-}, [])
+//   useEffect(() => {
+//     fetch('vclusters/fetchclusters')
+//     .then(res => {
+//       console.log('fetchclusters', res)
+//       res.json()
+//     .then(data => {
+//       console.log('what is in my fetch request 1', data)
+//       const availableClusters = data.map(element => element.name)
+//       setAvailableClusters(availableClusters);
+//     })
+//   })
+//   .catch(err => console.log(err))
+// }, [])
+
+//   useEffect(() => {
+//     fetch('vclusters/fetchnamespaces')
+//     .then(res => {
+//       console.log('fetchnamespaces', res)
+//       res.json()
+//     .then(data => {
+//       console.log('what is in my fetch request 2', data)
+//       const availableNamespaces = data.map(element => element.name)
+//       setAvailableNamespaces(availableNamespaces)
+//     })
+//   })
+//   .catch(err => console.log(err))
+// }, [])
 
   const handleClusterNameChange = (e) => {
     setClusterName(e.target.value)
@@ -71,7 +75,7 @@ const CreateCluster = () => {
       })
       .catch(err => console.log(err))
   }
-  const clusterList = availableClusters.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
+  // const clusterList = availableClusters.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
   const namespaceList = availableNamespaces.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
 
   return (
@@ -80,13 +84,20 @@ const CreateCluster = () => {
       <div id='clusters'>
         <form onSubmit={formSubmit}>
           {/* <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} color="primary" /> */}
-          <FormControl>
+          {/* <FormControl>
           <InputLabel id="inputLabels">Select Cluster</InputLabel>
             <Select label='Select Cluster' onChange={handleClusterNameChange}>
             {clusterList}
             </Select>
+          </FormControl> */}
+          <FormControl>
+            <InputLabel id="inputLabels">Select Cluster</InputLabel>
+            <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} color="primary" />
+            <Select label='Select Cluster' onChange={handleClusterNameChange}>
+            {clusterNamesDropdown}
+            </Select>
           </FormControl>
-          <TextField label='vCluster Name' name='vClusterName' onChange={handleSetvClusterName} />
+          <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
           {/* <TextField label='Host Namespace' name='hostNamespace' onChange={handleHostNamespaceChange} /> */}
           <FormControl>
           <InputLabel id="inputLabels">Select Namespace</InputLabel>

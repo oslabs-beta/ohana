@@ -3,8 +3,11 @@ const router = express.Router();
 const spacesController = require('../controllers/spacesController');
 
 router.post('/create',
-  spacesController.addNamespace,
-  spacesController.createNamespace, (req, res) => res.status(200).send('posted to database'));
+  // need to add in the addNamespace routes
+  // spacesController.addNamespace,
+  spacesController.createNamespace, (req, res) => {
+    res.status(200).send('posted to database');
+  })
 
 router.post('/deploy',
   spacesController.deploy,
@@ -20,22 +23,27 @@ router.post('/getip',
     res.status(200).json(getServices);
   })
 
-router.get('/fetch', 
-  spacesController.fetchSpaces, 
-  (req, res) => {
-    res.status(200).json(res.locals.spaces)
-  });
+// router.get('/fetch', 
+//   spacesController.fetchSpaces, 
+//   (req, res) => {
+//     res.status(200).json(res.locals.spaces)
+//   });
 
-router.get('/fetchspaces', 
-  spacesController.fetchNamespaces, 
-  (req, res) => {
-    res.status(200).json(res.locals.namespaces)
-  });
+// router.get('/fetchspaces', 
+//   spacesController.fetchNamespaces, 
+//   (req, res) => {
+//     res.status(200).json(res.locals.namespaces)
+//   });
 
-router.get('/fetchclusters', 
-  spacesController.fetchClusters, 
-  (req, res) => {
-    res.status(200).json(res.locals.clusters)
-  });
+// router.get('/fetchclusters', 
+//   spacesController.fetchClusters, 
+//   (req, res) => {
+//     res.status(200).json(res.locals.clusters)
+//   });
+
+router.get('/fetch',
+  spacesController.fetchSpaces, (req, res) => {
+    res.status(200).json(res.locals.spaces);
+  })
 
 module.exports = router;

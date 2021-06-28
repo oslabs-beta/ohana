@@ -5,15 +5,16 @@ CREATE TABLE "users" (
   "first_name" varchar NOT NULL,
   "last_name" varchar NOT NULL,
   "is_admin" boolean,
-  "team_id" smallint
+  "team_id" smallint,
+  "edit_access" boolean
 );
 
 CREATE TABLE "teams" (
   "_id" smallserial PRIMARY KEY NOT NULL,
-  "name" varchar NOT NULL,
+  "team_name" varchar NOT NULL,
   "team_lead" varchar NOT NULL,
   "leader_email" varchar NOT NULL,
-  "project" varchar NOT NULL
+  "project" varchar
 );
 
 CREATE TABLE "namespaces2" (
@@ -27,7 +28,7 @@ CREATE TABLE "vclusters" (
   "_id" smallserial PRIMARY KEY NOT NULL,
   "owner_id" smallint NOT NULL,
   "team_id" smallint NOT NULL,
-  "namespace_id" smallint,
+  "namespace_id" varchar,
   "project" varchar
 );
 
@@ -41,7 +42,7 @@ CREATE TABLE "clusters" (
 
 ALTER TABLE "users" ADD FOREIGN KEY ("team_id") REFERENCES "teams" ("_id");
 
-ALTER TABLE "vclusters" ADD FOREIGN KEY ("namespace_id") REFERENCES "namespaces" ("_id");
+-- ALTER TABLE "vclusters" ADD FOREIGN KEY ("namespace_id") REFERENCES "namespaces" ("_id");
 
 ALTER TABLE "vclusters" ADD FOREIGN KEY ("owner_id") REFERENCES "users" ("_id");
 

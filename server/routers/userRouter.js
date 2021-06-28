@@ -4,6 +4,7 @@ const userController = require('../controllers/userController');
 
 router.post('/create',
   userController.bcryptPassword,
+  userController.teamIdLookup,
   userController.addNewUser,
   (req, res) => res.status(200).json('Successfully added new user'));
 
@@ -13,7 +14,7 @@ router.post('/login',
   userController.assignJwt,
   (req, res) => {
     const { token } = res.locals;
-    res.cookie('AuthToken',token, { maxAge: 900000, httpOnly: true });
+    res.cookie('AuthToken', token, { maxAge: 900000, httpOnly: true });
     res.status(200).json(token);
   }
 )

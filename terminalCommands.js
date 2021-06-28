@@ -12,6 +12,27 @@ const runTerminalCommand = (command) => {
   })
 }
 
+// can delete this
+// // gcloud variables
+// let clusterName = 'klustr-jefftest';
+// let gcloudRegion = 'us-west1';
+// let numNodes = '2';
+// let gcloudUserEmail = 'contact.jeffchen@gmail.com';
+// // kubctl variables
+// let imageFile = 'docker.io/klustr/watchr'
+// // imageFile only for watchr purposes
+// let deploymentName = 'klustr-deployment'
+// // changed to hostNameSpace instead of namespace
+// let hostNamespace = 'kiosk';
+// let configFile = '/yamlConfigs/account.yaml';
+// let userConfigFile = '/yamlConfigs/userAccount.yaml';
+// let podName = 'klustr-deployment-786bd87dd4-pvrk6';
+// let userName = 'john';
+// let portIn = '80';
+// let portOut = '8080';
+// let space = 'johns-space';
+// let vClusterName = 'testing';
+
 // gcloud terminal commands
 const gcloud = {}
 // necessary to create a cluster if it doesn't already exist; be aware of regional resource availability
@@ -48,9 +69,10 @@ vCluster.connect = (vClusterName, hostNamespace) => `vcluster connect ${vCluster
 vCluster.delete = (vClusterName, hostNamespace) => `vcluster delete ${vClusterName} -n ${hostNamespace}`;
 
 
-const serviceAccount = {}
 
-serviceAccount.user = (email) => `USER_NAME="${email}" \ kubectl -n kiosk create serviceaccount "${email}"`
+// can delete this
+// const serviceAccount = {}
+// serviceAccount.user = (email) => `USER_NAME="${email}" \ kubectl -n kiosk create serviceaccount "${email}"`
 
 //fs write file?
 
@@ -69,11 +91,10 @@ serviceAccount.user = (email) => `USER_NAME="${email}" \ kubectl -n kiosk create
 // kubectl config use-context kiosk-user
 // }
 
-
+// removed serviceAccount
 module.exports = {
   kubectl,
   gcloud,
   vCluster,
-  serviceAccount,
   runTerminalCommand,
 }
