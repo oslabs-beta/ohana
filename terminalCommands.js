@@ -8,30 +8,30 @@ const runTerminalCommand = (command) => {
         console.warn(error);
       }
       resolve(stdout ? stdout : stderr);
-
     })
   })
 }
 
-// gcloud variables
-let clusterName = 'klustr-jefftest';
-let gcloudRegion = 'us-west1';
-let numNodes = '2';
-let gcloudUserEmail = 'contact.jeffchen@gmail.com';
-// kubctl variables
-let imageFile = 'docker.io/klustr/watchr'
-// imageFile only for watchr purposes
-let deploymentName = 'klustr-deployment'
-// changed to hostNameSpace instead of namespace
-let hostNamespace = 'kiosk';
-let configFile = '/yamlConfigs/account.yaml';
-let userConfigFile = '/yamlConfigs/userAccount.yaml';
-let podName = 'klustr-deployment-786bd87dd4-pvrk6';
-let userName = 'john';
-let portIn = '80';
-let portOut = '8080';
-let space = 'johns-space';
-let vClusterName = 'testing';
+// can delete this
+// // gcloud variables
+// let clusterName = 'klustr-jefftest';
+// let gcloudRegion = 'us-west1';
+// let numNodes = '2';
+// let gcloudUserEmail = 'contact.jeffchen@gmail.com';
+// // kubctl variables
+// let imageFile = 'docker.io/klustr/watchr'
+// // imageFile only for watchr purposes
+// let deploymentName = 'klustr-deployment'
+// // changed to hostNameSpace instead of namespace
+// let hostNamespace = 'kiosk';
+// let configFile = '/yamlConfigs/account.yaml';
+// let userConfigFile = '/yamlConfigs/userAccount.yaml';
+// let podName = 'klustr-deployment-786bd87dd4-pvrk6';
+// let userName = 'john';
+// let portIn = '80';
+// let portOut = '8080';
+// let space = 'johns-space';
+// let vClusterName = 'testing';
 
 // gcloud terminal commands
 const gcloud = {}
@@ -50,7 +50,7 @@ kubectl.createNamespace = (hostNamespace) => `kubectl create namespace ${hostNam
 // can create spaces, accounts, configurations, namespaces etc based on the config file passed in
 kubectl.createFromConfig = (configFile) => `kubectl apply -f ${configFile}`
 // can create spaces, accounts, configurations, namespaces, roles, etc based on the config file passed in impersonating a user; admin only
-kubectl.createFromConfigAs = (configFile, email) => `kubectl apply -f /yamlConfigs/${configFile}.yaml --as=${email}`
+kubectl.createFromConfigAs = (configFile, email) => `kubectl apply -f /Users/fenris/Desktop/Codesmith/klustr.dev/yamlConfigs/userAccount.yaml --as=dev-account`
 // get additional detail on pods
 kubectl.describe = (hostNamespace) => `kubectl describe pods -n ${hostNamespace}`
 // kubectl create deployment <insert name> --image=<insert image file/link>
@@ -69,31 +69,32 @@ vCluster.connect = (vClusterName, hostNamespace) => `vcluster connect ${vCluster
 vCluster.delete = (vClusterName, hostNamespace) => `vcluster delete ${vClusterName} -n ${hostNamespace}`;
 
 
-const serviceAccount = {}
 
-serviceAccount.user = (email) => `USER_NAME=${email} \ kubectl -n kiosk create serviceaccount $USER_NAME`
-serviceAccount.userConfig = (email) => {
-  `USER_NAME=${email} \ KUBECONFIG_PATH="$HOME/.kube/config-kiosk" \ kubectl config view --minify --raw >$KUBECONFIG_PATH
-export KUBECONFIG=$KUBECONFIG_PATH \ 
-CURRENT_CONTEXT=$(kubectl config current-context) \
-kubectl config rename-context $CURRENT_CONTEXT kiosk-admin \
-CLUSTER_NAME=$(kubectl config view -o jsonpath="{.clusters[].name}") \
-ADMIN_USER=$(kubectl config view -o jsonpath="{.users[].name}") \
-SA_NAME=$(kubectl -n kiosk get serviceaccount ${email} -o jsonpath="{.secrets[0].name}") \
-SA_TOKEN=$(kubectl -n kiosk get secret $SA_NAME -o jsonpath="{.data.token}" | base64 -d) \
-kubectl config set-credentials ${email} --token=$SA_TOKEN \
-kubectl config set-context kiosk-user --cluster=$CLUSTER_NAME --user=${email} \
-kubectl config use-context kiosk-user`
-}
-// set cluster name = to cluster id or team id?
-// admin user??
-// SA token = JWT or we are using dex?
+// can delete this
+// const serviceAccount = {}
+// serviceAccount.user = (email) => `USER_NAME="${email}" \ kubectl -n kiosk create serviceaccount "${email}"`
 
+//fs write file?
 
+// serviceAccount.userConfig = (email) => { 
+// `USER_NAME="${email}" KUBECONFIG_PATH="$HOME/.kube/config-kiosk" && 
+// kubectl config view --minify --raw > "$HOME/.kube/config-kiosk" &&
+// export KUBECONFIG="$HOME/.kube/config-kiosk"`
+// CURRENT_CONTEXT=$(kubectl config current-context) \
+// kubectl config rename-context $CURRENT_CONTEXT kiosk-admin \
+// CLUSTER_NAME=$(kubectl config view -o jsonpath="{.clusters[].name}") \
+// ADMIN_USER=$(kubectl config view -o jsonpath="{.users[].name}") \
+// SA_NAME=$(kubectl -n kiosk get serviceaccount ${email} -o jsonpath="{.secrets[0].name}") \
+// SA_TOKEN=$(kubectl -n kiosk get secret $SA_NAME -o jsonpath="{.data.token}" | base64 -d) \
+// kubectl config set-credentials ${email} --token=$SA_TOKEN \
+// kubectl config set-context kiosk-user --cluster=$CLUSTER_NAME --user=${email} \
+// kubectl config use-context kiosk-user
+// }
+
+// removed serviceAccount
 module.exports = {
   kubectl,
   gcloud,
   vCluster,
-  serviceAccount,
   runTerminalCommand,
 }

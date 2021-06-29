@@ -26,6 +26,7 @@ const CreateTeam = () => {
       })
   }
 
+  // should add in dropdown for team
   return (
     <div id='createteam'>
       <form method="POST" action="/team" onSubmit={handleSubmit}>
@@ -39,6 +40,5 @@ const CreateTeam = () => {
     </div>
   )
 }
-
 
 export default CreateTeam;

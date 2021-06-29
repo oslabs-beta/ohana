@@ -8,6 +8,7 @@ metadata:
 spec:
   subjects:
   - kind: User
-    name: dev1
+    name: dev-account
+    # resources: ['get', ]
     # need to replace name with the user email
     apiGroup: rbac.authorization.k8s.io

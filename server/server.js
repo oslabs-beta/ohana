@@ -18,9 +18,9 @@ app.use(cookieParser());
 app.get('/cookies',
   userController.verifyAdmin,
   (req, res) => {
-    const { isAdmin } = res.locals;
+    const { isAdmin, teamId } = res.locals;
     console.log('cookies', isAdmin)
-    return res.status(200).json({ isAdmin, isLoggedIn: true });
+    return res.status(200).json({ isAdmin, isLoggedIn: true, teamId });
   })
 
 app.get('/admin',
@@ -33,7 +33,6 @@ app.get('/admin',
     if (isAdmin === false) return res.redirect('/vcluster')
   })
 
-  
   app.use('/user', userRouter)
   app.use('/spaces', spacesRouter)
   app.use('/vclusters', vClusterRouter)

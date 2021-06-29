@@ -13,10 +13,8 @@ teamsController.createTeam = (req, res, next) => {
       return next({
         log: `Error in teamsController.createTeam: ${err}`,
         message: `Unable to add new team`
-      })
     })
-
-
+  })
 }
 
 module.exports = teamsController;

@@ -11,6 +11,11 @@ router.post('/',
   }
 )
 
+// router.get('/vclusters', 
+//   clusterController.fetchClusters, 
+//   (req, res) => res.status(200).json(res.locals.kyung));
+
+
 router.get('/list',
   clusterController.getClusters,
   (req, res) => {

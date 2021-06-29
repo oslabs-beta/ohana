@@ -10,12 +10,14 @@ const LoginPage = (props) => {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState();
   const [incorrectInfo, setIncorrectInfo] = useState('');
-
   let history = useHistory();
+
   // when the component re-renders, check if the isLoggedIn is truthy and push
   // homepage endpoint so the route can render the proper page
+
   useEffect(() => {
     if (isLoggedIn) {
+      console.log(isLoggedIn, 'is logged in login')
       if (isAdmin) history.push('/admin')
       else {
         history.push('/vcluster')
@@ -27,12 +29,10 @@ const LoginPage = (props) => {
     e.preventDefault();
     setRedirect(true);
   }
-  // if (redirect === true) return <Redirect to='/adminsignup' />
 
   const handleSubmit = (e) => {
     console.log('submitted')
     e.preventDefault();
-
     const form = e.target
 
     e.preventDefault();

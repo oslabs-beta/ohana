@@ -15,6 +15,18 @@ router.get('/',
   vClusterController.fetchVClusters,
   (req, res) => {
     res.status(200).json(res.locals.kyung)
-  })
+  });
+
+router.get('/fetchnamespaces', 
+  vClusterController.fetchNamespaces, 
+  (req, res) => {
+    res.status(200).json(res.locals.clusternamespaces)
+  });
+
+router.get('/fetchclusters', 
+  vClusterController.fetchClusters, 
+  (req, res) => {
+    res.status(200).json(res.locals.clusterclusters)
+  });
 
 module.exports = router;
