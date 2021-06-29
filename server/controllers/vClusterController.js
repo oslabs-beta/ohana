@@ -7,7 +7,7 @@ vClusterController.addVCluster = (req, res, next) => {
   const { hostNamespace, vClusterName, projectName } = req.body;
   const params = [hostNamespace, vClusterName, projectName];
   const query = `
-  INSERT INTO vclusters5(hostNamespace, vClusterName, projectName)
+  INSERT INTO vclusters(hostNamespace, vClusterName, projectName)
   VALUES ($1, $2, $3)`
   db.query(query, params)
     .then(() => {
@@ -51,7 +51,7 @@ vClusterController.createVCluster = (req, res, next) => {
 
 vClusterController.fetchVClusters = (req, res, next) => {
   const query = `
-  SELECT * FROM vclusters5;
+  SELECT * FROM vclusters;
   `
   db.query(query)
     .then((data) => {
@@ -62,7 +62,7 @@ vClusterController.fetchVClusters = (req, res, next) => {
 
 vClusterController.fetchNamespaces = (req, res, next) => {
   const query = `
-  SELECT name FROM namespaces5;
+  SELECT name FROM namespaces;
   `
   db.query(query)
     .then((data) => {
@@ -73,7 +73,7 @@ vClusterController.fetchNamespaces = (req, res, next) => {
 
 vClusterController.fetchClusters = (req, res, next) => {
   const query = `
-  SELECT name FROM clusters6;
+  SELECT name FROM clusters;
   `
   db.query(query)
     .then((data) => {

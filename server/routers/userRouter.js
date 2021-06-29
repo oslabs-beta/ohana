@@ -11,6 +11,7 @@ router.post('/create',
 router.post('/login',
   userController.loginCheck,
   userController.isAdminCheck,
+  userController.teamId,
   userController.assignJwt,
   (req, res) => {
     const { token } = res.locals;

@@ -9,39 +9,13 @@ const CreateCluster = () => {
   const [hostNamespace, setHostNamespace] = useState('');
   const [inProgress, setInProgress] = useState('');
   const [currentProcess, setCurrentProcess] = useState('');
-  const [availableNamespaces, setAvailableNamespaces] = useState([]);
-  const { clusterNames } = useContext(AppContext)
+  const { clusterNames, namespaceNames } = useContext(AppContext)
 
   const clusterNamesDropdown = [];
   clusterNames.forEach(name => clusterNamesDropdown.push(<MenuItem value={name}>{name}</MenuItem>))
 
-//   useEffect(() => {
-//     fetch('vclusters/fetchclusters')
-//     .then(res => {
-//       console.log('fetchclusters', res)
-//       res.json()
-//     .then(data => {
-//       console.log('what is in my fetch request 1', data)
-//       const availableClusters = data.map(element => element.name)
-//       setAvailableClusters(availableClusters);
-//     })
-//   })
-//   .catch(err => console.log(err))
-// }, [])
-
-//   useEffect(() => {
-//     fetch('vclusters/fetchnamespaces')
-//     .then(res => {
-//       console.log('fetchnamespaces', res)
-//       res.json()
-//     .then(data => {
-//       console.log('what is in my fetch request 2', data)
-//       const availableNamespaces = data.map(element => element.name)
-//       setAvailableNamespaces(availableNamespaces)
-//     })
-//   })
-//   .catch(err => console.log(err))
-// }, [])
+  const namespaceDropdown = [];
+  namespaceNames.forEach(name => namespaceDropdown.push(<MenuItem value={name}>{name}</MenuItem>))
 
   const handleClusterNameChange = (e) => {
     setClusterName(e.target.value)
@@ -75,36 +49,29 @@ const CreateCluster = () => {
       })
       .catch(err => console.log(err))
   }
-  // const clusterList = availableClusters.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
-  const namespaceList = availableNamespaces.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
 
   return (
     <div id='create-clusters'>
       <h1>Create a vCluster</h1>
       <div id='clusters'>
         <form onSubmit={formSubmit}>
-          {/* <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} color="primary" /> */}
-          {/* <FormControl>
-          <InputLabel id="inputLabels">Select Cluster</InputLabel>
-            <Select label='Select Cluster' onChange={handleClusterNameChange}>
-            {clusterList}
-            </Select>
-          </FormControl> */}
+
           <FormControl>
             <InputLabel id="inputLabels">Select Cluster</InputLabel>
-            <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} color="primary" />
             <Select label='Select Cluster' onChange={handleClusterNameChange}>
             {clusterNamesDropdown}
             </Select>
           </FormControl>
+
           <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
-          {/* <TextField label='Host Namespace' name='hostNamespace' onChange={handleHostNamespaceChange} /> */}
+
           <FormControl>
           <InputLabel id="inputLabels">Select Namespace</InputLabel>
-            <Select label='Select Namespace' onChange={handleHostNamespaceChange}>
-            {namespaceList}
-            </Select>
+          <Select label='Select Namespace' name='hostNamespace' onChange={handleHostNamespaceChange}>
+            {namespaceDropdown}
+          </Select>
           </FormControl>
+          
           <Button variant="contained" color="primary" type="submit">Create</Button>
           <span>{currentProcess}</span><span>{inProgress}</span>
         </form>
