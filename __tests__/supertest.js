@@ -75,7 +75,6 @@ describe('GET "/spaces" and "/vclusters"', () => {
     const res = await request(server)
       .get('/spaces/fetch')
       .expect(200)
-    console.log(res.body)
     expect(Array.isArray(res.body)).toBe(true)
   })
   it('Receives a list of all the active vClusters', async () => {
