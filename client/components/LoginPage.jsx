@@ -4,18 +4,21 @@ import { useHistory } from 'react-router-dom';
 import { AppContext } from './AppContext'
 
 
+
 const LoginPage = (props) => {
   const { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin } = useContext(AppContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [token, setToken] = useState();
   const [incorrectInfo, setIncorrectInfo] = useState('');
-
   let history = useHistory();
+
   // when the component re-renders, check if the isLoggedIn is truthy and push
   // homepage endpoint so the route can render the proper page
+
   useEffect(() => {
     if (isLoggedIn) {
+      console.log(isLoggedIn, 'is logged in login')
       if (isAdmin) history.push('/admin')
       else {
         history.push('/vcluster')
@@ -27,12 +30,10 @@ const LoginPage = (props) => {
     e.preventDefault();
     setRedirect(true);
   }
-  // if (redirect === true) return <Redirect to='/adminsignup' />
 
   const handleSubmit = (e) => {
     console.log('submitted')
     e.preventDefault();
-
     const form = e.target
 
     e.preventDefault();
@@ -72,7 +73,7 @@ const LoginPage = (props) => {
               if (isAdmin) history.push('/admin')
               else history.push('/vcluster')
             })
-          }
+        }
       })
   }
 
@@ -87,13 +88,12 @@ const LoginPage = (props) => {
   return (
     <div id='LoginPage'>
       <form id='LoginForm' method="POST" action="/user/login" onSubmit={handleSubmit}>
-        <TextField label='Email' name='email' onChange={handleEmail}></TextField><br></br>
-        <TextField label='Password' type='password' name='password' onChange={handlePassword}></TextField><br></br>
+        <TextField label='Email' name='email' id='filled-basic' onChange={handleEmail}></TextField><br></br>
+        <TextField label='Password' type='password' name='password' id='filled-basic' onChange={handlePassword}></TextField><br></br>
         {incorrectInfo}
         <Button type="submit" variant="contained" color="secondary">Login</Button>
       </form>
     </div>
-
   )
 }
 

@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const spacesController = require('../controllers/spacesController');
+const userController = require('../controllers/userController');
 
 router.post('/create',
-  // spacesController.addNamespace,
-  spacesController.createNamespace, (req, res) => {
+  spacesController.clusterIdLookup,
+  spacesController.addNamespace,
+  // spacesController.createNamespace, 
+  (req, res) => {
     res.status(200).send('posted to database');
   })
 
@@ -22,9 +25,23 @@ router.post('/getip',
     res.status(200).json(getServices);
   })
 
-router.get('/fetch',
-  spacesController.fetchSpaces, (req, res) => {
-    res.status(200).json(res.locals.spaces);
-  })
+router.get('/fetch', 
+  spacesController.fetchSpaces, 
+  (req, res) => {
+    res.status(200).json(res.locals.spaces)
+  });
+
+router.get('/fetchspaces', 
+  userController.verifyAdmin,
+  spacesController.fetchNamespaces, 
+  (req, res) => {
+    res.status(200).json(res.locals.namespaces)
+  });
+
+// router.get('/fetchclusters', 
+//   spacesController.fetchClusters, 
+//   (req, res) => {
+//     res.status(200).json(res.locals.clusters)
+//   });
 
 module.exports = router;
