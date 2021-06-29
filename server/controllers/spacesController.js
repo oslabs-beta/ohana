@@ -4,17 +4,21 @@ const { reset } = require('nodemon');
 const spacesController = {};
 
 
-// spacesController.fetchClusters = (req, res, next) => {
-//   const query = `
-//   SELECT name FROM clusters;
-//   `
-//   db.query(query)
-//     .then((data) => {
-//       console.log(data)
-//       res.locals.clusters = data.rows
-//       return next();
-//     })
-// }
+spacesController.addNamespace = (req, res, next) => {
+  const { clusterName, team_id, projectName } = req.body;
+  const params = [clusterName, team_id, projectName];
+  const query = `
+  INSERT INTO namespaces2(cluster_id, name, team_id, project)
+  VALUES ($1, $2, $3, $4)`
+
+  db.query(query, params)
+    .then(() => {
+      return next();
+    })
+    .catch((err) => {
+      return next({ log: `Error in spacesController.addNamespace: ${err}` });
+    })
+}
 
 spacesController.clusterIdLookup = (req, res, next) => {
   const { hostCluster } = req.body;
@@ -90,10 +94,7 @@ spacesController.getExternalIp = (req, res, next) => {
 }
 
 spacesController.fetchSpaces = (req, res, next) => {
-  const query = 
-  `
-  SELECT * FROM namespaces;
-  `
+  const query = 'SELECT * FROM namespaces;';
   db.query(query)
     .then((data) => {
       console.log('fetchspaces data', data)
