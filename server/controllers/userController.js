@@ -20,6 +20,7 @@ const userController = {};
 // }
 
 userController.bcryptPassword = (req, res, next) => {
+  console.log('req.body', req.body);
   const { password } = req.body;
   console.log('hitting bcrypt controller', password)
   bcrypt.hash(password, saltRounds)
