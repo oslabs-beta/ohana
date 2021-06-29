@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, makeStyles } from '@material-ui/core';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import { Button, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 
 // required styling for material-ui for table
 const useStyles = makeStyles({
@@ -18,7 +11,6 @@ const useStyles = makeStyles({
 const VClustersList = () => {
   const [vClusters, setvClusters] = useState([])
 
-  // fetch vclusters logic
   const handleClick = (e) => {
 
     e.preventDefault();
@@ -32,13 +24,13 @@ const VClustersList = () => {
   }
 
   // helper function to destructure each object in the array
-  function createData(id, team_id, namespace, project) {
-    return { id, team_id, namespace, project };
+  function createData(id, team_id, namespace, namespace_id) {
+    return { id, team_id, namespace, namespace_id };
   }
 
   // iterate over array to destructure each object and assign to index in new rows array
   const rows = vClusters.map((cluster) => {
-    return createData(cluster._id, cluster.team_id, cluster.namespace_id, cluster.project);
+    return createData(cluster._id, cluster.team_id, cluster.name, cluster.namespace_id);
   })
 
   const classes = useStyles();
@@ -46,7 +38,7 @@ const VClustersList = () => {
   return (
     <div id='vClustersList'>
       <h3>Current Virtual Clusters</h3>
-      <Button id="get-vclusters" onClick={handleClick} variant="outlined" color="primary.light">Get VClusters</Button>
+      <Button id="get-vclusters" onClick={handleClick} variant="outlined">Get VClusters</Button>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -54,7 +46,7 @@ const VClustersList = () => {
               <TableCell>vCluster ID</TableCell>
               <TableCell align="right">Team ID</TableCell>
               <TableCell align="right">Namespace</TableCell>
-              <TableCell align="right">Project</TableCell>
+              <TableCell align="right">Namespace ID</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -65,7 +57,7 @@ const VClustersList = () => {
                 </TableCell>
                 <TableCell align="right">{row.team_id}</TableCell>
                 <TableCell align="right">{row.namespace}</TableCell>
-                <TableCell align="right">{row.project}</TableCell>
+                <TableCell align="right">{row.namespace_id}</TableCell>
               </TableRow>
             ))}
           </TableBody>
