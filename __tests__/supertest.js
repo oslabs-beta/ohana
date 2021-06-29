@@ -70,4 +70,18 @@ describe('POST "/user/create" - creating user', () => {
   })
 })
 
-describe('POST "/spaces/create"')
+describe('GET "/spaces" and "/vclusters"', () => {
+  it('Receives a list of all the active namespaces', async () => {
+    const res = await request(server)
+      .get('/spaces/fetch')
+      .expect(200)
+    console.log(res.body)
+    expect(Array.isArray(res.body)).toBe(true)
+  })
+  it('Receives a list of all the active vClusters', async () => {
+    const res = await request(server)
+      .get('/vclusters')
+      .expect(200)
+    expect(Array.isArray(res.body)).toBe(true)
+  })
+})

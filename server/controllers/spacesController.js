@@ -91,10 +91,7 @@ spacesController.getExternalIp = (req, res, next) => {
 }
 
 spacesController.fetchSpaces = (req, res, next) => {
-  const query = `
-  SELECT * FROM namespaces5;
-  `
-
+  const query = 'SELECT * FROM namespaces;';
   db.query(query)
     .then((data) => {
       res.locals.spaces = data.rows
