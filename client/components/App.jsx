@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import MainContainer from '../containers/MainContainer.jsx'
 import NavBar from '../containers/NavBarContainer.jsx'
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -9,7 +9,9 @@ const App = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [clusterNames, setClusterNames] = useState([])
-  const value = { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin, clusterNames, setClusterNames };
+  const [namespaceNames, setNamespaces] = useState([])
+  const [teamId, setTeamId] = useState('');
+  const value = { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin, clusterNames, setClusterNames, namespaceNames, setNamespaces, teamId, setTeamId };
   if (isLoggedIn) navBar = <NavBar />;
   
   return (

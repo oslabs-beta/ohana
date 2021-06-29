@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { TextField, Button, CircularProgress, Select, MenuItem } from '@material-ui/core'
+import { TextField, Button, CircularProgress, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 import { AppContext } from './AppContext';
 
 const CreateCluster = () => {
@@ -9,11 +9,13 @@ const CreateCluster = () => {
   const [hostNamespace, setHostNamespace] = useState('');
   const [inProgress, setInProgress] = useState('');
   const [currentProcess, setCurrentProcess] = useState('');
-  const [availableNamespaces, setAvailableNamespaces] = useState([]);
-  const { clusterNames } = useContext(AppContext)
+  const { clusterNames, namespaceNames } = useContext(AppContext)
 
   const clusterNamesDropdown = [];
   clusterNames.forEach(name => clusterNamesDropdown.push(<MenuItem value={name}>{name}</MenuItem>))
+
+  const namespaceDropdown = [];
+  namespaceNames.forEach(name => namespaceDropdown.push(<MenuItem value={name}>{name}</MenuItem>))
 
   const handleClusterNameChange = (e) => {
     setClusterName(e.target.value)
@@ -48,24 +50,28 @@ const CreateCluster = () => {
       .catch(err => console.log(err))
   }
 
-  let namespaceArray = ['kiosk', 'default']
-  // let namespaceOptions = [];
-  let options = namespaceArray.map(element => <MenuItem value={`${element}`}>{element}</MenuItem>)
-  console.log(options)  
   return (
     <div id='create-clusters'>
       <h1>Create a vCluster</h1>
       <div id='clusters'>
         <form onSubmit={formSubmit}>
-          {/* <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} color="primary" /> */}
-          <Select label='Select Cluster' onChange={handleClusterNameChange}>
+
+          <FormControl>
+            <InputLabel id="inputLabels">Select Cluster</InputLabel>
+            <Select label='Select Cluster' onChange={handleClusterNameChange}>
             {clusterNamesDropdown}
-          </Select>
+            </Select>
+          </FormControl>
+
           <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
-          {/* <TextField label='Host Namespace' name='hostNamespace' onChange={handleHostNamespaceChange} /> */}
-          <Select label='Select Namespace' onChange={handleHostNamespaceChange}>
-            {options}
+
+          <FormControl>
+          <InputLabel id="inputLabels">Select Namespace</InputLabel>
+          <Select label='Select Namespace' name='hostNamespace' onChange={handleHostNamespaceChange}>
+            {namespaceDropdown}
           </Select>
+          </FormControl>
+          
           <Button variant="contained" color="primary" type="submit">Create</Button>
           <span>{currentProcess}</span><span>{inProgress}</span>
         </form>
