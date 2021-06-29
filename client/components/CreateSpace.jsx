@@ -82,7 +82,7 @@ const CreateSpace = () => {
       .then(data => {
         const array = data.split(' ')
         array.forEach(element => {
-          if (element.slice(0, 3) === '34.') {
+          if (element.slice(0, 3) === '35.') {
             setExternalIp(element);
           };
         })

@@ -17,7 +17,6 @@ clusterController.getClusters = (req, res, next) => {
   const query = 'SELECT name FROM clusters;'
   db.query(query)
     .then((data) => {
-      console.log(data)
       res.locals.clusterNames = data.rows
       return next()
     })
