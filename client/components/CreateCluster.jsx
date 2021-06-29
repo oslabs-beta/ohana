@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { TextField, Button, CircularProgress } from '@material-ui/core'
+import React, { useState, useContext } from 'react';
+import { TextField, Button, CircularProgress, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
+import { AppContext } from './AppContext';
 
 const CreateCluster = () => {
 
@@ -8,6 +9,13 @@ const CreateCluster = () => {
   const [hostNamespace, setHostNamespace] = useState('');
   const [inProgress, setInProgress] = useState('');
   const [currentProcess, setCurrentProcess] = useState('');
+  const { clusterNames, namespaceNames } = useContext(AppContext)
+
+  const clusterNamesDropdown = [];
+  clusterNames.forEach(name => clusterNamesDropdown.push(<MenuItem value={name}>{name}</MenuItem>))
+
+  const namespaceDropdown = [];
+  namespaceNames.forEach(name => namespaceDropdown.push(<MenuItem value={name}>{name}</MenuItem>))
 
   const handleClusterNameChange = (e) => {
     setClusterName(e.target.value)
@@ -47,9 +55,23 @@ const CreateCluster = () => {
       <h1>Create a vCluster</h1>
       <div id='clusters'>
         <form onSubmit={formSubmit}>
-          <TextField label='Cluster' name='clusterName' onChange={handleClusterNameChange} color="primary" />
+
+          <FormControl>
+            <InputLabel id="inputLabels">Select Cluster</InputLabel>
+            <Select label='Select Cluster' onChange={handleClusterNameChange}>
+            {clusterNamesDropdown}
+            </Select>
+          </FormControl>
+
           <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
-          <TextField label='Host Namespace' name='hostNamespace' onChange={handleHostNamespaceChange} />
+
+          <FormControl>
+          <InputLabel id="inputLabels">Select Namespace</InputLabel>
+          <Select label='Select Namespace' name='hostNamespace' onChange={handleHostNamespaceChange}>
+            {namespaceDropdown}
+          </Select>
+          </FormControl>
+          
           <Button variant="contained" color="primary" type="submit">Create</Button>
           <span>{currentProcess}</span><span>{inProgress}</span>
         </form>

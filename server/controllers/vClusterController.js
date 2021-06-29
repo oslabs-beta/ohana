@@ -7,14 +7,14 @@ vClusterController.addVCluster = (req, res, next) => {
   const { hostNamespace, vClusterName, projectName } = req.body;
   const params = [hostNamespace, vClusterName, projectName];
   const query = `
-  INSERT INTO vclusters3(team_id, namespace_id, project)
+  INSERT INTO vclusters(hostNamespace, vClusterName, projectName)
   VALUES ($1, $2, $3)`
   db.query(query, params)
     .then(() => {
       return next();
     })
     .catch((err) => {
-      return next({ log: `Error in clsuterController.addVCluster: ${err}` });
+      return next({ log: `Error in clusterController.addVCluster: ${err}` });
     })
 }
 
@@ -30,12 +30,11 @@ vClusterController.addVCluster = (req, res, next) => {
 //       return next();
 //     })
 //     .catch((err) => {
-//       return next({ log: `Error in clsuterController.addCluster: ${err}` });
+//       return next({ log: `Error in clusterController.addCluster: ${err}` });
 //     })
 // }
 
 vClusterController.createVCluster = (req, res, next) => {
-
   console.log(req.body);
   const { clusterName, vClusterName, hostNamespace } = req.body;
   res.locals.vClusterName = vClusterName;
@@ -50,21 +49,9 @@ vClusterController.createVCluster = (req, res, next) => {
     }).catch(err => next({ log: `clusterController.createCluster: ${err}` }))
 }
 
-vClusterController.deleteVCluster = (req, res, next) => {
-  console.log(req.body);
-  const { clusterName, vClusterName, hostNamespace } = req.body;
-  // need to make gcloud into a function
-  runTerminalCommand(gcloud.getCredentials(clusterName))
-    .then((data) => {
-      console.log('1', data)
-      runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
-        .catch(err => console.log(err))
-    })
-}
-
 vClusterController.fetchVClusters = (req, res, next) => {
   const query = `
-  SELECT * FROM vclusters3;
+  SELECT * FROM vclusters;
   `
   db.query(query)
     .then((data) => {
@@ -72,4 +59,28 @@ vClusterController.fetchVClusters = (req, res, next) => {
       return next();
     })
 }
+
+vClusterController.fetchNamespaces = (req, res, next) => {
+  const query = `
+  SELECT name FROM namespaces;
+  `
+  db.query(query)
+    .then((data) => {
+      res.locals.clusternamespaces = data.rows
+      return next();
+    })
+}
+
+vClusterController.fetchClusters = (req, res, next) => {
+  const query = `
+  SELECT name FROM clusters;
+  `
+  db.query(query)
+    .then((data) => {
+      res.locals.clusterclusters = data.rows
+      return next();
+    })
+}
+
+
 module.exports = vClusterController;

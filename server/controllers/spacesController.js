@@ -1,18 +1,49 @@
 const db = require('../db/models');
-const { runTerminalCommand, kubectl, gcloud } = require('../../terminalCommands.js')
+const { runTerminalCommand, kubectl, gcloud } = require('../../terminalCommands.js');
+const { reset } = require('nodemon');
 const spacesController = {};
 
-//will need to edit the database schema
+
+// spacesController.fetchClusters = (req, res, next) => {
+//   const query = `
+//   SELECT name FROM clusters;
+//   `
+//   db.query(query)
+//     .then((data) => {
+//       console.log(data)
+//       res.locals.clusters = data.rows
+//       return next();
+//     })
+// }
+
+spacesController.clusterIdLookup = (req, res, next) => {
+  const { hostCluster } = req.body;
+  const params = [hostCluster];
+  const query = `SELECT _id FROM clusters WHERE name='$1'`;
+  db.query(query, params)
+    .then((data) => {
+      console.log(data.rows[0]._id);
+      res.locals.clusterId = data.rows[0]._id;
+      return next();
+    })
+    .catch((err) => {
+      return next({
+        log: `Error in spacesController.clusterIdLookup: ${err}`,
+        message: `Error looking up cluster id`
+      })
+    })
+}
 
 spacesController.addNamespace = (req, res, next) => {
-  const { clusterName, hostNamespace, team_id, projectName } = req.body;
-  const params = [clusterName, hostNamespace, team_id, projectName];
-  const query = `
-  INSERT INTO namespaces3(cluster, name, team_id, project)
-  VALUES ($1, $2, $3, $4)`
+  const { hostNamespace } = req.body;
+  const { clusterId } = res.locals;
+  const params = [hostNamespace, clusterId];
+  // if the team ID is a foreign key, do we need to add this in or is it automatic?
+  const query = 'INSERT INTO namespaces (name, cluster_id) VALUES ($1, $2)';
 
   db.query(query, params)
-    .then(() => {
+    .then((data) => {
+      console.log(data)
       return next();
     })
     .catch((err) => {
@@ -20,41 +51,9 @@ spacesController.addNamespace = (req, res, next) => {
     })
 }
 
-// spacesController.deleteNamespaceFromDB = (req, res, next) => {
-//   const { hostNamespace, team_id, projectName } = req.body;
-//   const params = [hostNamespace, team_id, projectName];
-//   const query = `
-//   INSERT INTO namespaces2(name, team_id, project)
-//   VALUES ($1, $2, $3)`
-
-//   db.query(query, params)
-//     .then(() => {
-//       return next();
-//     })
-//     .catch((err) => {
-//       return next({ log: `Error in spacesController.addNamespace: ${err}` });
-//     })
-// }
-
-spacesController.fetchNamespaces = (req, res, next) => {
-  // console.group(req.params)
-  const query = `
-  SELECT * FROM namespaces3`
-  db.query(query)
-    .then((data) => {
-      res.locals.kyung = data.rows;
-      console.log('what is data', data);
-      return next();
-    })
-    .catch((err) => {
-      return next({ log: `Error in spacesController.fetchNamespaces: ${err}` });
-    })
-}
-
 spacesController.createNamespace = (req, res, next) => {
   console.log(req.body)
   const { clusterName, hostNamespace } = req.body;
-  // need to make gcloud into a function
   runTerminalCommand(gcloud.getCredentials(clusterName))
     .then((data) => {
       console.log(data)
@@ -91,13 +90,28 @@ spacesController.getExternalIp = (req, res, next) => {
 }
 
 spacesController.fetchSpaces = (req, res, next) => {
-  const query = `
-  SELECT * FROM namespaces2;
+  const query = 
   `
-
+  SELECT * FROM namespaces;
+  `
   db.query(query)
     .then((data) => {
+      console.log('fetchspaces data', data)
       res.locals.spaces = data.rows
+      return next();
+    })
+}
+
+spacesController.fetchNamespaces = (req, res, next) => {
+  const { teamId } = res.locals;
+  const params = [teamId]
+  const query = `
+  SELECT name FROM namespaces WHERE team_id = $1;
+  `
+  db.query(query, params)
+    .then((data) => {
+      console.log(data)
+      res.locals.namespaces = data.rows
       return next();
     })
 }

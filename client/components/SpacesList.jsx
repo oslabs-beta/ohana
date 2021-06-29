@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, makeStyles } from '@material-ui/core';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import { Button, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 
 // required styling for material-ui for table
 const useStyles = makeStyles({
@@ -16,12 +9,12 @@ const useStyles = makeStyles({
 });
 
 const SpacesList = () => {
+  
+  const classes = useStyles();
   const [spaces, setSpaces] = useState([])
 
   const handleClick = (e) => {
-
     e.preventDefault();
-
     fetch('/spaces/fetch')
       .then(response => response.json())
       .then(data => {
@@ -37,12 +30,10 @@ const SpacesList = () => {
     return createData(space._id, space.name, space.team_id, space.project);
   })
 
-  const classes = useStyles();
-
   return (
     <div id='SpacesList'>
       <h3>Current Namespaces</h3>
-      <Button id="get-spaces" onClick={handleClick} variant="outlined" color="primary.light">Get Spaces</Button>
+      <Button id="get-spaces" onClick={handleClick} variant="outlined">Get Spaces</Button>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
