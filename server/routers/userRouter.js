@@ -5,9 +5,13 @@ const userController = require('../controllers/userController');
 
 router.post('/create',
   userController.bcryptPassword,
+  userController.teamIdLookup,
   userController.addNewUser,
+  // userController.editAccessUser, 
+  // userController.createServiceAccount,
+  // userController.createTenancy,
   (req, res) => {
-    res.status(200).send('Successfully added new user');
+    res.status(200).json('Successfully added new user');
   })
 
 router.post('/login',
@@ -16,7 +20,8 @@ router.post('/login',
   userController.assignJwt,
   (req, res) => {
     const { token } = res.locals;
-    res.status(200).json(token)
+    res.cookie('AuthToken', token, { maxAge: 900000, httpOnly: true });
+    res.status(200).json(token);
   }
 )
 
@@ -25,6 +30,21 @@ router.post('/verify',
   (req, res) => {
     const { isAdmin } = res.locals;
     res.status(200).json(isAdmin);
+  }
+)
+
+router.delete('/',
+  userController.deleteUser,
+  (req, res) => {
+    res.status(200).json('Successfully deleted user.')
+  }
+)
+
+router.get('/',
+  userController.getAllUsers,
+  (req, res) => {
+    const { allUsers } = res.locals
+    res.status(200).json(allUsers)
   }
 )
 

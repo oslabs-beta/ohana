@@ -21,19 +21,16 @@ const MainContainer = (props) => {
       <Switch>
         <Route path="/" exact>
           <LoginContext.Provider value={loginStatus}>
-            <LoginPage props={loginStatus} />
+            <LoginPage props={loginStatus} context={props.context} />
           </LoginContext.Provider>
         </Route>
         <Route path="/admin" exact component={AdminContainer} />
-        <Route path="/user" exact component={SpacesContainer} />
+        <Route path="/spaces" exact component={SpacesContainer} />
         <Route path='/vcluster' exact component={ClusterContainer} />
       </Switch>
-
       {props.children}
-
     </div>
   )
 }
 
 export default MainContainer;
-
