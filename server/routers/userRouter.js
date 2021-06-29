@@ -11,7 +11,7 @@ router.post('/create',
   // userController.createServiceAccount,
   // userController.createTenancy,
   (req, res) => {
-    res.status(200).send('Successfully added new user');
+    res.status(200).json('Successfully added new user');
   })
 
 router.post('/login',
@@ -30,6 +30,21 @@ router.post('/verify',
   (req, res) => {
     const { isAdmin } = res.locals;
     res.status(200).json(isAdmin);
+  }
+)
+
+router.delete('/',
+  userController.deleteUser,
+  (req, res) => {
+    res.status(200).json('Successfully deleted user.')
+  }
+)
+
+router.get('/',
+  userController.getAllUsers,
+  (req, res) => {
+    const { allUsers } = res.locals
+    res.status(200).json(allUsers)
   }
 )
 
