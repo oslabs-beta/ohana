@@ -28,4 +28,19 @@ router.post('/verify',
   }
 )
 
-module.exports = router; 
+router.delete('/',
+  userController.deleteUser,
+  (req, res) => {
+    res.status(200).json('Successfully deleted user.')
+  }
+)
+
+router.get('/',
+  userController.getAllUsers,
+  (req, res) => {
+    const { allUsers } = res.locals
+    res.status(200).json(allUsers)
+  }
+)
+
+module.exports = router;

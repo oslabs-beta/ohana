@@ -3,34 +3,10 @@ const { runTerminalCommand, kubectl, gcloud } = require('../../terminalCommands.
 const { reset } = require('nodemon');
 const spacesController = {};
 
-//will need to edit the database schema
-spacesController.clusterIdLookup = (req, res, next) => {
-  const { clusterName, hostNamespace } = req.body;
-  const query = `SELECT _id FROM clusters WHERE name='${clusterName}'`;
-  db.query(query)
-    .then((data) => {
-      console.log(data.rows[0]._id);
-      res.locals.clusterId = data.rows[0]._id;
-      return next();
-    })
-    .catch((err) => {
-      return next({
-        log: `Error in spacesController.clusterIdLookup: ${err}`,
-        message: `Error looking up cluster id`
-      })
-    })
-}
-
-// spacesController.addNamespace = (req, res, next) => {
-//   const { hostNamespace } = req.body;
-//   const { clusterId } = res.locals;
-//   const params = [hostNamespace, clusterId];
-//   const query = 'INSERT INTO namespaces (name, cluster_id) VALUES ($1, $2)';
-
 spacesController.clusterIdLookup = (req, res, next) => {
   const { hostCluster } = req.body;
   const params = [hostCluster];
-  const query = `SELECT _id FROM clusters WHERE name='$1'`;
+  const query = `SELECT _id FROM clusters WHERE name=$1`;
   db.query(query, params)
     .then((data) => {
       console.log(data.rows[0]._id);
@@ -47,10 +23,10 @@ spacesController.clusterIdLookup = (req, res, next) => {
 
 spacesController.addNamespace = (req, res, next) => {
   const { hostNamespace } = req.body;
-  const { clusterId } = res.locals;
-  const params = [hostNamespace, clusterId];
+  const { clusterId, teamId } = res.locals;
+  const params = [hostNamespace, clusterId, teamId];
   // if the team ID is a foreign key, do we need to add this in or is it automatic?
-  const query = 'INSERT INTO namespaces (name, cluster_id) VALUES ($1, $2)';
+  const query = 'INSERT INTO namespaces (name, cluster_id, team_id) VALUES ($1, $2, $3)';
 
   db.query(query, params)
     .then((data) => {
@@ -64,8 +40,8 @@ spacesController.addNamespace = (req, res, next) => {
 
 spacesController.createNamespace = (req, res, next) => {
   console.log(req.body)
-  const { clusterName, hostNamespace } = req.body;
-  runTerminalCommand(gcloud.getCredentials(clusterName))
+  const { hostCluster, hostNamespace } = req.body;
+  runTerminalCommand(gcloud.getCredentials(hostCluster))
     .then((data) => {
       console.log(data)
       runTerminalCommand(kubectl.createNamespace(hostNamespace))
@@ -77,11 +53,11 @@ spacesController.createNamespace = (req, res, next) => {
 }
 
 spacesController.deploy = (req, res, next) => {
-  const { deploymentName, hostNamespace, imageFile } = req.body;
-  runTerminalCommand(kubectl.deployImage(deploymentName, hostNamespace, imageFile))
+  const { deploymentName, deployHostNamespace, imageFile } = req.body;
+  runTerminalCommand(kubectl.deployImage(deploymentName, deployHostNamespace, imageFile))
     .then(() => {
-      runTerminalCommand(kubectl.expose(deploymentName, hostNamespace))
-        .then(() => runTerminalCommand(`kubectl get services -n ${hostNamespace} ${deploymentName}`))
+      runTerminalCommand(kubectl.expose(deploymentName, deployHostNamespace))
+        .then(() => runTerminalCommand(`kubectl get services -n ${deployHostNamespace} ${deploymentName}`))
         .then((data) => {
           console.log(data);
           res.locals.jeff = data;
@@ -91,9 +67,9 @@ spacesController.deploy = (req, res, next) => {
 }
 
 spacesController.getExternalIp = (req, res, next) => {
-  const { deploymentName, hostNamespace } = req.body;
+  const { deploymentName, deployHostNamespace } = req.body;
   console.log(deploymentName);
-  runTerminalCommand(`kubectl get services -n ${hostNamespace} ${deploymentName}`)
+  runTerminalCommand(`kubectl get services -n ${deployHostNamespace} ${deploymentName}`)
     .then((data) => {
       res.locals.getServices = data;
       return next()
@@ -101,13 +77,9 @@ spacesController.getExternalIp = (req, res, next) => {
 }
 
 spacesController.fetchSpaces = (req, res, next) => {
-  const query =
-    `
-  SELECT * FROM namespaces;
-  `
+  const query = 'SELECT * FROM namespaces;';
   db.query(query)
     .then((data) => {
-      console.log('fetchspaces data', data)
       res.locals.spaces = data.rows
       return next();
     })
@@ -121,7 +93,6 @@ spacesController.fetchNamespaces = (req, res, next) => {
   `
   db.query(query, params)
     .then((data) => {
-      console.log(data)
       res.locals.namespaces = data.rows
       return next();
     })

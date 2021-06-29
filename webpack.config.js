@@ -28,6 +28,7 @@ module.exports = {
   },
   // resolve: { extensions: ["*", ".js", ".jsx"] },
   devServer: {
+    host: '0.0.0.0',
     publicPath: '/build/',
     port: 8080,
     proxy: {

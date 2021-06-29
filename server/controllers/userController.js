@@ -20,6 +20,7 @@ const userController = {};
 // }
 
 userController.bcryptPassword = (req, res, next) => {
+  console.log('req.body', req.body);
   const { password } = req.body;
   console.log('hitting bcrypt controller', password)
   bcrypt.hash(password, saltRounds)
@@ -136,5 +137,31 @@ userController.verifyAdmin = (req, res, next) => {
     return next();
   })
 }
+
+userController.deleteUser = (req, res, next) => {
+  const { email } = req.body;
+  const params = [email];
+  const query =  `DELETE FROM users WHERE email=$1`
+  db.query(query, params)
+    .then(() => next())
+    .catch(err => next({ 
+      log: `Error in userController.deleteUser: ${err}`,
+      message: 'Unable to delete user'
+    })) 
+}
+
+userController.getAllUsers = (req, res, next) => {
+  const query = 'SELECT * FROM users'
+  db.query(query)
+    .then((result) => {
+      res.locals.allUsers = result.rows
+      return next()
+    })
+    .catch(err => next({ 
+      log: `Error in userController.getAllUsers: ${err}`,
+      message: 'Unable to get users'
+    }))
+}
+
 
 module.exports = userController;

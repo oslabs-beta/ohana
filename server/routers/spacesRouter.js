@@ -5,10 +5,11 @@ const userController = require('../controllers/userController');
 
 router.post('/create',
   spacesController.clusterIdLookup,
+  userController.verifyAdmin,
   spacesController.addNamespace,
-  // spacesController.createNamespace, 
+  spacesController.createNamespace, 
   (req, res) => {
-    res.status(200).send('posted to database');
+    res.status(200).json('Successfully created namespace');
   })
 
 router.post('/deploy',
