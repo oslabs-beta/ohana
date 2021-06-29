@@ -1,10 +1,5 @@
 import React from 'react';
-// import { makeStyles, List, ListItem, ListItemText, ListSubheader } from '@material-ui/core/styles';
 import { makeStyles, List, ListItem, ListItemText, ListSubheader } from '@material-ui/core/';
-// import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import ListSubheader from '@material-ui/core/ListSubheader';
 
 const TeamsDisplay = () => {
 

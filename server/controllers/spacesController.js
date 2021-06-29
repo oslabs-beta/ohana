@@ -17,10 +17,10 @@ const spacesController = {};
 // }
 
 spacesController.clusterIdLookup = (req, res, next) => {
-  // do we need to pull in hostNamespace if we aren't using it?
-  const { hostCluster, hostNamespace } = req.body;
-  const query = `SELECT _id FROM clusters WHERE name='${hostCluster}'`;
-  db.query(query)
+  const { hostCluster } = req.body;
+  const params = [hostCluster];
+  const query = `SELECT _id FROM clusters WHERE name='$1'`;
+  db.query(query, params)
     .then((data) => {
       console.log(data.rows[0]._id);
       res.locals.clusterId = data.rows[0]._id;
@@ -38,6 +38,7 @@ spacesController.addNamespace = (req, res, next) => {
   const { hostNamespace } = req.body;
   const { clusterId } = res.locals;
   const params = [hostNamespace, clusterId];
+  // if the team ID is a foreign key, do we need to add this in or is it automatic?
   const query = 'INSERT INTO namespaces (name, cluster_id) VALUES ($1, $2)';
 
   db.query(query, params)
