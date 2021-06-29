@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { AppContext } from './AppContext'
 
 
+
 const LoginPage = (props) => {
   const { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin } = useContext(AppContext);
   const [email, setEmail] = useState('');
@@ -72,7 +73,7 @@ const LoginPage = (props) => {
               if (isAdmin) history.push('/admin')
               else history.push('/vcluster')
             })
-          }
+        }
       })
   }
 
@@ -87,13 +88,12 @@ const LoginPage = (props) => {
   return (
     <div id='LoginPage'>
       <form id='LoginForm' method="POST" action="/user/login" onSubmit={handleSubmit}>
-        <TextField label='Email' name='email' onChange={handleEmail}></TextField><br></br>
-        <TextField label='Password' type='password' name='password' onChange={handlePassword}></TextField><br></br>
+        <TextField label='Email' name='email' id='filled-basic' onChange={handleEmail}></TextField><br></br>
+        <TextField label='Password' type='password' name='password' id='filled-basic' onChange={handlePassword}></TextField><br></br>
         {incorrectInfo}
         <Button type="submit" variant="contained" color="secondary">Login</Button>
       </form>
     </div>
-
   )
 }
 

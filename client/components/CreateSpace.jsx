@@ -95,14 +95,14 @@ const CreateSpace = () => {
       <h1>Create a namespace and deploy</h1>
 
       <div id='spaces'>
-        {/* <form method="POST" action="/spaces/create">
+        <form method="POST" action="/spaces/create">
           <h2>Create a Namespace</h2>
 
           <FormControl>
-          <InputLabel id="inputLabels">Select Cluster</InputLabel>
-          <Select label='Select Cluster' name='hostCluster' onChange={handleSetHostClusterName}>
-            {clusterNamesDropdown}
-          </Select>
+            <InputLabel id="inputLabels">Select Cluster</InputLabel>
+            <Select label='Select Cluster' name='hostCluster' onChange={handleSetHostClusterName}>
+              {clusterNamesDropdown}
+            </Select>
           </FormControl>
 
           <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetCreateHostNamespace} />
@@ -116,7 +116,7 @@ const CreateSpace = () => {
           <FormControl>
             <InputLabel id="inputLabels">Select Namespace</InputLabel>
             <Select label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetCreateHostNamespace}>
-            {namespaceDropdown}
+              {namespaceDropdown}
             </Select>
           </FormControl>
 
@@ -124,12 +124,12 @@ const CreateSpace = () => {
           <Button type="submit" variant="contained" color="primary" onClick={deployButton}>Deploy</Button>
         </form>
 
-          <FormControl>
+        <FormControl>
           <InputLabel id="inputLabels">Select Namespace</InputLabel>
-            <Select label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetCreateHostNamespace}>
+          <Select label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetCreateHostNamespace}>
             {namespaceDropdown}
-            </Select>
-          </FormControl>
+          </Select>
+        </FormControl>
 
         <TextField label='Deployment Name' name='deploymentName' onChange={handleSetDeploymentName} />
         <Button type="submit" variant="contained" color="secondary" onClick={getIp}>Get External IP</Button>
