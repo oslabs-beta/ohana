@@ -1,23 +1,26 @@
 html, body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  height: 100%;
+  width: 100%;
 }
 
 button {
   margin: 1em; 
 }
 
-.App {
+/* .App {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
+} */
 
 .MainContainer {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100%; */
+  width: 95%;
 }
 
 #AdminContainer {
@@ -25,12 +28,21 @@ button {
 }
 
 #LoginPage {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid gray;
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-between; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  border: 1px solid green;
   padding: 1em;
+  height: 100%;
+}
+
+#leftPaneLogin {
+  height: 95vh;
+  width: 29vw;
+  border: 1px solid gray;
+  border-radius: 15px;
 }
 
 #LoginForm {
@@ -38,6 +50,7 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+ 
   
 }
 
@@ -118,3 +131,4 @@ button {
 #get-vclusters {
   align-self: flex-start;
 }
+

@@ -1,7 +1,25 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Button, TextField } from '@material-ui/core'
+import { Button, TextField, Box } from '@material-ui/core'
 import { useHistory } from 'react-router-dom';
 import { AppContext } from './AppContext'
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+// const ohana = require('../assets/transparentohana.png')
+// import dashboardIcon from '../assets/dashboard-icon.svg';
+
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    // padding: theme.spacing(2),
+    textAlign: 'center',
+    // color: theme.palette.text.secondary,
+  },
+}));
 
 
 const LoginPage = (props) => {
@@ -11,6 +29,8 @@ const LoginPage = (props) => {
   const [token, setToken] = useState();
   const [incorrectInfo, setIncorrectInfo] = useState('');
   let history = useHistory();
+
+  const classes = useStyles();
 
   // when the component re-renders, check if the isLoggedIn is truthy and push
   // homepage endpoint so the route can render the proper page
@@ -85,15 +105,43 @@ const LoginPage = (props) => {
   };
 
   return (
+    
     <div id='LoginPage'>
-      <form id='LoginForm' method="POST" action="/user/login" onSubmit={handleSubmit}>
+      <div className={classes.root}>
+      <Grid container spacing={3} 
+      direction="row" 
+      justify-content="flex-start"
+      alignitems="stretch"
+      >
+        <Grid item xs={6}>
+          <div id='leftPaneLogin'>
+          <img src="../assets/transparentohana.png" alt="ohana"/>
+          </div>
+        </Grid>
+        <Grid item xs={4}
+        justify-self="center"
+        alignitems="center"
+        >
+        <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+        // marginTop="-10vh"
+        >
+        {/* <img src="../assets/dashboard-icon.svg"> */}
+        {/* <img src={dashboardIcon}/> */}
+        <form id='LoginForm' method="POST" action="/user/login" onSubmit={handleSubmit}>
         <TextField label='Email' name='email' onChange={handleEmail}></TextField><br></br>
         <TextField label='Password' type='password' name='password' onChange={handlePassword}></TextField><br></br>
         {incorrectInfo}
         <Button type="submit" variant="contained" color="secondary">Login</Button>
-      </form>
+      </form>  
+      </Box>
+        </Grid>  
+      </Grid>
     </div>
-
+    </div>
   )
 }
 
