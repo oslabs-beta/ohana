@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import { sizing } from '@material-ui/core';
+import { Button, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from '@material-ui/core';
 
 // required styling for material-ui for table
 const useStyles = makeStyles({
@@ -41,37 +37,35 @@ const VClustersList = () => {
 
   return (
     <div id='vClustersList'>
-      <div className={classes.root}>
-        <Box width='100%'>
-          <h3>Current Virtual Clusters</h3>
-          <Button id="get-vclusters" onClick={handleClick} variant="outlined">Get VClusters</Button>
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>vCluster ID</TableCell>
-                  <TableCell align="right">Team ID</TableCell>
-                  <TableCell align="right">Namespace</TableCell>
-                  <TableCell align="right">Namespace ID</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.id}>
-                    <TableCell component="th" scope="row">
-                      {row.id}
-                    </TableCell>
-                    <TableCell align="right">{row.team_id}</TableCell>
-                    <TableCell align="right">{row.namespace}</TableCell>
-                    <TableCell align="right">{row.namespace_id}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
-      </div>
-    </div >
+      {/* <Box> */}
+      <h3>Current Virtual Clusters</h3>
+      <Button id="get-vclusters" onClick={handleClick} variant="outlined">Get VClusters</Button>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>vCluster ID</TableCell>
+              <TableCell align="right">Team ID</TableCell>
+              <TableCell align="right">Namespace</TableCell>
+              <TableCell align="right">Namespace ID</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell component="th" scope="row">
+                  {row.id}
+                </TableCell>
+                <TableCell align="right">{row.team_id}</TableCell>
+                <TableCell align="right">{row.namespace}</TableCell>
+                <TableCell align="right">{row.namespace_id}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {/* </Box> */}
+    </div>
   )
 }
 

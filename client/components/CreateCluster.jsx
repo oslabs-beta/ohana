@@ -73,34 +73,83 @@ const CreateCluster = () => {
     <div id='create-clusters'>
       <div className={classes.root}>
         <Box component="span" m={1}
-        // display="flex"
-        // justifyContent="center"
-        // alignItems="center"
+          display="flex"
+          justifyContent="flexStart"
+          alignItems="center"
+          flexDirection="column"
         // minHeight="100vh"
         >
-          <h1>Create a vCluster</h1>
+          <h1>Create a new virtual cluster</h1>
           <div id='clusters'>
             <form onSubmit={formSubmit}>
 
-              <FormControl>
-                <InputLabel id="inputLabels">Select Cluster</InputLabel>
-                <Select label='Select Cluster' onChange={handleClusterNameChange}>
-                  {clusterNamesDropdown}
-                </Select>
-              </FormControl>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                flexDirection="column"
+              >
+                <br />
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
 
-              <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
+                  width="50vw"
 
-              <FormControl>
-                <InputLabel id="inputLabels">Select Namespace</InputLabel>
-                <Select label='Select Namespace' name='hostNamespace' onChange={handleHostNamespaceChange}>
-                  {namespaceDropdown}
-                </Select>
-              </FormControl>
+                >
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="flexStart"
+                  // alignItems="center"
 
-              <Button variant="contained" color="primary" type="submit">Create</Button>
-              <span>{currentProcess}</span><span>{inProgress}</span>
+                  >
+
+
+                    <FormControl>
+                      <InputLabel id="inputLabels" >Select Cluster</InputLabel>
+                      <Select label='Select Cluster' onChange={handleClusterNameChange} >
+
+                        {clusterNamesDropdown}
+                      </Select>
+                    </FormControl>
+                    <FormControl>
+                      <InputLabel id="inputLabels">Select Namespace</InputLabel>
+                      <Select label='Select Namespace' name='hostNamespace' onChange={handleHostNamespaceChange}>
+                        {namespaceDropdown}
+                      </Select>
+                    </FormControl>
+
+                    <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
+
+
+                  </Box>
+                  <Box
+                    alignItems="center"
+                    paddingTop="3.5em"
+                  >
+
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      size="small"
+                    >Create</Button>
+                  </Box>
+                  <Box
+
+                    maxWidth="12vw"
+                    minWidth="12vw"
+                    paddingTop="2em"
+                  >
+                    <span>{currentProcess}</span><br /><span>{inProgress}</span>
+                  </Box>
+
+                </Box>
+              </Box>
             </form>
+
           </div>
         </Box>
       </div>

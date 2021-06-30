@@ -18,7 +18,7 @@ const App = (props) => {
     <div className="App">
       <Router>
         <AppContext.Provider value={value}>
-          {navBar}
+          {/* {navBar} */}
           <MainContainer />
         </AppContext.Provider>
       </Router>

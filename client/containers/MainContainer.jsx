@@ -6,6 +6,7 @@ import AdminContainer from './AdminContainer.jsx';
 import SpacesContainer from './SpacesContainer.jsx';
 import ClusterContainer from './ClusterContainer.jsx';
 import LoginPage from '../components/LoginPage.jsx';
+import HomePage from '../components/HomePage.jsx';
 
 export const LoginContext = React.createContext();
 
@@ -21,6 +22,7 @@ const MainContainer = (props) => {
       <Switch>
         <Route path="/" exact component={LoginPage}>
         </Route>
+        <Route path="/home" exact component={HomePage} />
         <Route path="/admin" exact component={AdminContainer} />
         <Route path="/spaces" exact component={SpacesContainer} />
         <Route path='/vcluster' exact component={ClusterContainer} />
