@@ -1,12 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;600&display=swap');
+
 html, body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+  /* font-family: 'Montserrat', sans-serif; */
+  font-family: "Public Sans", sans-serif;
+  /* color: #303030; */
+  color: rgb(33,43,54);
   height: 100%;
   width: 100%;
+}
+
+#ok {
+  background-color: green,
+
+}
+
+mark {
+  color:#35A22A;
+  background-color:#E6F8E0;
+  padding: 2px;
 }
 
 button {
   margin: 1em; 
 }
+
+/* p {
+  font-family: 'Montserrat', sans-serif;
+} */
 
 /* .App {
   display: flex;
@@ -27,21 +48,48 @@ button {
   width: 100%;
 }
 
+.ohana_logo {
+  display: absolute;
+  height: 50px;
+  /* margin-top: 3vh; */
+}
+
+#computer {
+  height: 20vh;
+  /* margin-top: 32vh; */
+  /* margin-left: 2.25vh; */
+}
+
 #LoginPage {
   /* display: flex;
   flex-direction: row;
   justify-content: space-between; */
   /* justify-content: center; */
   /* align-items: center; */
-  border: 1px solid green;
+  /* border: 1px solid green; */
   padding: 1em;
   height: 100%;
 }
 
+.shadow {
+  /* filter: drop-shadow(0 0 0.75rem crimson); */
+  box-shadow: 0 0 2rem #C8C8C8;
+}
+
 #leftPaneLogin {
-  height: 95vh;
-  width: 29vw;
-  border: 1px solid gray;
+  height: 100%;
+  width: 300px;
+  max-width: 350px;
+  border: 2px solid #D5D5D5;
+  border-radius: 15px;
+  
+}
+
+#leftPaneNav {
+  height: 100%;
+  width: 300px;
+  max-width: 350px;
+  border: 2px solid #D5D5D5;
   border-radius: 15px;
 }
 
@@ -102,8 +150,11 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid gray;
+  border: 1px solid #d5d5d5;
   padding: 1em;
+  border-radius: 20px;
+  min-height: 30vh;
+  max-height: 40vh;
 }
 
 #SpacesList {

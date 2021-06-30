@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 // const ohana = require('../assets/transparentohana.png')
-// import dashboardIcon from '../assets/dashboard-icon.svg';
+import dashboardIcon from '../assets/dashboard-icon.svg';
 
 
 
@@ -114,13 +114,48 @@ const LoginPage = (props) => {
       alignitems="stretch"
       >
         <Grid item xs={6}>
-          <div id='leftPaneLogin'>
-          <img src="../assets/transparentohana.png" alt="ohana"/>
+          {/* <Paper elevation={0}> */}
+          <div id='leftPaneLogin' className='shadow'>
+          
+          <Box
+          display="flex"
+          justifyContent="flex-start"
+          alignItems="center"
+          minHeight="15vh"
+          >
+          <img src={require("../assets/transparentohana.png")} alt="ohana" className="ohana_logo"/>
+          </Box>
+          <Box
+          display="flex"
+          flexDirection="column"
+          alignContent="center"
+          justifyContent="center"
+          minHeight="68vh"
+          >
+          <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="50vh"
+          flexDirection="column"
+          justifySelf="center"
+          >
+          <div>
+          <h3>Aloha, welcome to Ohana</h3>
           </div>
+          <img src={dashboardIcon} id="computer"/>
+          <div>
+          <h4>Effortless K8s Management</h4>
+          </div>
+          </Box>
+          </Box>
+          </div>
+          
+          {/* </Paper> */}
         </Grid>
         <Grid item xs={4}
         justify-self="center"
-        alignitems="center"
+        alignItems="center"
         >
         <Box
         display="flex"
@@ -128,15 +163,16 @@ const LoginPage = (props) => {
         alignItems="center"
         minHeight="100vh"
         // marginTop="-10vh"
+        // className="shadow"
         >
         {/* <img src="../assets/dashboard-icon.svg"> */}
-        {/* <img src={dashboardIcon}/> */}
-        <form id='LoginForm' method="POST" action="/user/login" onSubmit={handleSubmit}>
-        <TextField label='Email' name='email' onChange={handleEmail}></TextField><br></br>
-        <TextField label='Password' type='password' name='password' onChange={handlePassword}></TextField><br></br>
-        {incorrectInfo}
-        <Button type="submit" variant="contained" color="secondary">Login</Button>
-      </form>  
+        <form style={{ width: '100%' }} id='LoginForm' method="POST" action="/user/login" onSubmit={handleSubmit}>
+        <h2>Sign in</h2>
+          <TextField style={{ width: '100%' }} id='outlined-basic' variant='outlined' label='Email' name='email' onChange={handleEmail}></TextField ><br></br>
+          <TextField style={{ width: '100%' }} id='outlined-basic' variant='outlined' label='Password' type='password' name='password' onChange={handlePassword}></TextField><br></br>
+            {incorrectInfo}
+          <Button style={{ width: '100%' }} type="submit" variant="contained" color="primary">Login</Button>
+        </form>
       </Box>
         </Grid>  
       </Grid>

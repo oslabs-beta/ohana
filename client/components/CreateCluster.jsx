@@ -1,6 +1,24 @@
 import React, { useState, useContext } from 'react';
 import { TextField, Button, CircularProgress, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 import { AppContext } from './AppContext';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    // padding: theme.spacing(2),
+    textAlign: 'center',
+    // color: theme.palette.text.secondary,
+  },
+}));
+
+
 
 const CreateCluster = () => {
 
@@ -10,6 +28,8 @@ const CreateCluster = () => {
   const [inProgress, setInProgress] = useState('');
   const [currentProcess, setCurrentProcess] = useState('');
   const { clusterNames, namespaceNames } = useContext(AppContext)
+
+  const classes = useStyles();
 
   const clusterNamesDropdown = [];
   clusterNames.forEach(name => clusterNamesDropdown.push(<MenuItem value={name}>{name}</MenuItem>))
@@ -52,29 +72,87 @@ const CreateCluster = () => {
 
   return (
     <div id='create-clusters'>
-      <h1>Create a vCluster</h1>
+      <div className={classes.root}>
+        <Box component="span" m={1}
+        display="flex"
+        justifyContent="flexStart"
+        alignItems="center"
+        flexDirection="column"
+        // minHeight="100vh"
+        >
+      <h1>Create a new virtual cluster</h1>
       <div id='clusters'>
         <form onSubmit={formSubmit}>
 
+          <Box 
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="column"
+          >
+            <br/>
+            <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            
+            width="50vw"
+           
+            >
+            <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="flexStart"
+            // alignItems="center"
+            
+            >
+
+            
           <FormControl>
-            <InputLabel id="inputLabels">Select Cluster</InputLabel>
-            <Select label='Select Cluster' onChange={handleClusterNameChange}>
+            <InputLabel id="inputLabels" >Select Cluster</InputLabel>
+            <Select label='Select Cluster' onChange={handleClusterNameChange} >
+  
             {clusterNamesDropdown}
             </Select>
           </FormControl>
-
-          <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
-
           <FormControl>
           <InputLabel id="inputLabels">Select Namespace</InputLabel>
           <Select label='Select Namespace' name='hostNamespace' onChange={handleHostNamespaceChange}>
             {namespaceDropdown}
           </Select>
           </FormControl>
+
+          <TextField label='vCluster' name='vClusterName' onChange={handleSetvClusterName} />
+
           
-          <Button variant="contained" color="primary" type="submit">Create</Button>
-          <span>{currentProcess}</span><span>{inProgress}</span>
+          </Box>
+          <Box
+          alignItems="center"
+          paddingTop="3.5em"
+          >
+            
+          <Button 
+          variant="contained" 
+          color="primary" 
+          type="submit"
+          size="small"
+          >Create</Button>
+          </Box>
+          <Box
+          
+          maxWidth="12vw"
+          minWidth="12vw"
+          paddingTop="2em"
+          >
+          <span>{currentProcess}</span><br/><span>{inProgress}</span>
+          </Box>
+          
+          </Box>
+          </Box>
         </form>
+        
+      </div>
+      </Box>
       </div>
     </div>
   )

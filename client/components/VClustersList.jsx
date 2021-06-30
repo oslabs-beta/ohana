@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
+import { Button, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from '@material-ui/core';
 
 // required styling for material-ui for table
 const useStyles = makeStyles({
@@ -37,6 +37,7 @@ const VClustersList = () => {
 
   return (
     <div id='vClustersList'>
+      {/* <Box> */}
       <h3>Current Virtual Clusters</h3>
       <Button id="get-vclusters" onClick={handleClick} variant="outlined">Get VClusters</Button>
       <TableContainer component={Paper}>
@@ -63,6 +64,7 @@ const VClustersList = () => {
           </TableBody>
         </Table>
       </TableContainer>
+    {/* </Box> */}
     </div>
   )
 }
