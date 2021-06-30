@@ -13,7 +13,7 @@ const App = (props) => {
   const [teamId, setTeamId] = useState('');
   const value = { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin, clusterNames, setClusterNames, namespaceNames, setNamespaces, teamId, setTeamId };
   if (isLoggedIn) navBar = <NavBar />;
-  
+
   return (
     <div className="App">
       <Router>

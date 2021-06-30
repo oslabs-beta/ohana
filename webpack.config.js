@@ -23,14 +23,18 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
-      }
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ]
   },
   // resolve: { extensions: ["*", ".js", ".jsx"] },
   devServer: {
     host: '0.0.0.0',
     publicPath: '/build/',
-    port: 8080,
+    port: 3535,
     proxy: {
       '/user': 'http://localhost:3000',
       '/admin': 'http://localhost:3000',
