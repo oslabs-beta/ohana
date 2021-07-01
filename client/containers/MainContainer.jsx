@@ -1,9 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../components/AppContext';
 import { Switch, Route } from 'react-router-dom';
-// import LoginPage from '../components/LoginPage.jsx';
-// do we need this?
-import AdminContainer from './AdminContainer.jsx';
 import SpacesContainer from './SpacesContainer.jsx';
 import ClusterContainer from './ClusterContainer.jsx';
 import LoginPage from '../components/LoginPage.jsx';
@@ -11,9 +8,7 @@ import HomePage from '../components/HomePage.jsx';
 import TeamsDisplay from '../components/TeamsDisplay.jsx';
 import UsersDisplay from '../components/UsersDisplay.jsx';
 import DeployPage from '../components/DeployPage.jsx';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { FixedSizeList } from 'react-window';
+
 
 export const LoginContext = React.createContext();
 
@@ -64,7 +59,6 @@ const MainContainer = (props) => {
         <Route path="/" exact component={LoginPage}>
         </Route>
         <Route path="/home" exact component={HomePage} />
-        <Route path="/admin" exact component={AdminContainer} />
         <Route path="/spaces" exact component={SpacesContainer} />
         <Route path='/vcluster' exact component={ClusterContainer} />
         <Route path='/team' exact component={TeamsDisplay} />

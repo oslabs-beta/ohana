@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import CreateCluster from '../components/CreateCluster.jsx';
 import { AppContext } from '../components/AppContext';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import clsx from 'clsx';

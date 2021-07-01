@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField, Select, FormControlLabel, Checkbox, Box } from '@material-ui/core'
+import { Button, TextField, FormControlLabel, Checkbox, Box } from '@material-ui/core'
 
 const CreateUser = () => {
   const [isAdmin, setAdmin] = useState(false)

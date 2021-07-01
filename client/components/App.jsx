@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import MainContainer from '../containers/MainContainer.jsx';
-// import NavBar from '../containers/NavBarContainer.jsx';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AppContext } from './AppContext';
-import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import ToggleTheme from '../themes/ToggleTheme.jsx';
 
@@ -20,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 
 const App = (props) => {
-  let navBar = '';
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [clusterNames, setClusterNames] = useState([])

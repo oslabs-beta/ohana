@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import CreateSpace from '../components/CreateSpace.jsx';
 import { AppContext } from '../components/AppContext.js';
 import clsx from 'clsx';
@@ -6,9 +6,7 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import NavPane from './NavPane.jsx';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { FixedSizeList } from 'react-window';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {

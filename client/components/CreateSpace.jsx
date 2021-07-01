@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { TextField, Button, CircularProgress, FormControl, InputLabel, Select, MenuItem, Box } from '@material-ui/core'
 import { AppContext } from './AppContext';
 
