@@ -20,9 +20,9 @@ const userController = {};
 // }
 
 userController.bcryptPassword = (req, res, next) => {
-  console.log('req.body', req.body);
+  // console.log('req.body', req.body);
   const { password } = req.body;
-  console.log('hitting bcrypt controller', password)
+  // console.log('hitting bcrypt controller', password)
   bcrypt.hash(password, saltRounds)
     .then((hash) => {
       res.locals.password = hash;
@@ -47,7 +47,7 @@ userController.teamIdLookup = (req, res, next) => {
     })
 }
 userController.addNewUser = (req, res, next) => {
-  console.log('hitting addNewUser controller')
+  // console.log('hitting addNewUser controller')
   const { teamId, password } = res.locals;
   const { email, firstName, lastName, isAdmin } = req.body;
   const params = [email, password, firstName, lastName, isAdmin, teamId];
@@ -69,7 +69,7 @@ userController.loginCheck = (req, res, next) => {
   db.query(query)
     .then((result) => {
       if (!result.rows.length) {
-        console.log('user does not exist')
+        // console.log('user does not exist')
         res.locals.user = false
         return next({ log: 'Incorrect username/password', message: 'Incorrect username/password' });
       }

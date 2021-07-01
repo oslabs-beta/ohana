@@ -39,7 +39,6 @@ app.get('/admin',
   app.use('/clusters', clusterRouter)
   
   app.get('*', (req, res) => {
-    console.log('req.cookies', req.cookies)
     const { AuthToken } = req.cookies;
     if (AuthToken === undefined) return res.redirect('/')
     return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));

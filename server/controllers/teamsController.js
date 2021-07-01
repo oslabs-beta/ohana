@@ -3,7 +3,7 @@ const db = require('../db/models');
 const teamsController = {};
 
 teamsController.createTeam = (req, res, next) => {
-  console.log('am i hitting teamsController middleware?')
+  // console.log('am i hitting teamsController middleware?')
   const { teamName } = req.body;
   const query = `INSERT INTO teams (name) VALUES ('${teamName}')`;
 
