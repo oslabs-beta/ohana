@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import CreateCluster from '../components/CreateCluster.jsx';
-import VClustersList from '../components/VClustersList.jsx';
 import { AppContext } from '../components/AppContext';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
