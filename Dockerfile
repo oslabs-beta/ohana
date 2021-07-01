@@ -1,3 +1,9 @@
+
+## YOU MUST FILL IN THE ENV VALUES FOR THE IMAGE TO PROPERLY BUILD
+
+## BEFORE BUILDING THE IMAGE CHANGE ALL NODEMON VALUES IN PACKAGE.JSON SCRIPTS TO NODE
+
+
 # Set arguments
 ## Add gcloud service account here
 ARG gcloud_account=newadmin@klustr-316321.iam.gserviceaccount.com
@@ -38,15 +44,24 @@ RUN apt-get update
 RUN apt-get install sudo
 # RUN apt-get install vim
 # authenticate gcloud service account via json token
-ENV gcloud_acc=gcloud_account
-ENV secret=key_path
-RUN gcloud auth activate-service-account ${gcloud_acc}  --key-file=${secret}
-ENV project=project_id
-RUN gcloud config set project ${project}
+ENV gcloud_account=
+
+
+ENV key_path=
+
+
+RUN gcloud auth activate-service-account ${gcloud_account}  --key-file=${key_path}
+
+
+ENV project_id=
+
+RUN gcloud config set project ${project_id}
 RUN sudo apt-get install kubectl
 # generate kubectl config file via gcloud cli (note 'cluster-1' is cluster name to be replaced)
-ENV cluster=cluster_zone
-RUN gcloud container clusters get-credentials cluster-1 --zone=${cluster}
+ENV cluster_zone=
+
+
+RUN gcloud container clusters get-credentials cluster-1 --zone=${cluster_zone}
 
 ## run sequential commands to install helm
 RUN curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
