@@ -69,7 +69,7 @@ spacesController.deploy = (req, res, next) => {
 spacesController.getExternalIp = (req, res, next) => {
   const { deploymentName, deployHostNamespace } = req.body;
   console.log(deploymentName);
-  runTerminalCommand(`kubectl get services -n ${deployHostNamespace} ${deploymentName}`)
+  runTerminalCommand(kubectl.exposedIP(deploymentName, deployHostNamespace))
     .then((data) => {
       res.locals.getServices = data;
       return next()

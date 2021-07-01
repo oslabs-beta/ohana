@@ -61,6 +61,8 @@ kubectl.expose = (deploymentName, hostNamespace) => `kubectl expose deployment $
 kubectl.deploy = (hostNamespace, configFile) => `kubectl apply -n ${hostNamespace} -f /Users/fenris/Desktop/Codesmith/klustr.dev/yamlConfigs/${configFile}.yaml`
 // deploy the pod in a specific namespace with the image configuration impersonating a user; admin only
 kubectl.deployAs = (hostNamespace, configFile, userName) => `kubectl apply -n ${hostNamespace} -f /yamlConfigs/${configFile}.yaml --as=${userName}`
+// grabs the external exposed IP address
+kubectl.exposedIP = (deploymentName, deployedNamespace) => `kubectl get services ${deploymentName} -n ${deployedNamespace} -o jsonpath="{.status.loadBalancer.ingress[0].ip}"`
 
 const vCluster = {}
 

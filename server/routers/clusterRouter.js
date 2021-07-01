@@ -16,11 +16,11 @@ router.post('/',
 //   (req, res) => res.status(200).json(res.locals.kyung));
 
 
-router.get('/list', 
-  clusterController.getClusters, 
+router.get('/list',
+  clusterController.getClusters,
   (req, res) => {
     const { clusterNames } = res.locals;
     console.log('clusterNames', clusterNames)
     return res.status(200).json(clusterNames)
-})
+  })
 module.exports = router;
