@@ -3,7 +3,7 @@ import { Button, TextField, Box } from '@material-ui/core';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link, Router } from 'react-router-dom';
 import { AppContext } from '../components/AppContext'
 
 
@@ -123,27 +123,19 @@ const NavPane = () => {
           </Link>
           </Box>
           <Box>
-          <Button href="/spaces" color="primary.text.primary">
-             Spaces
-          </Button>
+          <Link to="/spaces">
+            <Button color="primary.text.primary">
+              Spaces
+            </Button>
+          </Link>
           </Box>
           <Box>
-          <Button href="/deploy" color="primary.text.primary">
-             Deploy
-          </Button>
+          <Link to="/deploy">
+            <Button href="/deploy" color="primary.text.primary">
+              Deploy
+            </Button>
+          </Link>
           </Box>
-          </Box>
-
-          </Box>
-          <Box
-            minHeight="10vh"
-            maxHeight="20vh"
-            paddingLeft="1em"
-            >
-          <Box
-          marginLeft="-1em"
-          >
-          {adminPane}
           </Box>
           </Box>
           <Box
@@ -162,8 +154,7 @@ const NavPane = () => {
           // border="1px solid blue"
           marginLeft="-0.5em"
           >
-            
-            <Box>
+          <Box>
           <Button href="https://ohana-app.io" color="primary.text.primary">
              Docs
           </Button>
@@ -174,11 +165,16 @@ const NavPane = () => {
           </Button>
           </Box>
           </Box>
+          <Box
+          marginLeft="-1em"
+          >
+          {adminPane}
+          </Box>
           
           
           
           </Box>
-          </Box>          
+          </Box>    
           </div>
 
 
