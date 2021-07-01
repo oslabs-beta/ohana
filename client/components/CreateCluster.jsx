@@ -2,19 +2,15 @@ import React, { useState, useContext } from 'react';
 import { TextField, Button, CircularProgress, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 import { AppContext } from './AppContext';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   paper: {
-    // padding: theme.spacing(2),
     textAlign: 'center',
-    // color: theme.palette.text.secondary,
+   
   },
 }));
 

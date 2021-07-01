@@ -2,8 +2,6 @@ import React, { useContext } from 'react';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import { CustomThemeContext } from './CustomThemeProvider.jsx';
-import Brightness6Icon from '@material-ui/icons/Brightness6';
-import Brightness2Icon from '@material-ui/icons/Brightness2';
 import Brightness2OutlinedIcon from '@material-ui/icons/Brightness2Outlined';
 import Brightness6OutlinedIcon from '@material-ui/icons/Brightness6Outlined';
 

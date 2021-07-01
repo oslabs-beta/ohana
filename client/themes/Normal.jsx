@@ -10,10 +10,6 @@ const normal = createMuiTheme({
     background: {
       default: '#ffffff'
     },
-    // text: {
-    //   primary: '#000000',
-    //   // secondary: '#ffffff'
-    // },
     secondary: {
       main: '#5ACD8A',
     }

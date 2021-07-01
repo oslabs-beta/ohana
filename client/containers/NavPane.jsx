@@ -1,9 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Button, TextField, Box } from '@material-ui/core';
+import React, { useContext } from 'react';
+import { Button, Box } from '@material-ui/core';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import { useHistory, Link, Router } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { AppContext } from '../components/AppContext'
 
 
@@ -110,7 +109,7 @@ const NavPane = () => {
           flexDirection="column"
           alignContent="center"
           justifyContent="flexStart"
-          minHeight="75vh"
+          minHeight="80vh"
           
           >
             <Box
@@ -166,6 +165,7 @@ const NavPane = () => {
             minHeight="0"
             maxHeight="20vh"
             paddingLeft="1em">
+            
           <Box>
             <h3>Support</h3>
             </Box>

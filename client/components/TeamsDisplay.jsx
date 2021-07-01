@@ -1,5 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
-import CreateSpace from '../components/CreateSpace.jsx';
+import React, { useContext, useState } from 'react';
 import { AppContext } from '../components/AppContext.js';
 import clsx from 'clsx';
 import Box from '@material-ui/core/Box';

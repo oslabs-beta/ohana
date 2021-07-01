@@ -35,13 +35,13 @@ vClusterController.addVCluster = (req, res, next) => {
 // }
 
 vClusterController.createVCluster = (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { clusterName, vClusterName, hostNamespace } = req.body;
   res.locals.vClusterName = vClusterName;
   // need to make gcloud into a function
   runTerminalCommand(gcloud.getCredentials(clusterName))
     .then((data) => {
-      console.log('1', data)
+      // console.log('1', data)
       runTerminalCommand(vCluster.create(vClusterName, hostNamespace))
         .then(() => next())
         // runTerminalCommand(vCluster.connect(vClusterName, hostNamespace))
