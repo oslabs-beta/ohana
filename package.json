@@ -21,6 +21,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
     "bcrypt": "^5.0.1",
     "child_process": "^1.0.2",
     "clsx": "^1.1.1",

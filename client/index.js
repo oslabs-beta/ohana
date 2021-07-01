@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { render } from 'react-dom';
 import App from './components/App.jsx';
 import { createMuiTheme, ThemeProvider, makeStyles } from '@material-ui/core';
 import { Brightness7Icon, Brishtness3Icon } from '@material-ui/icons';
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-
+import CustomThemeProvider from './themes/CustomThemeProvider.jsx';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 const theme = createMuiTheme({
   palette: {
@@ -23,11 +24,16 @@ const theme = createMuiTheme({
   },
 });
 
-
-
 render(
-  <ThemeProvider theme={theme}>
+  <CustomThemeProvider>
+    <CssBaseline />
+    {/* <ThemeProvider theme={theme}> */}
     <App />
-  </ThemeProvider>,
+    {/* </ThemeProvider> */}
+  </CustomThemeProvider>,
+
+
   document.getElementById("root")
 )
+
+

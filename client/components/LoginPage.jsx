@@ -11,7 +11,13 @@ import dashboardIcon from '../assets/dashboard-icon.svg';
 
 
 const useStyles = makeStyles((theme) => ({
+  button: {
+    color: theme.palette.primary,
+  },
   root: {
+    "& .MuiFilledInput-root": {
+      background: '#d5d5d5',
+    },
     flexGrow: 1,
   },
   paper: {
@@ -20,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     // color: theme.palette.text.secondary,
   },
 }));
+
 
 
 const LoginPage = (props) => {
@@ -104,6 +111,7 @@ const LoginPage = (props) => {
     setPassword(e.target.value);
   };
 
+
   return (
 
     <div id='LoginPage'>
@@ -168,14 +176,15 @@ const LoginPage = (props) => {
               {/* <img src="../assets/dashboard-icon.svg"> */}
               <form style={{ width: '100%' }} id='LoginForm' method="POST" action="/user/login" onSubmit={handleSubmit}>
                 <h2>Sign in</h2>
-                <TextField style={{ width: '100%' }} id='outlined-basic' variant='outlined' label='Email' name='email' onChange={handleEmail}></TextField ><br></br>
-                <TextField style={{ width: '100%' }} id='outlined-basic' variant='outlined' label='Password' type='password' name='password' onChange={handlePassword}></TextField><br></br>
+                <TextField style={{ width: '100%' }} className={classes.root} id='outlined-basic' variant='filled' label='Email' name='email' onChange={handleEmail}></TextField ><br></br>
+                <TextField style={{ width: '100%' }} className={classes.root} id='outlined-basic' variant='filled' label='Password' type='password' name='password' onChange={handlePassword}></TextField><br></br>
                 {incorrectInfo}
                 <Button style={{ width: '100%' }} type="submit" variant="contained" color="primary">Login</Button>
               </form>
             </Box>
           </Grid>
         </Grid>
+
       </div>
     </div >
   )

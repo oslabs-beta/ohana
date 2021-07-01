@@ -20,6 +20,10 @@ mark {
   background-color:#E6F8E0;
   padding: 2px;
 }
+
+input[type="text"] {
+  border-color: #fff;
+}
 /* 
 html, body {
   font-family: 'Montserrat', sans-serif;
