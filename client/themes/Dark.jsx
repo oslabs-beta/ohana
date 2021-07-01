@@ -13,25 +13,7 @@ const dark = createMuiTheme({
     secondary: {
       main: '#5ACD8A',
     }
-    
-    // text: {
-    //   default: '#f8f8f8'
-    // },
-    // text: {
-    //   primary: '#18191a',
-    //   secondary: '#ffffff'
-      
-    // }
   },
-  // typography: {
-  //   body2: {
-  //     color: "#ffffff"
-  //   },
-  //   button: {
-  //     fontColor: '#ffffff'
-  //   }
-  // },
-  
 });
 
 export default dark;

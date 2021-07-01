@@ -110,7 +110,7 @@ const NavPane = () => {
           flexDirection="column"
           alignContent="center"
           justifyContent="flexStart"
-          minHeight="75vh"
+          minHeight="80vh"
           
           >
             <Box
@@ -166,6 +166,7 @@ const NavPane = () => {
             minHeight="0"
             maxHeight="20vh"
             paddingLeft="1em">
+            
           <Box>
             <h3>Support</h3>
             </Box>
