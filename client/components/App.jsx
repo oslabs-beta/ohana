@@ -28,8 +28,6 @@ const useStyles = makeStyles(theme => ({
       background: theme.palette.primary.contrastText,
       border: "1px solid #d5d5d5",
       borderRadius: "15px",
-      
-
     },
 
   },
