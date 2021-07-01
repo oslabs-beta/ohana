@@ -11,7 +11,17 @@ const App = (props) => {
   const [clusterNames, setClusterNames] = useState([])
   const [namespaceNames, setNamespaces] = useState([])
   const [teamId, setTeamId] = useState('');
-  const value = { isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin, clusterNames, setClusterNames, namespaceNames, setNamespaces, teamId, setTeamId };
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const value = { 
+    isLoggedIn, setIsLoggedIn, 
+    isAdmin, setIsAdmin, 
+    clusterNames, setClusterNames, 
+    namespaceNames, setNamespaces, 
+    teamId, setTeamId,
+    firstName, setFirstName,
+    lastName, setLastName
+  };
   if (isLoggedIn) navBar = <NavBar />;
   
   return (

@@ -114,8 +114,14 @@ const NavPane = () => {
           // border="1px solid blue"
           marginLeft="-0.5em"
           >
-            
-            <Box>
+          <Box>
+          <Link to="/home">
+            <Button color="primary.text.primary">
+              Home
+            </Button>
+          </Link>
+          </Box>
+          <Box>
           <Link to="/vcluster">
             <Button color="primary.text.primary">
               vClusters
@@ -131,7 +137,7 @@ const NavPane = () => {
           </Box>
           <Box>
           <Link to="/deploy">
-            <Button href="/deploy" color="primary.text.primary">
+            <Button color="primary.text.primary">
               Deploy
             </Button>
           </Link>
@@ -156,7 +162,7 @@ const NavPane = () => {
           >
           <Box>
           <Button href="https://ohana-app.io" color="primary.text.primary">
-             Docs
+            Docs
           </Button>
           </Box>
           <Box>

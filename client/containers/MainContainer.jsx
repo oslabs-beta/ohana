@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { AppContext } from '../components/AppContext';
 import { Switch, Route } from 'react-router-dom';
 // import LoginPage from '../components/LoginPage.jsx';
 // do we need this?
@@ -19,6 +20,31 @@ const MainContainer = (props) => {
     login: false,
     logout: true,
   })
+  const { setIsLoggedIn, setIsAdmin, setClusterNames, setNamespaces, setTeamId } = useContext(AppContext);
+  useEffect(() => {
+    fetch('/cookies')
+      .then(res => res.json())
+      .then(data => {
+        console.log('cookie request data', data)
+        setIsLoggedIn(data.isLoggedIn);
+        setIsAdmin(data.isAdmin);
+        setTeamId(data.teamId);
+      })
+    fetch('/clusters/list')
+      .then((res) => res.json())
+      .then(data => {
+        let names = [];
+        data.forEach(element => names.push(element.name))
+        setClusterNames(names)
+    })
+    fetch('/spaces/fetchspaces')
+      .then((res) => res.json())
+      .then(data => {
+        let namespaces = [];
+        data.forEach(element => namespaces.push(element.name))
+        setNamespaces(namespaces)
+    })
+  }, [])
 
   return (
     <div className='MainContainer'>

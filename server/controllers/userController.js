@@ -133,8 +133,10 @@ userController.verifyAdmin = (req, res, next) => {
   const { AuthToken } = req.cookies;
   jwt.verify(AuthToken, secret, (err, decoded) => {
     if (err) return next({ log: `Error in userController.verifyAdmin: ${err}` });
+    res.locals.firstName = decoded.firstName;
+    res.locals.lastName = decoded.lastName;
     res.locals.isAdmin = decoded.isAdmin;
-    res.locals.teamId = decoded.teamId
+    res.locals.teamId = decoded.teamId;
     return next();
   })
 }
