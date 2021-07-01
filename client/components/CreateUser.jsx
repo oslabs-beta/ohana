@@ -35,7 +35,7 @@ const CreateUser = () => {
     const data = { email, password, firstName, lastName, teamName, isAdmin }
     console.log('data', data)
     fetch('/user/create', {
-      method:"POST",
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
@@ -46,7 +46,7 @@ const CreateUser = () => {
       .catch((err) => {
         console.log(err)
       })
-}
+  }
 
   const handleEmail = (e) => {
     setEmail(e.target.value)

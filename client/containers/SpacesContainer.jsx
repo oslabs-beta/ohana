@@ -6,7 +6,10 @@ import clsx from 'clsx';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import NavPane from './NavPane.jsx'
+import NavPane from './NavPane.jsx';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { FixedSizeList } from 'react-window';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,36 +28,20 @@ const useStyles = makeStyles((theme) => ({
   shapeCircle: {
     borderRadius: '100%',
   },
+  list: {
+    height: 400,
+    maxWidth: 300,
+
+  }
 }));
 
 const SpacesContainer = () => {
   const classes = useStyles();
   const circle = <div className={clsx(classes.shape, classes.shapeCircle)} />;
+  const { namespaceNames } = useContext(AppContext)
+  const namespaceList = []
+  namespaceNames.forEach(name => namespaceList.push(<li>{name}</li>))
 
-  const { setIsLoggedIn, setIsAdmin, setClusterNames, setNamespaces, setTeamId } = useContext(AppContext);
-  useEffect(() => {
-    fetch('/cookies')
-      .then(res => res.json())
-      .then(data => {
-        setIsLoggedIn(data.isLoggedIn);
-        setIsAdmin(data.isAdmin);
-        setTeamId(data.teamId);
-      })
-    fetch('/clusters/list')
-      .then((res) => res.json())
-      .then(data => {
-        let names = [];
-        data.forEach(element => names.push(element.name))
-        setClusterNames(names)
-      })
-    fetch('/spaces/fetchspaces')
-      .then((res) => res.json())
-      .then(data => {
-        let namespaces = [];
-        data.forEach(element => namespaces.push(element.name))
-        setNamespaces(namespaces)
-    })
-  }, [])
   return (
     <div id='Spaces-Container'>
       <div className={classes.root}>
@@ -143,7 +130,7 @@ const SpacesContainer = () => {
           justifyContent="center"
           alignItems="center"
           >
-            <h1 id="ok">6</h1>
+            <h1 id="ok">{namespaceNames.length}</h1>
             <p>Active Spaces</p>
           </Box>
           </Box>
@@ -162,12 +149,10 @@ const SpacesContainer = () => {
           flexDirection="column"
           paddingLeft="1em"
           >
-          <h2>Active Spaces</h2>
-          <ul>
-          <li>space-1-dev</li>
-          <li>space-1-dev</li>
-          <li>space-1-dev</li>
-          </ul>
+          <h2>Active Namespaces</h2>
+            <ul>
+            {namespaceList}
+            </ul>          
           
 
           </Box>

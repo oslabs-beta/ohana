@@ -23,8 +23,9 @@ router.post('/login',
 router.post('/verify',
   userController.verifyAdmin,
   (req, res) => {
-    const { isAdmin } = res.locals;
-    res.status(200).json(isAdmin);
+    const { isAdmin, teamId, firstName, lastName } = res.locals;
+    const userInfo = { isAdmin, teamId, firstName, lastName }
+    res.status(200).json(userInfo);
   }
 )
 

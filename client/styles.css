@@ -5,7 +5,7 @@ html, body {
   /* font-family: 'Montserrat', sans-serif; */
   font-family: "Public Sans", sans-serif;
   /* color: #303030; */
-  color: rgb(33,43,54);
+  /* color: rgb(33,43,54); */
   height: 100%;
   width: 100%;
 }
@@ -20,6 +20,14 @@ mark {
   background-color:#E6F8E0;
   padding: 2px;
 }
+
+input[type="text"] {
+  border-color: #fff;
+}
+/* 
+html, body {
+  font-family: 'Montserrat', sans-serif;
+} */
 
 button {
   margin: 1em; 
@@ -100,6 +108,13 @@ button {
   align-items: center;
  
   
+}
+
+#leftPaneLogin {
+  height: 85vh;
+  width: 25vw;
+  border: 1px solid gray;
+  border-radius: 15px;
 }
 
 #navbar {

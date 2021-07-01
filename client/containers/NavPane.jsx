@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button, TextField, Box } from '@material-ui/core';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,14 +31,32 @@ const NavPane = () => {
   const classes = useStyles();
   const circle = <div className={clsx(classes.shape, classes.shapeCircle)} />;
 
-  const { isAdmin } = useContext(AppContext)
+  const { isAdmin, firstName, lastName } = useContext(AppContext)
+  console.log('firstname', firstName);
   let adminPane = '';
-  if (isAdmin) adminPane = <Box minHeight="10vh" maxHeight="20vh" paddingLeft="1em"><Box><h3>Admin</h3></Box><Box display="flex" flexDirection="column" justifyContent="flexStart" alignItems="flexStart" marginLeft="-0.5em"><Box><Button href="/team" color="primary.text.primary">Teams</Button></Box><Box><Button href="/users" color="primary.text.primary">Users</Button></Box></Box></Box>
+  let userValue = '';
+  if (isAdmin) {
+    userValue = 'admin';
+    adminPane = 
+    <Box minHeight="10vh" maxHeight="20vh" paddingLeft="1em">
+      <Box><h3>Admin</h3></Box>
+      <Box display="flex" flexDirection="column" justifyContent="flexStart" alignItems="flexStart" marginLeft="-0.5em">
+        <Box>
+          <Link to="/team">
+            <Button color="primary.text.primary">Teams</Button>
+          </Link>
+          </Box>
+          <Box>
+            <Link to="/users">
+              <Button color="primary.text.primary">Users</Button>
+            </Link>
+          </Box>
+      </Box>
+    </Box>
+  } else {
+    userValue = 'user'
+  }
   let history = useHistory();
-  
-  console.log(AppContext)
-  console.log(useContext(AppContext))
-
 
   return (
     <div id='leftPaneNav' className='shadow'>
@@ -53,7 +71,7 @@ const NavPane = () => {
           alignItems="center"
           minHeight="15vh"
           >
-          <img src={require("../assets/transparentohana.png")} alt="ohana" className="ohana_logo"/>
+          <img src={require("../assets/transparentohana.png")} alt="ohana" className="ohana_logo"/><h1>Ohana</h1>
           </Box>
           <Box
           display="flex"
@@ -79,10 +97,10 @@ const NavPane = () => {
             minHeight="0"
             maxHeight="10vh"
             paddingLeft="1em"
-            lineHeight="2px"
+            lineHeight=".5em"
             >
-            <h3>Lawrence Han</h3>
-            <p><mark>admin</mark></p>
+            <h3>{firstName} {lastName}</h3>
+            <p><mark>{userValue}</mark></p>
             </Box>
           </Box>
           </Box>
@@ -116,28 +134,28 @@ const NavPane = () => {
           >
           <Box>
           <Link to="/home">
-            <Button color="primary.text.primary">
+            <Button color="primary.text.secondary">
               Home
             </Button>
           </Link>
           </Box>
           <Box>
           <Link to="/vcluster">
-            <Button color="primary.text.primary">
+            <Button color="primary.contrastText">
               vClusters
             </Button>
           </Link>
           </Box>
           <Box>
           <Link to="/spaces">
-            <Button color="primary.text.primary">
+            <Button color="primary.text.secondary">
               Spaces
             </Button>
           </Link>
           </Box>
           <Box>
           <Link to="/deploy">
-            <Button color="primary.text.primary">
+            <Button color="primary.text.secondary">
               Deploy
             </Button>
           </Link>
@@ -161,7 +179,7 @@ const NavPane = () => {
           marginLeft="-0.5em"
           >
           <Box>
-          <Button href="https://ohana-app.io" color="primary.text.primary">
+          <Button href="http://ohana-app.io" color="primary.text.primary">
             Docs
           </Button>
           </Box>

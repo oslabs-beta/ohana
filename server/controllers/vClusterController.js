@@ -4,11 +4,11 @@ const vClusterController = {};
 
 
 vClusterController.addVCluster = (req, res, next) => {
-  const { hostNamespace, vClusterName, projectName } = req.body;
-  const params = [hostNamespace, vClusterName, projectName];
+  const { vClusterName } = req.body;
+  const params = [vClusterName];
   const query = `
-  INSERT INTO vclusters(hostNamespace, vClusterName, projectName)
-  VALUES ($1, $2, $3)`
+  INSERT INTO vclusters(name)
+  VALUES ($1)`
   db.query(query, params)
     .then(() => {
       return next();

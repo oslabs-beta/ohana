@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, TextField, Box } from '@material-ui/core'
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { AppContext } from './AppContext'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import clsx from 'clsx';
-import NavPane from '../containers/NavPane.jsx'
+import NavPane from '../containers/NavPane.jsx';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { FixedSizeList } from 'react-window';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    // flexGrow: 1,
   },
   paper: {
     // padding: theme.spacing(2),
@@ -26,36 +29,59 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// function renderRow(props) {
+//   const { index, style } = props;
+
+//   return (
+//     <ListItem button style={style} key={index}>
+//       <ListItemText primary={`Item ${index + 1}`} />
+//     </ListItem>
+//   );
+// }
+
 const HomePage = () => {
 
   const classes = useStyles();
   const circle = <div className={clsx(classes.shape, classes.shapeCircle)} />;
-  
-  // const { setIsLoggedIn, setIsAdmin, setClusterNames, setNamespaces, setTeamId } = useContext(AppContext);
-  // useEffect(() => {
-  //   fetch('/cookies')
-  //     .then(res => res.json())
+
+  const { setIsLoggedIn, setIsAdmin, setClusterNames, setNamespaces, setTeamId, setFirstName, setLastName, setvClusters, vClusters, firstName, namespaceNames } = useContext(AppContext);
+  useEffect(() => {
+    fetch('/cookies')
+      .then(res => res.json())
+      .then(data => {
+        setIsLoggedIn(data.isLoggedIn);
+        setIsAdmin(data.isAdmin);
+        setTeamId(data.teamId);
+        setFirstName(data.firstName);
+        setLastName(data.lastName);
+      })
+    fetch('/clusters/list')
+      .then((res) => res.json())
+      .then(data => {
+        let names = [];
+        data.forEach(element => names.push(element.name))
+        setClusterNames(names)
+    })
+    fetch('/spaces/fetchspaces')
+      .then((res) => res.json())
+      .then(data => {
+        let namespaces = [];
+        data.forEach(element => namespaces.push(element.name))
+        setNamespaces(namespaces)
+    })
+  //   fetch('/vclusters')
+  //     .then(response => response.json())
   //     .then(data => {
-  //       console.log('cookie request data', data)
-  //       setIsLoggedIn(data.isLoggedIn);
-  //       setIsAdmin(data.isAdmin);
-  //       setTeamId(data.teamId);
-  //     })
-  //   fetch('/clusters/list')
-  //     .then((res) => res.json())
-  //     .then(data => {
-  //       let names = [];
-  //       data.forEach(element => names.push(element.name))
-  //       setClusterNames(names)
-  //   })
-  //   fetch('/spaces/fetchspaces')
-  //     .then((res) => res.json())
-  //     .then(data => {
-  //       let namespaces = [];
-  //       data.forEach(element => namespaces.push(element.name))
-  //       setNamespaces(namespaces)
-  //   })
-  // }, [])
+  //       const vClusterList = [];
+  //       data.forEach(row => vClusterList.push(
+  //       <li>{row}</li>
+  //       ))
+  //       setvClusters(vClusterList);
+  // })
+  },[])
+
+  const namespaceList = []
+  namespaceNames.forEach(name => namespaceList.push(<li>{name}</li>))
 
   return (
     <div id="homePage">
@@ -105,7 +131,7 @@ const HomePage = () => {
             <Box
             width="20rem"
             >
-            <h1>Welcome to Ohana, <br/> Larry</h1>
+            <h1>Welcome to Ohana, <br/> {firstName}</h1>
             </Box>
           </Box>
         </Grid>
@@ -131,8 +157,8 @@ const HomePage = () => {
           justifyContent="center"
           alignItems="center"
           >
-            <h1 id="ok">OK</h1>
-            <p>Connected to GKE</p>
+            <h1 id="ok" className={classes.root} color="secondary">{vClusters.length}</h1>
+            <p>Active vClusters</p>
           </Box>
           <Box
           minHeight="20vh"
@@ -145,8 +171,8 @@ const HomePage = () => {
           justifyContent="center"
           alignItems="center"
           >
-            <h1 id="ok">4</h1>
-            <p>Active vClusters</p>
+            <h1 id="ok">{namespaceNames.length}</h1>
+            <p>Active Namespaces</p>
           </Box>
           </Box>
 
@@ -175,19 +201,15 @@ const HomePage = () => {
             >
           <h2>Active vClusters</h2>
           <ul>
-          <li>vCluster-1-dev</li>
-          <li>vCluster-1-dev</li>
-          <li>vCluster-1-dev</li>
+          {vClusters}
           </ul>
           </Box>
           <Box
             // border="1px solid blue"
             >
-          <h2>Active Spaces</h2>
+          <h2>Active Namespaces</h2>
           <ul>
-          <li>spaces-1-dev</li>
-          <li>spaces-1-dev</li>
-          <li>spaces-1-dev</li>
+          {namespaceList}
           </ul>
           </Box>
           </Box>
@@ -201,9 +223,14 @@ const HomePage = () => {
           >
             <Box
             >
+          <Link to="/vcluster">
           <Button label='Create vCluster' variant="contained" color="primary">Create vCluster</Button>
+          </Link>
           </Box>
+          {/* <Box>           */}
+          <Link to="/spaces">
           <Button label='Create Namespace' variant="contained" color="primary">Create Namespace</Button>
+          </Link>
           </Box>
 
           </Box>

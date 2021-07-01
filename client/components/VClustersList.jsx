@@ -18,10 +18,10 @@ const VClustersList = () => {
     fetch('/vclusters')
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        console.log('vclusters', data);
         setvClusters(data);
       })
-  }
+    }
 
   // helper function to destructure each object in the array
   function createData(id, team_id, namespace, namespace_id) {
@@ -64,7 +64,7 @@ const VClustersList = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    {/* </Box> */}
+      {/* </Box> */}
     </div>
   )
 }

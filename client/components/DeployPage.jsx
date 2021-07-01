@@ -30,33 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 const DeployPage = () => {
   
-  const { setIsLoggedIn, setIsAdmin, setClusterNames, setNamespaces, setTeamId } = useContext(AppContext);
-  useEffect(() => {
-    fetch('/cookies')
-      .then(res => res.json())
-      .then(data => {
-        console.log('cookie request data', data)
-        setIsLoggedIn(data.isLoggedIn);
-        setIsAdmin(data.isAdmin);
-        setTeamId(data.teamId);
-      })
-    fetch('/clusters/list')
-      .then((res) => res.json())
-      .then(data => {
-        let names = [];
-        data.forEach(element => names.push(element.name))
-        setClusterNames(names)
-    })
-    fetch('/spaces/fetchspaces')
-      .then((res) => res.json())
-      .then(data => {
-        let namespaces = [];
-        data.forEach(element => namespaces.push(element.name))
-        setNamespaces(namespaces)
-    })
-  }, [])
-
-
   const classes = useStyles();
   const circle = <div className={clsx(classes.shape, classes.shapeCircle)} />;
   // const [teamName, setTeamName] = useState('')
@@ -134,75 +107,11 @@ const DeployPage = () => {
           <Box
           width="15rem"
           >
-          <h2>Create and manage users</h2>
+          <h2>Create and manage deployments</h2>
           </Box>
         </Box>
       </Grid>
-      <Grid item xs={12}>
-        <br/>
-      <Box
-        minHeight="20vh"
-        maxHeight="30vh"
-        borderRadius="20px"
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        >
-
-        <Box
-        minHeight="15vh"
-        maxHeight="20vh"
-        width="40%"
-        border="1px solid #d5d5d5"
-        borderRadius="20px"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        >
-          <h1 id="ok">4</h1>
-          <p>Active Teams</p>
-        </Box>
-        <Box
-        minHeight="15vh"
-        maxHeight="20vh"
-        width="40%"
-        border="1px solid #d5d5d5"
-        borderRadius="20px"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        >
-          <h1 id="ok">15</h1>
-          <p>Active Users</p>
-        </Box>
-        </Box>
-
-      </Grid>
-      <Grid xs={12}>
-        <br/>
-      <Box
-        minHeight="20vh"
-        maxHeight="25vh"
-        borderRadius="20px"
-        display="flex"
-        border="1px solid #d5d5d5"
-        justifyContent="flexStart"
-        alignItems="flexStart"
-        flexDirection="column"
-        paddingLeft="1em"
-        >
-        <h2>Current Deployments</h2>
-        <ul>
-        <li>container-1</li>
-        <li>container-2</li>
-        <li>container-3</li>
-        </ul>
-        
-
-        </Box>
-      </Grid>
+      
       <Grid xs={12}>
         <br/>
       <DeployComp />

@@ -84,18 +84,11 @@ const deployComp = () => {
     })
       .then(res => res.json())
       .then(data => {
-        const array = data.split(' ')
-        array.forEach(element => {
-          if (element.slice(0, 3) === '35.') {
-            setExternalIp(element);
-          };
-        })
+        const ip = data.trim();
+            setExternalIp(ip);
+          });
         setClickMe(`Click here to visit ${deploymentName}`);
-      })
   }
-
-
-
 
   return (
     <div id="deployComp">

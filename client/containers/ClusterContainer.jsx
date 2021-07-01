@@ -33,7 +33,7 @@ const ClusterContainer = () => {
   const classes = useStyles();
   const circle = <div className={clsx(classes.shape, classes.shapeCircle)} />;
 
-  const { setIsLoggedIn, setIsAdmin, setClusterNames, setNamespaces, setTeamId } = useContext(AppContext);
+  const { setIsLoggedIn, setIsAdmin, setClusterNames, setNamespaces, setTeamId, vClusters } = useContext(AppContext);
   useEffect(() => {
     fetch('/cookies')
       .then(res => res.json())
@@ -58,6 +58,8 @@ const ClusterContainer = () => {
         setNamespaces(namespaces)
     })
   }, [])
+
+  const nameSpacesList = [];
   return (
     <div id='vClusterContainer'>
       <div className={classes.root}>
@@ -146,7 +148,7 @@ const ClusterContainer = () => {
           justifyContent="center"
           alignItems="center"
           >
-            <h1 id="ok">4</h1>
+            <h1 id="ok">{vClusters.length}</h1>
             <p>Active vClusters</p>
           </Box>
           </Box>
@@ -167,9 +169,7 @@ const ClusterContainer = () => {
           >
           <h2>Active vClusters</h2>
           <ul>
-          <li>vCluster-1-dev</li>
-          <li>vCluster-1-dev</li>
-          <li>vCluster-1-dev</li>
+            {vClusters}
           </ul>
           
 

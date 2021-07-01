@@ -6,7 +6,7 @@ const CreateSpace = () => {
 
   const [hostCluster, setHostClusterName] = useState('');
   const [createHostNamespace, setCreateHostNamespace] = useState('');
-  const [deployHostNamespace, setDeployHostNamespace] = useState ('');
+  const [deployHostNamespace, setDeployHostNamespace] = useState('');
   const [imageFile, setImageFile] = useState('');
   const [deploymentName, setDeploymentName] = useState('');
   const [externalIp, setExternalIp] = useState('');
@@ -78,17 +78,14 @@ const CreateSpace = () => {
       },
       body: JSON.stringify(data)
     })
-      .then(res => res.json())
-      .then(data => {
-        const array = data.split(' ')
-        array.forEach(element => {
-          if (element.slice(0, 3) === '35.') {
-            setExternalIp(element);
-          };
+    .then(res => res.json())
+    .then(data => {
+      const ip = data.trim()
+          setExternalIp(ip);
         })
-        setClickMe(`Click here to visit ${deploymentName}`);
-      })
+      setClickMe(`Click here to visit ${deploymentName}`);
   }
+
 
   return (
     <div id='create-spaces'>
@@ -97,43 +94,43 @@ const CreateSpace = () => {
       <div id='spaces'>
         <form method="POST" action="/spaces/create">
           <Box
-          display="flex"
-          flexDirection="column"
-          // border="1px solid blue"
-          minHeight="30vh"
+            display="flex"
+            flexDirection="column"
+            // border="1px solid blue"
+            minHeight="30vh"
           >
-          <Box
-          display="flex"
-          justifyContent="flexStart"
-          // border="1px solid green"
-          width="50vw"
-          flexDirection="column"
-          >
-            <Box>
-          <h2>Create a Namespace</h2>
-          </Box>
-          </Box>
+            <Box
+              display="flex"
+              justifyContent="flexStart"
+              // border="1px solid green"
+              width="50vw"
+              flexDirection="column"
+            >
+              <Box>
+                <h2>Create a Namespace</h2>
+              </Box>
+            </Box>
 
-          <Box
-          display="flex"
-          flexDirection="column"
-          minHeight="23vh"
-          justifyContent="space-between"
-          >
-          <FormControl>
-          <InputLabel id="inputLabels">Select Cluster</InputLabel>
-          <Select label='Select Cluster' name='hostCluster' onChange={handleSetHostClusterName}>
-            {clusterNamesDropdown}
-          </Select>
-          </FormControl>
-          
-          <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetCreateHostNamespace} />
-          <Button type="submit" variant="contained" color="primary" onSubmit={formSubmit}>Create</Button>
-          </Box>
+            <Box
+              display="flex"
+              flexDirection="column"
+              minHeight="23vh"
+              justifyContent="space-between"
+            >
+              <FormControl>
+                <InputLabel id="inputLabels">Select Cluster</InputLabel>
+                <Select label='Select Cluster' name='hostCluster' onChange={handleSetHostClusterName}>
+                  {clusterNamesDropdown}
+                </Select>
+              </FormControl>
+
+              <TextField label='New Namespace' name='hostNamespace' onChange={handleSetCreateHostNamespace} />
+              <Button type="submit" variant="contained" color="primary" onSubmit={formSubmit}>Create</Button>
+            </Box>
           </Box>
         </form>
-        
-        
+
+
       </div>
     </div>
   )

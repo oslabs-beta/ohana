@@ -18,9 +18,8 @@ app.use(cookieParser());
 app.get('/cookies',
   userController.verifyAdmin,
   (req, res) => {
-    const { isAdmin, teamId } = res.locals;
-    console.log('cookies', isAdmin)
-    return res.status(200).json({ isAdmin, isLoggedIn: true, teamId });
+    const { isAdmin, teamId, firstName, lastName } = res.locals;
+    return res.status(200).json({ isAdmin, isLoggedIn: true, teamId, firstName, lastName });
   })
 
 app.get('/admin',

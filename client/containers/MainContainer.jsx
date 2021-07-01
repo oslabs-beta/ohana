@@ -11,24 +11,27 @@ import HomePage from '../components/HomePage.jsx';
 import TeamsDisplay from '../components/TeamsDisplay.jsx';
 import UsersDisplay from '../components/UsersDisplay.jsx';
 import DeployPage from '../components/DeployPage.jsx';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { FixedSizeList } from 'react-window';
 
 export const LoginContext = React.createContext();
 
 const MainContainer = (props) => {
-  
   const [loginStatus, setLoginStatus] = useState({
     login: false,
     logout: true,
   })
-  const { setIsLoggedIn, setIsAdmin, setClusterNames, setNamespaces, setTeamId } = useContext(AppContext);
+  const { setIsLoggedIn, setIsAdmin, setClusterNames, setNamespaces, setTeamId, setFirstName, setLastName, setvClusters, firstName } = useContext(AppContext);
   useEffect(() => {
     fetch('/cookies')
       .then(res => res.json())
       .then(data => {
-        console.log('cookie request data', data)
         setIsLoggedIn(data.isLoggedIn);
         setIsAdmin(data.isAdmin);
         setTeamId(data.teamId);
+        setFirstName(data.firstName);
+        setLastName(data.lastName);
       })
     fetch('/clusters/list')
       .then((res) => res.json())
@@ -44,7 +47,16 @@ const MainContainer = (props) => {
         data.forEach(element => namespaces.push(element.name))
         setNamespaces(namespaces)
     })
-  }, [])
+    fetch('/vclusters')
+      .then(response => response.json())
+      .then(data => {
+        const vClusterList = [];
+        data.forEach(row => vClusterList.push(
+          <li>{row.name}</li>
+        ))
+        setvClusters(vClusterList);
+  })
+  },[])
 
   return (
     <div className='MainContainer'>

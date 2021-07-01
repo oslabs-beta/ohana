@@ -36,7 +36,6 @@ userController.teamIdLookup = (req, res, next) => {
   const query = `SELECT _id FROM teams WHERE name='${teamName}'`;
   db.query(query)
     .then((data) => {
-      console.log(data.rows[0]._id)
       res.locals.teamId = data.rows[0]._id;
       return next();
     })
@@ -47,7 +46,6 @@ userController.teamIdLookup = (req, res, next) => {
       })
     })
 }
-
 userController.addNewUser = (req, res, next) => {
   console.log('hitting addNewUser controller')
   const { teamId, password } = res.locals;
@@ -62,7 +60,6 @@ userController.addNewUser = (req, res, next) => {
       return next({ log: `Error in userController.addNewUser: ${err}` });
     })
 }
-
 userController.loginCheck = (req, res, next) => {
   const { email, password } = req.body;
   const query = `
@@ -89,16 +86,20 @@ userController.isAdminCheck = (req, res, next) => {
   const { email } = req.body;
   const params = [email];
   const query = `
-  SELECT is_admin
+  SELECT is_admin, first_name, last_name
   FROM users
   WHERE email=$1;
   `
   db.query(query, params)
     .then(result => {
-      let isAdminResult = result.rows[0].is_admin;
+      const firstName = result.rows[0].first_name
+      const lastName = result.rows[0].last_name
+      const isAdminResult = result.rows[0].is_admin;
       if (!isAdminResult) isAdminResult = false;
       res.locals.isAdminResult = isAdminResult;
-      return next();
+      res.locals.firstName = firstName;
+      res.locals.lastName = lastName;
+      return next();  
     }).catch(err => next({ log: `Error in userController.isAdminCheck: ${err}` }))
 }
 
@@ -120,9 +121,9 @@ userController.teamId = (req, res, next) => {
 }
 
 userController.assignJwt = (req, res, next) => {
-  const { isAdminResult, teamId } = res.locals;
-  const { email, firstName, lastName } = req.body;
-  jwt.sign({ email, firstName, lastName, teamId, isAdmin: isAdminResult }, secret, (err, token) => {
+  const { isAdminResult, teamId, firstName, lastName } = res.locals;
+  const { email } = req.body;
+  jwt.sign({ email, teamId, isAdmin: isAdminResult, firstName, lastName }, secret, (err, token) => {
     if (err) return next({ log: `Error in userController.assignJwt: ${err}` })
     res.locals.token = token;
     return next();
