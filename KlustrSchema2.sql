@@ -17,7 +17,7 @@ CREATE TABLE "namespaces" (
   "_id" smallserial PRIMARY KEY,
   "name" varchar,
   "cluster_id" smallint
-  team_id
+  "team_id" smallint
 );
 
 CREATE TABLE "vclusters" (
