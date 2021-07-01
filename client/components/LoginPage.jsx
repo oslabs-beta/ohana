@@ -47,7 +47,7 @@ const LoginPage = (props) => {
       console.log(isLoggedIn, 'is logged in login')
       if (isAdmin) history.push('/admin')
       else {
-        history.push('/vcluster')
+        history.push('/home')
       }
     }
   })
@@ -97,7 +97,7 @@ const LoginPage = (props) => {
                 setIsLoggedIn(true);
               }
               if (isAdmin) history.push('/admin')
-              else history.push('/vcluster')
+              else history.push('/home')
             })
         }
       })

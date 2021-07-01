@@ -45,6 +45,9 @@ module.exports = {
       '/cookies': 'http://localhost:3000',
       '/teams': 'http://localhost:3000',
       '/home': 'http://localhost:3000',
+      '/team': 'http://localhost:3000',
+      '/users': 'http://localhost:3000',
+      '/deploy': 'http://localhost:3000',
     }
   },
   plugins: [new webpack.HotModuleReplacementPlugin()]

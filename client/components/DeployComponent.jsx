@@ -1,12 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { TextField, Button, CircularProgress, FormControl, InputLabel, Select, MenuItem, Box } from '@material-ui/core'
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import { AppContext } from './AppContext';
 
-const CreateSpace = () => {
+
+const deployComp = () => {
 
   const [hostCluster, setHostClusterName] = useState('');
   const [createHostNamespace, setCreateHostNamespace] = useState('');
-  const [deployHostNamespace, setDeployHostNamespace] = useState('');
+  const [deployHostNamespace, setDeployHostNamespace] = useState ('');
   const [imageFile, setImageFile] = useState('');
   const [deploymentName, setDeploymentName] = useState('');
   const [externalIp, setExternalIp] = useState('');
@@ -90,53 +94,80 @@ const CreateSpace = () => {
       })
   }
 
+
+
+
   return (
-    <div id='create-spaces'>
-      {/* <h1>Create a namespace and deploy</h1> */}
-
-      <div id='spaces'>
-        <form method="POST" action="/spaces/create">
+    <div id="deployComp">
+      <form>
+        <Box
+        border="1px solid #d5d5d5"
+        padding="1em"
+        borderRadius="20px"
+        minHeight="17vh"
+        display="flex"
+        flexDirection="column"
+        >
           <Box
-            display="flex"
-            flexDirection="column"
-            // border="1px solid blue"
-            minHeight="30vh"
+          // border="1px solid blue"
           >
-            <Box
-              display="flex"
-              justifyContent="flexStart"
-              // border="1px solid green"
-              width="50vw"
-              flexDirection="column"
-            >
-              <Box>
-                <h2>Create a Namespace</h2>
-              </Box>
-            </Box>
-
-            <Box
-              display="flex"
-              flexDirection="column"
-              minHeight="23vh"
-              justifyContent="space-between"
-            >
-              <FormControl>
-                <InputLabel id="inputLabels">Select Cluster</InputLabel>
-                <Select label='Select Cluster' name='hostCluster' onChange={handleSetHostClusterName}>
-                  {clusterNamesDropdown}
-                </Select>
-              </FormControl>
-
-              <TextField label='Host Namespace' name='hostNamespace' onChange={handleSetCreateHostNamespace} />
-              <Button type="submit" variant="contained" color="primary" onSubmit={formSubmit}>Create</Button>
-            </Box>
+          <h2>Deploy an Image</h2>
           </Box>
-        </form>
+          <TextField label='Deployment Name' name='deploymentName' onChange={handleSetDeploymentName} />
+
+          <FormControl>
+            <InputLabel id="inputLabels">Select Namespace</InputLabel>
+            <Select label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetCreateHostNamespace}>
+            {namespaceDropdown}
+            </Select>
+          </FormControl>
+
+          <TextField label='Image File' name='ImageFile' onChange={handleSetImageFile} />
+          <br/>
+          <Button type="submit" variant="contained" color="primary" onClick={deployButton}>Deploy</Button>
+          </Box>
+        </form> 
+        <br/>
+        <Box
+        border="1px solid #d5d5d5"
+        padding="1em"
+        borderRadius="20px"
+        minHeight="15vh"
+        display="flex"
+        flexDirection="column"
+        justifyContent="flexStart"
+        >
+          <Box
+          display="flex"
+          flexDirection="row"
+          // border="1px solid blue"
+          >
+            <Box>
+          <h2>Visit your Container</h2>
+          </Box>
+          <Box>
+          <a href={`http://${externalIp}`}>{clickMe}</a>
+          </Box>
+          </Box>
+          <FormControl>
+          <InputLabel id="inputLabels">Select Namespace</InputLabel>
+            <Select label='Deploy Host Namespace' name='hostNamespace' onChange={handleSetCreateHostNamespace}>
+            {namespaceDropdown}
+            </Select>
+          </FormControl>
+
+         <TextField label='Deployment Name' name='deploymentName' onChange={handleSetDeploymentName} />
+        <Button type="submit" variant="contained" color="secondary" onClick={getIp}>Get External IP</Button>
+        
+        </Box>
 
 
-      </div>
     </div>
-  )
-};
 
-export default CreateSpace;
+
+
+  )
+}
+
+
+export default deployComp;
