@@ -1,19 +1,18 @@
-import React, { useEffect, useContext, useState } from 'react';
-import CreateSpace from '../components/CreateSpace.jsx';
-import SpacesList from '../components/SpacesList.jsx';
-import { AppContext } from '../components/AppContext.js';
-import clsx from 'clsx';
-import Box from '@material-ui/core/Box';
+import React, { useState, useEffect, useContext } from 'react';
+import { Button, TextField, Box } from '@material-ui/core'
+import { useHistory, Link } from 'react-router-dom';
+import { AppContext } from './AppContext'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import NavPane from './NavPane.jsx';
+import clsx from 'clsx';
+import NavPane from '../containers/NavPane.jsx';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    // flexGrow: 1,
   },
   paper: {
     // padding: theme.spacing(2),
@@ -28,22 +27,64 @@ const useStyles = makeStyles((theme) => ({
   shapeCircle: {
     borderRadius: '100%',
   },
-  list: {
-    height: 400,
-    maxWidth: 300,
-
-  }
 }));
 
-const SpacesContainer = () => {
+// function renderRow(props) {
+//   const { index, style } = props;
+
+//   return (
+//     <ListItem button style={style} key={index}>
+//       <ListItemText primary={`Item ${index + 1}`} />
+//     </ListItem>
+//   );
+// }
+
+const HomePage = () => {
+
   const classes = useStyles();
   const circle = <div className={clsx(classes.shape, classes.shapeCircle)} />;
-  const { namespaceNames } = useContext(AppContext)
+
+  const { setIsLoggedIn, setIsAdmin, setClusterNames, setNamespaces, setTeamId, setFirstName, setLastName, setvClusters, vClusters, firstName, namespaceNames } = useContext(AppContext);
+  useEffect(() => {
+    fetch('/cookies')
+      .then(res => res.json())
+      .then(data => {
+        setIsLoggedIn(data.isLoggedIn);
+        setIsAdmin(data.isAdmin);
+        setTeamId(data.teamId);
+        setFirstName(data.firstName);
+        setLastName(data.lastName);
+      })
+    fetch('/clusters/list')
+      .then((res) => res.json())
+      .then(data => {
+        let names = [];
+        data.forEach(element => names.push(element.name))
+        setClusterNames(names)
+    })
+    fetch('/spaces/fetchspaces')
+      .then((res) => res.json())
+      .then(data => {
+        let namespaces = [];
+        data.forEach(element => namespaces.push(element.name))
+        setNamespaces(namespaces)
+    })
+  //   fetch('/vclusters')
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       const vClusterList = [];
+  //       data.forEach(row => vClusterList.push(
+  //       <li>{row}</li>
+  //       ))
+  //       setvClusters(vClusterList);
+  // })
+  },[])
+
   const namespaceList = []
   namespaceNames.forEach(name => namespaceList.push(<li>{name}</li>))
 
   return (
-    <div id='Spaces-Container'>
+    <div id="homePage">
       <div className={classes.root}>
       <Grid container spacing={10}
         direction="row"
@@ -51,7 +92,7 @@ const SpacesContainer = () => {
         // alignItems="stretch"
       >
         <Grid item xs={5}>
-        <NavPane />
+          <NavPane />
       </Grid>
       <Grid item xs={7}>
         
@@ -88,9 +129,9 @@ const SpacesContainer = () => {
           paddingLeft="1rem"
           >
             <Box
-            width="10rem"
+            width="20rem"
             >
-            <h2>View and create Namespaces</h2>
+            <h1>Welcome to Ohana, <br/> {firstName}</h1>
             </Box>
           </Box>
         </Grid>
@@ -116,8 +157,8 @@ const SpacesContainer = () => {
           justifyContent="center"
           alignItems="center"
           >
-            <h1 id="ok">OK</h1>
-            <p>Connected to GKE</p>
+            <h1 id="ok" className={classes.root} color="secondary">{vClusters.length}</h1>
+            <p>Active vClusters</p>
           </Box>
           <Box
           minHeight="20vh"
@@ -131,7 +172,7 @@ const SpacesContainer = () => {
           alignItems="center"
           >
             <h1 id="ok">{namespaceNames.length}</h1>
-            <p>Active Spaces</p>
+            <p>Active Namespaces</p>
           </Box>
           </Box>
 
@@ -140,27 +181,61 @@ const SpacesContainer = () => {
           <br/>
         <Box
           minHeight="20vh"
-          maxHeight="25vh"
+          maxHeight="30vh"
           borderRadius="20px"
           display="flex"
           border="1px solid #d5d5d5"
           justifyContent="flexStart"
           alignItems="flexStart"
           flexDirection="column"
-          paddingLeft="1em"
+          paddingLeft="2em"
+          paddingRight="2em"
           >
+            <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            >
+            <Box
+            // border="1px solid blue"
+            >
+          <h2>Active vClusters</h2>
+          <ul>
+          {vClusters}
+          </ul>
+          </Box>
+          <Box
+            // border="1px solid blue"
+            >
           <h2>Active Namespaces</h2>
-            <ul>
-            {namespaceList}
-            </ul>          
-          
+          <ul>
+          {namespaceList}
+          </ul>
+          </Box>
+          </Box>
+          <Box
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+          // border="1px solid blue"
+          minHeight="10vh"
+          >
+            <Box
+            >
+          <Link to="/vcluster">
+          <Button label='Create vCluster' variant="contained" color="primary">Create vCluster</Button>
+          </Link>
+          </Box>
+          {/* <Box>           */}
+          <Link to="/spaces">
+          <Button label='Create Namespace' variant="contained" color="primary">Create Namespace</Button>
+          </Link>
+          </Box>
 
           </Box>
         </Grid>
-        <Grid xs={12}>
-          <br/>
-        <CreateSpace />
-        </Grid>
+        
 
       {/* <VClustersList /> */}
       </Grid>
@@ -173,13 +248,11 @@ const SpacesContainer = () => {
       </div>
 
 
-
-
-
-      {/* <CreateSpace />
-      <SpacesList /> */}
     </div>
   )
+
 }
 
-export default SpacesContainer;
+
+
+export default HomePage;
