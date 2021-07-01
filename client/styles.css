@@ -112,20 +112,34 @@ button {
   grid-template-columns: auto auto auto;
 }
 
+/* #createteam {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+} */
+
+/* #teamslist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+} */
+
 #createteam {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  border: 1px solid gray;
-}
-
-#teamslist {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid gray;
+  /* justify-content: center;
+  align-items: center; */
+  border: 1px solid #d5d5d5;
+  padding: 1em;
+  border-radius: 20px;
+  min-height: 15vh;
+  max-height: 20vh;
 }
 
 #createuser {
@@ -133,16 +147,22 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid gray;
+  border: 1px solid #d5d5d5;
+  padding: 1em;
+  border-radius: 20px;
 }
 
 #create-spaces {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid gray;
+  justify-content: space-around;
+  /* justify-content: center;
+  align-items: center; */
+  border: 1px solid #d5d5d5;
   padding: 1em;
+  border-radius: 20px;
+  min-height: 25vh;
+  max-height: 30vh;
 }
 
 #create-clusters {
