@@ -31,6 +31,38 @@ const UsersDisplay = () => {
 
   const classes = useStyles();
   const circle = <div className={clsx(classes.shape, classes.shapeCircle)} />;
+
+  const [ teamNames, setTeamNames ] = useState([])
+  const [ users, setUsers ] = useState([])
+  
+
+  const { setIsLoggedIn, setIsAdmin, setClusterNames, setNamespaces, setTeamId, setFirstName, setLastName, setvClusters, vClusters, firstName, namespaceNames } = useContext(AppContext);
+
+
+
+  fetch('/teams/fetch')
+      .then((res) => res.json())
+      .then(data => {
+        let names = [];
+        data.forEach(element => names.push(element.name))
+        setTeamNames(names)
+    })
+
+  fetch('/user/')
+    .then((res) => res.json())
+    .then(data => {
+      let users = [];
+      data.forEach(element => users.push(element.email))
+      setUsers(users)
+    })
+
+    
+    const usersList = [];
+    users.forEach(name => usersList.push(<li>{name}</li>))
+    
+
+    const teamNamesList = [];
+    teamNames.forEach(name => teamNamesList.push(<li>{name}</li>))
   // const [teamName, setTeamName] = useState('')
   // const [addTeamStatus, setAddTeamStatus] = useState('')
 
@@ -132,7 +164,7 @@ const UsersDisplay = () => {
         justifyContent="center"
         alignItems="center"
         >
-          <h1 id="ok">4</h1>
+          <h1 id="ok">{teamNames.length}</h1>
           <p>Active Teams</p>
         </Box>
         <Box
@@ -146,7 +178,7 @@ const UsersDisplay = () => {
         justifyContent="center"
         alignItems="center"
         >
-          <h1 id="ok">15</h1>
+          <h1 id="ok">{users.length}</h1>
           <p>Active Users</p>
         </Box>
         </Box>
@@ -166,11 +198,17 @@ const UsersDisplay = () => {
         paddingLeft="1em"
         >
         <h2>Current Users</h2>
-        <ul>
-        <li>dev-user-1</li>
-        <li>dev-user-2</li>
-        <li>dev-user-3</li>
-        </ul>
+        <Box
+           overflow="scroll"
+           maxHeight="10vh"
+          >
+          <ul
+          overflow="scroll"
+          maxHeight="5vh"
+          >
+          {usersList}
+          </ul>
+          </Box>
         
 
         </Box>

@@ -17,4 +17,21 @@ teamsController.createTeam = (req, res, next) => {
   })
 }
 
+teamsController.fetchTeams = (req, res, next) => {
+  const query = `
+  SELECT name FROM teams
+  `
+  db.query(query)
+    .then((data) => {
+      res.locals.teamNames = data.rows
+      return next();
+    })
+    .catch((err) => {
+      return next({
+        log: `Error in fetching teams: ${err}`,
+        message: `Unable to fetch teams`
+      })
+    })
+}
+
 module.exports = teamsController;

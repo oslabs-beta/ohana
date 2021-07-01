@@ -1,6 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
 import CreateSpace from '../components/CreateSpace.jsx';
-import SpacesList from '../components/SpacesList.jsx';
 import { AppContext } from '../components/AppContext.js';
 import clsx from 'clsx';
 import Box from '@material-ui/core/Box';
@@ -31,6 +30,37 @@ const useStyles = makeStyles((theme) => ({
 const TeamsDisplay = () => {
   const classes = useStyles();
   const circle = <div className={clsx(classes.shape, classes.shapeCircle)} />;
+
+  const [ teamNames, setTeamNames ] = useState([])
+  const [ users, setUsers ] = useState([])
+  
+
+  const { setIsLoggedIn, setIsAdmin, setClusterNames, setNamespaces, setTeamId, setFirstName, setLastName, setvClusters, vClusters, firstName, namespaceNames } = useContext(AppContext);
+
+
+
+  fetch('/teams/fetch')
+      .then((res) => res.json())
+      .then(data => {
+        let names = [];
+        data.forEach(element => names.push(element.name))
+        setTeamNames(names)
+    })
+
+  fetch('/user/')
+    .then((res) => res.json())
+    .then(data => {
+      let users = [];
+      data.forEach(element => users.push(element.name))
+      setUsers(users)
+    })
+
+    
+    
+
+    const teamNamesList = [];
+    teamNames.forEach(name => teamNamesList.push(<li>{name}</li>))
+
 
   return (
     <div id="teamslist">
@@ -107,7 +137,7 @@ const TeamsDisplay = () => {
           justifyContent="center"
           alignItems="center"
           >
-            <h1 id="ok">4</h1>
+            <h1 id="ok">{teamNamesList.length}</h1>
             <p>Active Teams</p>
           </Box>
           <Box
@@ -121,7 +151,7 @@ const TeamsDisplay = () => {
           justifyContent="center"
           alignItems="center"
           >
-            <h1 id="ok">15</h1>
+            <h1 id="ok">{users.length}</h1>
             <p>Active Users</p>
           </Box>
           </Box>
@@ -141,11 +171,17 @@ const TeamsDisplay = () => {
           paddingLeft="1em"
           >
           <h2>Current Teams</h2>
-          <ul>
-          <li>dev-team-1</li>
-          <li>dev-team-2</li>
-          <li>dev-team-3</li>
+          <Box
+           overflow="scroll"
+           maxHeight="10vh"
+          >
+          <ul
+          overflow="scroll"
+          maxHeight="5vh"
+          >
+          {teamNamesList}
           </ul>
+          </Box>
           
 
           </Box>

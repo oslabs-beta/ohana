@@ -1,7 +1,6 @@
 import { Button, TextField, Box } from '@material-ui/core';
 import React, { useEffect, useContext, useState } from 'react';
 import CreateSpace from '../components/CreateSpace.jsx';
-import SpacesList from '../components/SpacesList.jsx';
 import { AppContext } from '../components/AppContext.js';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
