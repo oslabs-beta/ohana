@@ -1,3 +1,7 @@
+## To run the app locally, follow the instructions below
+
+*For extended documentation, please visit our [website](http://ohana-app.io)*
+
 Run the following command to install the necessary dependencies: ```npm install ```
 
 When the dependencies are finished installing, run the following to concurrently bundle the application's assets and start the Express server in a ```development``` environment:
