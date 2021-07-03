@@ -47,6 +47,7 @@
     "css-loader": "^5.2.4",
     "eslint": "^7.28.0",
     "jest": "^27.0.6",
+    "prettier": "^2.3.2",
     "react-router-dom": "^5.2.0",
     "style-loader": "^2.0.0",
     "supertest": "^6.1.3",

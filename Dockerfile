@@ -44,17 +44,6 @@ RUN apt-get update
 RUN apt-get install sudo
 # RUN apt-get install vim
 # authenticate gcloud service account via json token
-<<<<<<< HEAD
-ENV gcloud_acc=newadmin@klustr-316321.iam.gserviceaccount.com
-ENV secret=/secret/klustr-316321-f31f9767f260.json
-RUN gcloud auth activate-service-account ${gcloud_acc}  --key-file=${secret}
-ENV project=klustr-316321
-RUN gcloud config set project ${project}
-RUN sudo apt-get install kubectl
-# generate kubectl config file via gcloud cli (note 'cluster-1' is cluster name to be replaced)
-ENV cluster=us-west1-a
-RUN gcloud container clusters get-credentials cluster-1 --zone=${cluster}
-=======
 ENV gcloud_account=
 
 
@@ -73,7 +62,6 @@ ENV cluster_zone=
 
 
 RUN gcloud container clusters get-credentials cluster-1 --zone=${cluster_zone}
->>>>>>> 3102b1d5418940e6d2f42b31ceec4af4d4016ad7
 
 ## run sequential commands to install helm
 RUN curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -

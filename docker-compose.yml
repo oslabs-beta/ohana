@@ -1,8 +1,7 @@
-version: '3'
+version: "3"
 services:
   dev:
     image: .
-    container_name: 'ohana-dev'
-    ports: ['3000:8080']
+    container_name: "ohana-dev"
+    ports: ["3000:8080"]
     command: npm run dev
-   
