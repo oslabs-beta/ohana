@@ -1,11 +1,11 @@
-import dark from './Dark.jsx';
-import normal from './Normal.jsx';
+import dark from "./Dark.jsx";
+import normal from "./Normal.jsx";
 
 const themes = {
   normal,
-  dark
+  dark,
 };
 
 export default function getTheme(theme) {
-  return themes[theme]
+  return themes[theme];
 }

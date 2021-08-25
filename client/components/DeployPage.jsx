@@ -12,9 +12,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    // padding: theme.spacing(2),
     textAlign: 'center',
-    // color: theme.palette.text.secondary,
   },
   shape: {
     backgroundColor: theme.palette.primary.main,
@@ -31,40 +29,12 @@ const DeployPage = () => {
   
   const classes = useStyles();
   const circle = <div className={clsx(classes.shape, classes.shapeCircle)} />;
-  // const [teamName, setTeamName] = useState('')
-  // const [addTeamStatus, setAddTeamStatus] = useState('')
 
-  // const handleTeamNameChange = (e) => {
-  //   setTeamName(e.target.value);
-  // }
-  // const handleSubmit = (e) => {
-  //   console.log('am i hitting submit?')
-  //   e.preventDefault();
-  //   fetch('/teams', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({ teamName })
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => setAddTeamStatus(<p>{data}</p>))
-  //     .catch(err => {
-  //       console.log(err)
-  //       setAddTeamStatus(<p>Unable to create new team</p>)
-  //     })
-  // }
-
-  
-
-  // should add in dropdown for team
   return (
   <div id="userDisplay">
   <div className={classes.root}>
     <Grid container spacing={10}
       direction="row"
-      // justify-content="flex-start"
-      // alignItems="stretch"
     >
       <Grid item xs={5}>
       <NavPane />
@@ -115,13 +85,7 @@ const DeployPage = () => {
         <br/>
       <DeployComp />
       </Grid>
-
-    {/* <VClustersList /> */}
     </Grid>
-    {/* <Grid item xs={6}>
-    
-    </Grid> */}
-    
     </Grid>
     </div>
     </div>

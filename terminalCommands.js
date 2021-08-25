@@ -1,5 +1,5 @@
-const { exec } = require('child_process');
-const { hostname } = require('os');
+const { exec } = require("child_process");
+const { hostname } = require("os");
 
 const runTerminalCommand = (command) => {
   return new Promise((resolve, reject) => {
@@ -8,9 +8,9 @@ const runTerminalCommand = (command) => {
         console.warn(error);
       }
       resolve(stdout ? stdout : stderr);
-    })
-  })
-}
+    });
+  });
+};
 
 // can delete this
 // // gcloud variables
@@ -34,43 +34,55 @@ const runTerminalCommand = (command) => {
 // let vClusterName = 'testing';
 
 // gcloud terminal commands
-const gcloud = {}
+const gcloud = {};
 // necessary to create a cluster if it doesn't already exist; be aware of regional resource availability
-gcloud.create = (clusterName, numNodes, gcloudRegion) => `gcloud container clusters create ${clusterName} --num-nodes=${numNodes} --region=${gcloudRegion}`
-// 'gcloud container clusters get-credentials <insert name>:<optional tag> 
-gcloud.getCredentials = (clusterName) => `gcloud container clusters get-credentials ${clusterName} --region=us-west1-a`
+gcloud.create = (clusterName, numNodes, gcloudRegion) =>
+  `gcloud container clusters create ${clusterName} --num-nodes=${numNodes} --region=${gcloudRegion}`;
+// 'gcloud container clusters get-credentials <insert name>:<optional tag>
+gcloud.getCredentials = (clusterName) =>
+  `gcloud container clusters get-credentials ${clusterName} --region=us-west1-a`;
 // 'gcloud config set account <accountemailaddress>'
-gcloud.switchAccount = (gcloudUserEmail) => `gcloud config set account ${gcloudUserEmail}`
+gcloud.switchAccount = (gcloudUserEmail) =>
+  `gcloud config set account ${gcloudUserEmail}`;
 
 const kubectl = {};
 
-kubectl.currentContext = () => `kubectl config current-context`
+kubectl.currentContext = () => `kubectl config current-context`;
 // executes command to get the current context
-kubectl.createNamespace = (hostNamespace) => `kubectl create namespace ${hostNamespace}`
+kubectl.createNamespace = (hostNamespace) =>
+  `kubectl create namespace ${hostNamespace}`;
 // can create spaces, accounts, configurations, namespaces etc based on the config file passed in
-kubectl.createFromConfig = (configFile) => `kubectl apply -f ${configFile}`
+kubectl.createFromConfig = (configFile) => `kubectl apply -f ${configFile}`;
 // can create spaces, accounts, configurations, namespaces, roles, etc based on the config file passed in impersonating a user; admin only
-kubectl.createFromConfigAs = (configFile, email) => `kubectl apply -f /Users/fenris/Desktop/Codesmith/klustr.dev/yamlConfigs/userAccount.yaml --as=dev-account`
+kubectl.createFromConfigAs = (configFile, email) =>
+  `kubectl apply -f /Users/fenris/Desktop/Codesmith/klustr.dev/yamlConfigs/userAccount.yaml --as=dev-account`;
 // get additional detail on pods
-kubectl.describe = (hostNamespace) => `kubectl describe pods -n ${hostNamespace}`
+kubectl.describe = (hostNamespace) =>
+  `kubectl describe pods -n ${hostNamespace}`;
 // kubectl create deployment <insert name> --image=<insert image file/link>
-kubectl.deployImage = (deploymentName, hostNamespace, imageFile) => `kubectl create deployment ${deploymentName} -n ${hostNamespace} --image=${imageFile}`
-// expose the deployment for kubernetes 
-kubectl.expose = (deploymentName, hostNamespace) => `kubectl expose deployment ${deploymentName} -n ${hostNamespace} --type LoadBalancer --port=80 --target-port=8080`
+kubectl.deployImage = (deploymentName, hostNamespace, imageFile) =>
+  `kubectl create deployment ${deploymentName} -n ${hostNamespace} --image=${imageFile}`;
+// expose the deployment for kubernetes
+kubectl.expose = (deploymentName, hostNamespace) =>
+  `kubectl expose deployment ${deploymentName} -n ${hostNamespace} --type LoadBalancer --port=80 --target-port=8080`;
 // deploy the pod in a specific namespace with the image configuration
-kubectl.deploy = (hostNamespace, configFile) => `kubectl apply -n ${hostNamespace} -f /Users/fenris/Desktop/Codesmith/klustr.dev/yamlConfigs/${configFile}.yaml`
+kubectl.deploy = (hostNamespace, configFile) =>
+  `kubectl apply -n ${hostNamespace} -f /Users/fenris/Desktop/Codesmith/klustr.dev/yamlConfigs/${configFile}.yaml`;
 // deploy the pod in a specific namespace with the image configuration impersonating a user; admin only
-kubectl.deployAs = (hostNamespace, configFile, userName) => `kubectl apply -n ${hostNamespace} -f /yamlConfigs/${configFile}.yaml --as=${userName}`
+kubectl.deployAs = (hostNamespace, configFile, userName) =>
+  `kubectl apply -n ${hostNamespace} -f /yamlConfigs/${configFile}.yaml --as=${userName}`;
 // grabs the external exposed IP address
-kubectl.exposedIP = (deploymentName, deployedNamespace) => `kubectl get services ${deploymentName} -n ${deployedNamespace} -o jsonpath="{.status.loadBalancer.ingress[0].ip}"`
+kubectl.exposedIP = (deploymentName, deployedNamespace) =>
+  `kubectl get services ${deploymentName} -n ${deployedNamespace} -o jsonpath="{.status.loadBalancer.ingress[0].ip}"`;
 
-const vCluster = {}
+const vCluster = {};
 
-vCluster.create = (vClusterName, hostNamespace) => `vcluster create ${vClusterName} -n ${hostNamespace}`;
-vCluster.connect = (vClusterName, hostNamespace) => `vcluster connect ${vClusterName} -n ${hostNamespace} \export KUBECONFIG=./kubeconfig.yaml`;
-vCluster.delete = (vClusterName, hostNamespace) => `vcluster delete ${vClusterName} -n ${hostNamespace}`;
-
-
+vCluster.create = (vClusterName, hostNamespace) =>
+  `vcluster create ${vClusterName} -n ${hostNamespace}`;
+vCluster.connect = (vClusterName, hostNamespace) =>
+  `vcluster connect ${vClusterName} -n ${hostNamespace} \export KUBECONFIG=./kubeconfig.yaml`;
+vCluster.delete = (vClusterName, hostNamespace) =>
+  `vcluster delete ${vClusterName} -n ${hostNamespace}`;
 
 // can delete this
 // const serviceAccount = {}
@@ -78,8 +90,8 @@ vCluster.delete = (vClusterName, hostNamespace) => `vcluster delete ${vClusterNa
 
 //fs write file?
 
-// serviceAccount.userConfig = (email) => { 
-// `USER_NAME="${email}" KUBECONFIG_PATH="$HOME/.kube/config-kiosk" && 
+// serviceAccount.userConfig = (email) => {
+// `USER_NAME="${email}" KUBECONFIG_PATH="$HOME/.kube/config-kiosk" &&
 // kubectl config view --minify --raw > "$HOME/.kube/config-kiosk" &&
 // export KUBECONFIG="$HOME/.kube/config-kiosk"`
 // CURRENT_CONTEXT=$(kubectl config current-context) \
@@ -99,4 +111,4 @@ module.exports = {
   gcloud,
   vCluster,
   runTerminalCommand,
-}
+};
